@@ -1,58 +1,35 @@
 # DEV-AI Agents
 
-GitHub-native AI engineering components for .NET, Angular, full-stack development, QA, accessibility, security, architecture, testing, performance and domain onboarding.
+Production-oriented AI agents, skills, plugins and MCP configurations for VS Code + GitHub Copilot.
 
-## Canonical source
+## Repository
+This repository is the canonical **source** repository. VS Code installation targets are separate from source paths.
 
-This repository is the source of truth for DEV-AI. The website consumes `registry/marketplace.json`; installers and the npm CLI resolve component source from this repository.
+### Components
+- **Agents**: 16+ production engineering agents for .NET, Angular, full-stack, QA, accessibility, security, architecture, debugging, API, database, performance, refactoring, testing, domain analysis and legacy .NET.
+- **Skills**: reusable engineering guidance.
+- **Plugins**: selected integrations and workflows aligned with GitHub's awesome-copilot plugin ecosystem.
+- **MCP**: curated developer-tool MCP JSON definitions adapted from the devtools collection in claude-code-templates.
+- **Registry**: `registry/marketplace.json` is the machine-readable catalog used by DEV-CLI.
 
-## Components
+## Upstream references
+- GitHub awesome-copilot instructions: https://github.com/github/awesome-copilot/tree/main/instructions
+- GitHub awesome-copilot plugins: https://github.com/github/awesome-copilot/tree/main/plugins
+- Claude Code Templates devtools MCPs: https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/mcps/devtools
 
-- 16 specialized GitHub Copilot-style agents
-- 8 reusable skills
-- Registry-driven installation
-- PowerShell and Bash installers
-- npm-ready `dev-ai` CLI
+## Source URL rule
+A component's GitHub **source** URL must use its real repository path, for example:
+`https://github.com/chetan11fb/dev-ai-agents/blob/main/agents/dev-ai-fullstack-engineer.agent.md`
 
-## GitHub-native installation
+Do not convert the source path into `.github/agents`. The `.github/agents` path is an installation target for a consuming VS Code repository.
 
-PowerShell:
-`irm https://raw.githubusercontent.com/chetan11fb/dev-ai-agents/main/scripts/install-agent.ps1 | iex`
+## Installation target
+For agents, the default consuming-project target is:
+`.github/agents/<agent-file>.agent.md`
 
-Bash:
-`curl -fsSL https://raw.githubusercontent.com/chetan11fb/dev-ai-agents/main/scripts/install-agent.sh | bash`
+DEV-CLI must read `registry/marketplace.json` and use:
+- `path` for source/GitHub links
+- `target` for installation
 
-These installers create missing target directories and refuse silent overwrite.
-
-## npm CLI
-
-The repository now contains the package and CLI implementation:
-
-`npm pack --dry-run`
-
-After the package is actually published to npm, users can install/use it with:
-
-`npx dev-ai-agents@latest list`
-
-`npx dev-ai-agents@latest install --agent dev-ai-fullstack-engineer`
-
-`npm install -g dev-ai-agents@latest`
-
-`dev-ai install --agent dev-ai-dotnet`
-
-**Publication status:** the package is prepared in this repository, but it is not claimed as npm-published until a real npm publication and clean-machine installation test are completed.
-
-## Agent design
-
-Agent files follow GitHub's custom-agent conventions: YAML frontmatter plus a structured system prompt covering role, responsibilities, methodology, constraints, quality gates and output expectations. The prompts are intentionally specialized rather than one-line role descriptions.
-
-The design also takes architectural inspiration from Claude Code Templates' component/CLI model: a central registry, installable components, reusable skills and a CLI distribution layer. DEV-AI implementations are original and are not copied from that project.
-
-## Engineering principles
-
-- Evidence before assumptions.
-- Minimal, reversible changes.
-- No secrets in source control.
-- Real validation; no fake installed/verified states.
-- Preserve existing working architecture.
-- Accessibility, security, testing and observability are first-class concerns.
+## Safety
+Upstream content is used as engineering reference. Do not copy secrets or repository-specific credentials. MCP configuration files containing environment-variable placeholders must keep those placeholders; users provide their own credentials locally.
