@@ -1,0 +1,2 @@
+# Frontend Design
+Design production UI around the user's primary task. Inspect and reuse the existing stack/components. Cover hierarchy, responsive states, loading/empty/error states, keyboard access and real interactions. Avoid decorative filler, duplicate cards and fake metrics.
