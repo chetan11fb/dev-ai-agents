@@ -1,1 +1,306 @@
-{"schemaVersion":1,"name":"DEV-AI","publisher":"chetan11fb","repository":"https://github.com/chetan11fb/dev-ai-agents","defaultBranch":"main","components":[{"id":"dev-ai-fullstack-engineer","type":"agent","path":"agents/dev-ai-fullstack-engineer.agent.md","target":".github/agents/dev-ai-fullstack-engineer.agent.md","version":"0.1.0"},{"id":"dev-ai-dotnet","type":"agent","path":"agents/dev-ai-dotnet.agent.md","target":".github/agents/dev-ai-dotnet.agent.md","version":"0.1.0"},{"id":"dev-ai-angular","type":"agent","path":"agents/dev-ai-angular.agent.md","target":".github/agents/dev-ai-angular.agent.md","version":"0.1.0"},{"id":"dev-ai-code-review","type":"agent","path":"agents/dev-ai-code-review.agent.md","target":".github/agents/dev-ai-code-review.agent.md","version":"0.1.0"},{"id":"dev-ai-qa","type":"agent","path":"agents/dev-ai-qa.agent.md","target":".github/agents/dev-ai-qa.agent.md","version":"0.1.0"},{"id":"dev-ai-accessibility","type":"agent","path":"agents/dev-ai-accessibility.agent.md","target":".github/agents/dev-ai-accessibility.agent.md","version":"0.1.0"},{"id":"dev-ai-security","type":"agent","path":"agents/dev-ai-security.agent.md","target":".github/agents/dev-ai-security.agent.md","version":"0.1.0"},{"id":"dev-ai-architecture","type":"agent","path":"agents/dev-ai-architecture.agent.md","target":".github/agents/dev-ai-architecture.agent.md","version":"0.1.0"},{"id":"dev-ai-refactoring","type":"agent","path":"agents/dev-ai-refactoring.agent.md","target":".github/agents/dev-ai-refactoring.agent.md","version":"0.1.0"},{"id":"dev-ai-bug-fix","type":"agent","path":"agents/dev-ai-bug-fix.agent.md","target":".github/agents/dev-ai-bug-fix.agent.md","version":"0.1.0"},{"id":"dev-ai-api-review","type":"agent","path":"agents/dev-ai-api-review.agent.md","target":".github/agents/dev-ai-api-review.agent.md","version":"0.1.0"},{"id":"dev-ai-performance","type":"agent","path":"agents/dev-ai-performance.agent.md","target":".github/agents/dev-ai-performance.agent.md","version":"0.1.0"},{"id":"dev-ai-test-engineer","type":"agent","path":"agents/dev-ai-test-engineer.agent.md","target":".github/agents/dev-ai-test-engineer.agent.md","version":"0.1.0"},{"id":"dev-ai-domain-knowledge","type":"agent","path":"agents/dev-ai-domain-knowledge.agent.md","target":".github/agents/dev-ai-domain-knowledge.agent.md","version":"0.1.0"},{"id":"dev-ai-database-review","type":"agent","path":"agents/dev-ai-database-review.agent.md","target":".github/agents/dev-ai-database-review.agent.md","version":"0.1.0"},{"id":"dev-ai-legacy-dotnet","type":"agent","path":"agents/dev-ai-legacy-dotnet.agent.md","target":".github/agents/dev-ai-legacy-dotnet.agent.md","version":"0.1.0"},{"id":"frontend-design","type":"skill","path":"skills/frontend-design/SKILL.md","target":".github/skills/frontend-design/SKILL.md","version":"0.1.0"},{"id":"dotnet-development","type":"skill","path":"skills/dotnet-development/SKILL.md","target":".github/skills/dotnet-development/SKILL.md","version":"0.1.0"},{"id":"angular-development","type":"skill","path":"skills/angular-development/SKILL.md","target":".github/skills/angular-development/SKILL.md","version":"0.1.0"},{"id":"accessibility","type":"skill","path":"skills/accessibility/SKILL.md","target":".github/skills/accessibility/SKILL.md","version":"0.1.0"},{"id":"code-review","type":"skill","path":"skills/code-review/SKILL.md","target":".github/skills/code-review/SKILL.md","version":"0.1.0"},{"id":"testing","type":"skill","path":"skills/testing/SKILL.md","target":".github/skills/testing/SKILL.md","version":"0.1.0"},{"id":"security-review","type":"skill","path":"skills/security-review/SKILL.md","target":".github/skills/security-review/SKILL.md","version":"0.1.0"},{"id":"domain-analysis","type":"skill","path":"skills/domain-analysis/SKILL.md","target":".github/skills/domain-analysis/SKILL.md","version":"0.1.0"}]}
+{
+  "schemaVersion": 2,
+  "name": "DEV-AI",
+  "publisher": "chetan11fb",
+  "repository": "https://github.com/chetan11fb/dev-ai-agents",
+  "defaultBranch": "main",
+  "components": [
+    {
+      "id": "dev-ai-fullstack-engineer",
+      "type": "agent",
+      "path": "agents/dev-ai-fullstack-engineer.agent.md",
+      "target": ".github/agents/dev-ai-fullstack-engineer.agent.md",
+      "version": "0.2.0"
+    },
+    {
+      "id": "dev-ai-dotnet",
+      "type": "agent",
+      "path": "agents/dev-ai-dotnet.agent.md",
+      "target": ".github/agents/dev-ai-dotnet.agent.md",
+      "version": "0.2.0"
+    },
+    {
+      "id": "dev-ai-angular",
+      "type": "agent",
+      "path": "agents/dev-ai-angular.agent.md",
+      "target": ".github/agents/dev-ai-angular.agent.md",
+      "version": "0.2.0"
+    },
+    {
+      "id": "dev-ai-code-review",
+      "type": "agent",
+      "path": "agents/dev-ai-code-review.agent.md",
+      "target": ".github/agents/dev-ai-code-review.agent.md",
+      "version": "0.2.0"
+    },
+    {
+      "id": "dev-ai-qa",
+      "type": "agent",
+      "path": "agents/dev-ai-qa.agent.md",
+      "target": ".github/agents/dev-ai-qa.agent.md",
+      "version": "0.2.0"
+    },
+    {
+      "id": "dev-ai-accessibility",
+      "type": "agent",
+      "path": "agents/dev-ai-accessibility.agent.md",
+      "target": ".github/agents/dev-ai-accessibility.agent.md",
+      "version": "0.2.0"
+    },
+    {
+      "id": "dev-ai-security",
+      "type": "agent",
+      "path": "agents/dev-ai-security.agent.md",
+      "target": ".github/agents/dev-ai-security.agent.md",
+      "version": "0.2.0"
+    },
+    {
+      "id": "dev-ai-architecture",
+      "type": "agent",
+      "path": "agents/dev-ai-architecture.agent.md",
+      "target": ".github/agents/dev-ai-architecture.agent.md",
+      "version": "0.2.0"
+    },
+    {
+      "id": "dev-ai-refactoring",
+      "type": "agent",
+      "path": "agents/dev-ai-refactoring.agent.md",
+      "target": ".github/agents/dev-ai-refactoring.agent.md",
+      "version": "0.2.0"
+    },
+    {
+      "id": "dev-ai-bug-fix",
+      "type": "agent",
+      "path": "agents/dev-ai-bug-fix.agent.md",
+      "target": ".github/agents/dev-ai-bug-fix.agent.md",
+      "version": "0.2.0"
+    },
+    {
+      "id": "dev-ai-api-review",
+      "type": "agent",
+      "path": "agents/dev-ai-api-review.agent.md",
+      "target": ".github/agents/dev-ai-api-review.agent.md",
+      "version": "0.2.0"
+    },
+    {
+      "id": "dev-ai-performance",
+      "type": "agent",
+      "path": "agents/dev-ai-performance.agent.md",
+      "target": ".github/agents/dev-ai-performance.agent.md",
+      "version": "0.2.0"
+    },
+    {
+      "id": "dev-ai-test-engineer",
+      "type": "agent",
+      "path": "agents/dev-ai-test-engineer.agent.md",
+      "target": ".github/agents/dev-ai-test-engineer.agent.md",
+      "version": "0.2.0"
+    },
+    {
+      "id": "dev-ai-domain-knowledge",
+      "type": "agent",
+      "path": "agents/dev-ai-domain-knowledge.agent.md",
+      "target": ".github/agents/dev-ai-domain-knowledge.agent.md",
+      "version": "0.2.0"
+    },
+    {
+      "id": "dev-ai-database-review",
+      "type": "agent",
+      "path": "agents/dev-ai-database-review.agent.md",
+      "target": ".github/agents/dev-ai-database-review.agent.md",
+      "version": "0.2.0"
+    },
+    {
+      "id": "dev-ai-legacy-dotnet",
+      "type": "agent",
+      "path": "agents/dev-ai-legacy-dotnet.agent.md",
+      "target": ".github/agents/dev-ai-legacy-dotnet.agent.md",
+      "version": "0.2.0"
+    },
+    {
+      "id": "frontend-design",
+      "type": "skill",
+      "path": "skills/frontend-design/SKILL.md",
+      "target": ".github/skills/frontend-design/SKILL.md",
+      "version": "0.2.0"
+    },
+    {
+      "id": "dotnet-development",
+      "type": "skill",
+      "path": "skills/dotnet-development/SKILL.md",
+      "target": ".github/skills/dotnet-development/SKILL.md",
+      "version": "0.2.0"
+    },
+    {
+      "id": "angular-development",
+      "type": "skill",
+      "path": "skills/angular-development/SKILL.md",
+      "target": ".github/skills/angular-development/SKILL.md",
+      "version": "0.2.0"
+    },
+    {
+      "id": "accessibility",
+      "type": "skill",
+      "path": "skills/accessibility/SKILL.md",
+      "target": ".github/skills/accessibility/SKILL.md",
+      "version": "0.2.0"
+    },
+    {
+      "id": "code-review",
+      "type": "skill",
+      "path": "skills/code-review/SKILL.md",
+      "target": ".github/skills/code-review/SKILL.md",
+      "version": "0.2.0"
+    },
+    {
+      "id": "testing",
+      "type": "skill",
+      "path": "skills/testing/SKILL.md",
+      "target": ".github/skills/testing/SKILL.md",
+      "version": "0.2.0"
+    },
+    {
+      "id": "security-review",
+      "type": "skill",
+      "path": "skills/security-review/SKILL.md",
+      "target": ".github/skills/security-review/SKILL.md",
+      "version": "0.2.0"
+    },
+    {
+      "id": "domain-analysis",
+      "type": "skill",
+      "path": "skills/domain-analysis/SKILL.md",
+      "target": ".github/skills/domain-analysis/SKILL.md",
+      "version": "0.2.0"
+    },
+    {
+      "id": "csharp-dotnet-development",
+      "type": "plugin",
+      "path": "plugins/csharp-dotnet-development",
+      "target": ".github/plugins/csharp-dotnet-development",
+      "version": "0.1.0",
+      "source": "github/awesome-copilot"
+    },
+    {
+      "id": "database-data-management",
+      "type": "plugin",
+      "path": "plugins/database-data-management",
+      "target": ".github/plugins/database-data-management",
+      "version": "0.1.0",
+      "source": "github/awesome-copilot"
+    },
+    {
+      "id": "security-best-practices",
+      "type": "plugin",
+      "path": "plugins/security-best-practices",
+      "target": ".github/plugins/security-best-practices",
+      "version": "0.1.0",
+      "source": "github/awesome-copilot"
+    },
+    {
+      "id": "testing-automation",
+      "type": "plugin",
+      "path": "plugins/testing-automation",
+      "target": ".github/plugins/testing-automation",
+      "version": "0.1.0",
+      "source": "github/awesome-copilot"
+    },
+    {
+      "id": "ai-team-orchestration",
+      "type": "plugin",
+      "path": "plugins/ai-team-orchestration",
+      "target": ".github/plugins/ai-team-orchestration",
+      "version": "0.1.0",
+      "source": "github/awesome-copilot"
+    },
+    {
+      "id": "azure-cloud-development",
+      "type": "plugin",
+      "path": "plugins/azure-cloud-development",
+      "target": ".github/plugins/azure-cloud-development",
+      "version": "0.1.0",
+      "source": "github/awesome-copilot"
+    },
+    {
+      "id": "github-official",
+      "type": "mcp",
+      "path": "mcp/github-official.json",
+      "target": ".vscode/mcp/github-official.json",
+      "version": "0.1.0",
+      "source": "davila7/claude-code-templates"
+    },
+    {
+      "id": "context7",
+      "type": "mcp",
+      "path": "mcp/context7.json",
+      "target": ".vscode/mcp/context7.json",
+      "version": "0.1.0",
+      "source": "davila7/claude-code-templates"
+    },
+    {
+      "id": "chrome-devtools",
+      "type": "mcp",
+      "path": "mcp/chrome-devtools.json",
+      "target": ".vscode/mcp/chrome-devtools.json",
+      "version": "0.1.0",
+      "source": "davila7/claude-code-templates"
+    },
+    {
+      "id": "postman",
+      "type": "mcp",
+      "path": "mcp/postman.json",
+      "target": ".vscode/mcp/postman.json",
+      "version": "0.1.0",
+      "source": "davila7/claude-code-templates"
+    },
+    {
+      "id": "dynatrace",
+      "type": "mcp",
+      "path": "mcp/dynatrace.json",
+      "target": ".vscode/mcp/dynatrace.json",
+      "version": "0.1.0",
+      "source": "davila7/claude-code-templates"
+    },
+    {
+      "id": "sentry",
+      "type": "mcp",
+      "path": "mcp/sentry.json",
+      "target": ".vscode/mcp/sentry.json",
+      "version": "0.1.0",
+      "source": "davila7/claude-code-templates"
+    },
+    {
+      "id": "figma-dev-mode",
+      "type": "mcp",
+      "path": "mcp/figma-dev-mode.json",
+      "target": ".vscode/mcp/figma-dev-mode.json",
+      "version": "0.1.0",
+      "source": "davila7/claude-code-templates"
+    },
+    {
+      "id": "firecrawl",
+      "type": "mcp",
+      "path": "mcp/firecrawl.json",
+      "target": ".vscode/mcp/firecrawl.json",
+      "version": "0.1.0",
+      "source": "davila7/claude-code-templates"
+    }
+  ],
+  "sources": [
+    {
+      "name": "github-awesome-copilot-instructions",
+      "repository": "github/awesome-copilot",
+      "path": "instructions"
+    },
+    {
+      "name": "github-awesome-copilot-plugins",
+      "repository": "github/awesome-copilot",
+      "path": "plugins"
+    },
+    {
+      "name": "claude-code-templates-devtools-mcps",
+      "repository": "davila7/claude-code-templates",
+      "path": "cli-tool/components/mcps/devtools"
+    }
+  ]
+}
