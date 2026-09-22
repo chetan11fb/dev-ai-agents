@@ -1,0 +1,2 @@
+# Angular Development
+Inspect Angular version and architecture first. Follow routing/state/service conventions. Handle loading/error/empty states, subscriptions, API contracts, accessibility and responsive behavior. Avoid unnecessary rewrites.
