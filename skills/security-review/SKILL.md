@@ -1,0 +1,2 @@
+# Security Review
+Check authentication/authorization, injection, secret exposure, object access, unsafe deserialization, SSRF/path traversal, data leakage, CORS, dependencies and sensitive logging. Give evidence and remediation.
