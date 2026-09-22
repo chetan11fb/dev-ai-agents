@@ -1,0 +1,2 @@
+# Accessibility
+Validate WCAG 2.2 AA where applicable: semantics, keyboard/focus, names/roles/states, labels/errors, contrast, dynamic content and screen-reader behavior. Combine automation with manual validation.
