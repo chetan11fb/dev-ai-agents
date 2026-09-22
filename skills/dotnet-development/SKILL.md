@@ -1,0 +1,2 @@
+# .NET Development
+Inspect framework and architecture first. Preserve boundaries. Validate async I/O, cancellation, DI, configuration, nullable types, auth, validation, logging, serialization, performance and focused tests.
