@@ -1,0 +1,7 @@
+.git
+.github
+assets
+docs
+scripts
+node_modules
+*.log
