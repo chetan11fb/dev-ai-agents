@@ -1,0 +1,6 @@
+{
+  "name":"DEV-AI developer defaults",
+  "version":"1.0.0",
+  "principles":["inspect before edit","preserve existing behavior","never invent evidence","never commit secrets","verify generated changes"],
+  "preferredStack":[".NET 8+","C#","ASP.NET Core","Angular","TypeScript","Azure","GitHub","Azure DevOps","MCP"]
+}
