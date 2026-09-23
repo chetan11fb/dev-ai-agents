@@ -1,0 +1,7 @@
+{
+  "runtime":{
+    "node":{"minimumMajor":18,"verify":["node -v","npm -v","where.exe node","where.exe npm"]},
+    "dotnet":{"minimumMajor":8,"verify":["dotnet --info"]}
+  },
+  "policy":{"installOnlyWhenMissing":true,"verifyAfterInstall":true,"restartTerminalAfterPathChange":true}
+}
