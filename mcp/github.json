@@ -1,0 +1,7 @@
+{
+  "name":"github",
+  "transport":"stdio",
+  "command":"docker",
+  "args":["run","-i","--rm","ghcr.io/github/github-mcp-server"],
+  "env":{"GITHUB_PERSONAL_ACCESS_TOKEN":"${env:GITHUB_PERSONAL_ACCESS_TOKEN}"}
+}
