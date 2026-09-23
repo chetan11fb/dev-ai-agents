@@ -7,12 +7,37 @@
     "dev-ai": "cli/index.js",
     "dev-ai-agents": "cli/index.js"
   },
-  "files": ["cli", "registry", "README.md", "LICENSE"],
-  "engines": {"node": ">=18"},
-  "keywords": ["ai-agents","github-copilot","vscode","agentic-ai","dotnet","angular","mcp","skills","developer-tools"],
-  "repository": {"type": "git", "url": "https://github.com/chetan11fb/dev-ai-agents.git"},
+  "files": [
+    "cli",
+    "registry",
+    "README.md",
+    "LICENSE",
+    "scripts"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "ai-agents",
+    "github-copilot",
+    "vscode",
+    "agentic-ai",
+    "dotnet",
+    "angular",
+    "mcp",
+    "skills",
+    "developer-tools"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chetan11fb/dev-ai-agents.git"
+  },
   "homepage": "https://github.com/chetan11fb/dev-ai-agents",
-  "bugs": {"url": "https://github.com/chetan11fb/dev-ai-agents/issues"},
+  "bugs": {
+    "url": "https://github.com/chetan11fb/dev-ai-agents/issues"
+  },
   "license": "MIT",
-  "publishConfig": {"access": "public"}
+  "publishConfig": {
+    "access": "public"
+  }
 }
