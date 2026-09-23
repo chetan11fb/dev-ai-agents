@@ -1,0 +1,5 @@
+{
+  "name":"dev-ai-fullstack-toolchain",
+  "description":"Logical bundle for Azure DevOps, GitHub, documentation, browser and E2E validation.",
+  "servers":["azure-devops","github","context7","chrome-devtools","playwright"]
+}
