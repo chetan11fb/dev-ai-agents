@@ -22,7 +22,7 @@ A production-focused engineering agent ecosystem for turning development work in
 - **Skills** — reusable engineering guidance that can be composed into agent workflows.
 - **Plugins** — selected integrations and workflows aligned with GitHub's awesome-copilot plugin ecosystem.
 - **MCP** — curated developer-tool MCP JSON definitions adapted from the devtools collection in claude-code-templates.
-- **Registry** — `registry/marketplace.json` is the machine-readable catalog used by DEV-CLI.
+- **Registry** — `registry/marketplace.json` is the machine-readable catalog used by DEV-CLI and the npm/npx installer.
 
 ## 🧠 Agentic engineering flow
 
@@ -54,11 +54,74 @@ The repository is designed around **specialized agents working as a coordinated 
 | MCP | Tool connectivity and developer automation |
 | Registry | Machine-readable discovery and installation metadata |
 
+## 📦 Install with npm / npx
+
+DEV-AI Agents is designed as a zero-setup CLI, following the installation model of Claude Code Templates: users can install a selected component without cloning this repository.
+
+### Interactive help
+
+```bash
+npx dev-ai-agents
+```
+
+### Install a specific agent
+
+```bash
+npx dev-ai-agents --agent dev-ai-fullstack-engineer
+npx dev-ai-agents --agent dev-ai-dotnet
+npx dev-ai-agents --agent dev-ai-qa
+```
+
+### Install a skill
+
+```bash
+npx dev-ai-agents --skill dotnet-development
+npx dev-ai-agents --skill angular-development
+npx dev-ai-agents --skill accessibility
+```
+
+### Install MCP configuration
+
+```bash
+npx dev-ai-agents --mcp github-official
+npx dev-ai-agents --mcp context7
+npx dev-ai-agents --mcp chrome-devtools
+```
+
+### Install a plugin
+
+```bash
+npx dev-ai-agents --plugin ai-team-orchestration
+```
+
+### Browse the catalog
+
+```bash
+npx dev-ai-agents --list
+```
+
+### Install everything
+
+```bash
+npx dev-ai-agents --all
+```
+
+Use `--force` to intentionally overwrite an existing component:
+
+```bash
+npx dev-ai-agents --agent dev-ai-fullstack-engineer --force
+```
+
+The CLI reads `registry/marketplace.json`, downloads the selected component from its real GitHub source path, and installs it into the declared `target`. The registry remains the single source of truth for the web installer and CLI.
+
+> **Publishing note:** the repository now contains the npm package/CLI implementation. After publishing `dev-ai-agents` to npm, the commands above work directly through `npx`.
+
 ## 🔗 Upstream references
 
 - GitHub awesome-copilot instructions: https://github.com/github/awesome-copilot/tree/main/instructions
 - GitHub awesome-copilot plugins: https://github.com/github/awesome-copilot/tree/main/plugins
-- Claude Code Templates devtools MCPs: https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/mcps/devtools
+- Claude Code Templates: https://github.com/davila7/claude-code-templates
+- Claude Code Templates uses the same zero-setup `npx` model for installing individual agents, commands, skills, hooks and MCPs.
 
 ## 📦 Source URL rule
 
