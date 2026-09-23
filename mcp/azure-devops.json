@@ -1,7 +1,1 @@
-{
-  "name":"azure-devops",
-  "transport":"stdio",
-  "command":"npx",
-  "args":["-y","@azure-devops/mcp"],
-  "env":{"AZURE_DEVOPS_PAT":"${env:AZURE_DEVOPS_PAT}","AZURE_DEVOPS_ORG":"${env:AZURE_DEVOPS_ORG}"}
-}
+{"mcpServers":{"azure-devops":{"description":"Azure DevOps work item and delivery tooling.","command":"npx","args":["-y","@azure-devops/mcp"],"env":{"AZURE_DEVOPS_PAT":"${env:AZURE_DEVOPS_PAT}","AZURE_DEVOPS_ORG":"${env:AZURE_DEVOPS_ORG}"}}}}
