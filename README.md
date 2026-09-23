@@ -145,3 +145,21 @@ DEV-CLI must read `registry/marketplace.json` and use:
 ## 🔐 Safety
 
 Upstream content is used as engineering reference. Do not copy secrets or repository-specific credentials. MCP configuration files containing environment-variable placeholders must keep those placeholders; users provide their own credentials locally.
+
+## 🧰 Real-time Windows Runtime Bootstrap
+
+If a VS Code terminal reports that **Node.js/npm are not installed**, DEV-AI includes a real-time Windows bootstrap:
+
+```powershell
+Set-ExecutionPolicy -Scope Process Bypass
+.\scripts\bootstrap-node.ps1
+```
+
+The script:
+- detects whether Node.js and npm are available;
+- installs Node.js LTS through `winget` when missing;
+- refreshes PATH in the current PowerShell session;
+- verifies `node -v`, `npm -v`, `where.exe node` and `where.exe npm`;
+- clearly asks for a new VS Code terminal when PATH refresh cannot be applied.
+
+It never reports success without runtime verification.
