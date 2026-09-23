@@ -284,6 +284,160 @@
       "target": ".vscode/mcp/firecrawl.json",
       "version": "0.1.0",
       "source": "davila7/claude-code-templates"
+    },
+    {
+      "id": "dev-ai-vscode",
+      "type": "agent",
+      "path": "agents/dev-ai-vscode.agent.md",
+      "target": ".github/agents/dev-ai-vscode.agent.md",
+      "version": "0.1.0"
+    },
+    {
+      "id": "dev-ai-github",
+      "type": "agent",
+      "path": "agents/dev-ai-github.agent.md",
+      "target": ".github/agents/dev-ai-github.agent.md",
+      "version": "0.1.0"
+    },
+    {
+      "id": "dev-ai-backend",
+      "type": "agent",
+      "path": "agents/dev-ai-backend.agent.md",
+      "target": ".github/agents/dev-ai-backend.agent.md",
+      "version": "0.1.0"
+    },
+    {
+      "id": "dev-ai-webapi",
+      "type": "agent",
+      "path": "agents/dev-ai-webapi.agent.md",
+      "target": ".github/agents/dev-ai-webapi.agent.md",
+      "version": "0.1.0"
+    },
+    {
+      "id": "dev-ai-csharp-dotnet",
+      "type": "agent",
+      "path": "agents/dev-ai-csharp-dotnet.agent.md",
+      "target": ".github/agents/dev-ai-csharp-dotnet.agent.md",
+      "version": "0.1.0"
+    },
+    {
+      "id": "dev-ai-fullstack",
+      "type": "agent",
+      "path": "agents/dev-ai-fullstack.agent.md",
+      "target": ".github/agents/dev-ai-fullstack.agent.md",
+      "version": "0.1.0"
+    },
+    {
+      "id": "dev-ai-angular-enterprise",
+      "type": "agent",
+      "path": "agents/dev-ai-angular-enterprise.agent.md",
+      "target": ".github/agents/dev-ai-angular-enterprise.agent.md",
+      "version": "0.1.0"
+    },
+    {
+      "id": "dev-ai-documentation",
+      "type": "agent",
+      "path": "agents/dev-ai-documentation.agent.md",
+      "target": ".github/agents/dev-ai-documentation.agent.md",
+      "version": "0.1.0"
+    },
+    {
+      "id": "dev-ai-ado",
+      "type": "agent",
+      "path": "agents/dev-ai-ado.agent.md",
+      "target": ".github/agents/dev-ai-ado.agent.md",
+      "version": "0.1.0"
+    },
+    {
+      "id": "dev-ai-mcp",
+      "type": "agent",
+      "path": "agents/dev-ai-mcp.agent.md",
+      "target": ".github/agents/dev-ai-mcp.agent.md",
+      "version": "0.1.0"
+    },
+    {
+      "id": "dev-ai-code-explorer",
+      "type": "agent",
+      "path": "agents/dev-ai-code-explorer.agent.md",
+      "target": ".github/agents/dev-ai-code-explorer.agent.md",
+      "version": "0.1.0"
+    },
+    {
+      "id": "dev-ai-e2e",
+      "type": "agent",
+      "path": "agents/dev-ai-e2e.agent.md",
+      "target": ".github/agents/dev-ai-e2e.agent.md",
+      "version": "0.1.0"
+    },
+    {
+      "id": "dev-ai-devops",
+      "type": "agent",
+      "path": "agents/dev-ai-devops.agent.md",
+      "target": ".github/agents/dev-ai-devops.agent.md",
+      "version": "0.1.0"
+    },
+    {
+      "id": "dev-ai-modernization",
+      "type": "agent",
+      "path": "agents/dev-ai-modernization.agent.md",
+      "target": ".github/agents/dev-ai-modernization.agent.md",
+      "version": "0.1.0"
+    },
+    {
+      "id": "dev-ai-defaults",
+      "type": "setting",
+      "path": "settings/dev-ai-defaults.json",
+      "target": "settings/dev-ai-defaults.json",
+      "version": "0.1.0"
+    },
+    {
+      "id": "vscode-fullstack",
+      "type": "setting",
+      "path": "settings/vscode-fullstack.json",
+      "target": "settings/vscode-fullstack.json",
+      "version": "0.1.0"
+    },
+    {
+      "id": "runtime-bootstrap",
+      "type": "setting",
+      "path": "settings/runtime-bootstrap.json",
+      "target": "settings/runtime-bootstrap.json",
+      "version": "0.1.0"
+    },
+    {
+      "id": "github",
+      "type": "mcp",
+      "path": "mcp/github.json",
+      "target": ".vscode/mcp/github.json",
+      "version": "0.1.0"
+    },
+    {
+      "id": "azure-devops",
+      "type": "mcp",
+      "path": "mcp/azure-devops.json",
+      "target": ".vscode/mcp/azure-devops.json",
+      "version": "0.1.0"
+    },
+    {
+      "id": "playwright",
+      "type": "mcp",
+      "path": "mcp/playwright.json",
+      "target": ".vscode/mcp/playwright.json",
+      "version": "0.1.0"
+    },
+    {
+      "id": "figma",
+      "type": "mcp",
+      "path": "mcp/figma.json",
+      "target": ".vscode/mcp/figma.json",
+      "version": "0.1.0"
+    },
+    {
+      "id": "ado-github-fullstack",
+      "type": "mcp",
+      "path": "mcp/ado-github-fullstack.json",
+      "target": ".vscode/mcp/ado-github-fullstack.json",
+      "version": "0.1.0"
     }
   ],
   "sources": [
