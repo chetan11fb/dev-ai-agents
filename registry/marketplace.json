@@ -416,7 +416,8 @@
       "type": "mcp",
       "path": "mcp/azure-devops.json",
       "target": ".vscode/mcp/azure-devops.json",
-      "version": "0.1.0"
+      "version": "0.2.0",
+      "description": "Azure DevOps MCP; local setup requires Node.js 20+, remote setup can avoid local Node.js."
     },
     {
       "id": "playwright",
@@ -430,13 +431,6 @@
       "type": "mcp",
       "path": "mcp/figma.json",
       "target": ".vscode/mcp/figma.json",
-      "version": "0.1.0"
-    },
-    {
-      "id": "ado-github-fullstack",
-      "type": "mcp",
-      "path": "mcp/ado-github-fullstack.json",
-      "target": ".vscode/mcp/ado-github-fullstack.json",
       "version": "0.1.0"
     }
   ],
