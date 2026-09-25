@@ -64,15 +64,36 @@ DEV-AI Agents is designed as a zero-setup CLI, following the installation model 
 npx dev-ai-agents
 ```
 
-### Install a specific agent
+### Individual installation
+
+Every registry component can be installed **individually**. You do not need to install the complete DEV-AI stack.
+
+The CLI resolves the component from `registry/marketplace.json`, downloads the exact source file from this repository, and writes it to that component's declared `target`.
+
+#### Agent
 
 ```bash
 npx dev-ai-agents --agent dev-ai-fullstack-engineer
-npx dev-ai-agents --agent dev-ai-dotnet
-npx dev-ai-agents --agent dev-ai-qa
 ```
 
-### Install a skill
+Other examples:
+
+```bash
+npx dev-ai-agents --agent dev-ai-dotnet
+npx dev-ai-agents --agent dev-ai-qa
+npx dev-ai-agents --agent dev-ai-accessibility
+npx dev-ai-agents --agent dev-ai-ado
+```
+
+Default target examples:
+
+```text
+.github/agents/dev-ai-fullstack-engineer.agent.md
+.github/agents/dev-ai-dotnet.agent.md
+.github/agents/dev-ai-qa.agent.md
+```
+
+#### Skill
 
 ```bash
 npx dev-ai-agents --skill dotnet-development
@@ -80,19 +101,78 @@ npx dev-ai-agents --skill angular-development
 npx dev-ai-agents --skill accessibility
 ```
 
-### Install MCP configuration
+Default target:
 
-```bash
-npx dev-ai-agents --mcp github-official
-npx dev-ai-agents --mcp context7
-npx dev-ai-agents --mcp chrome-devtools
+```text
+.github/skills/<skill>/SKILL.md
 ```
 
-### Install a plugin
+#### Prompt
+
+Reusable prompts can also be installed independently:
+
+```bash
+npx dev-ai-agents --prompt ado-story-to-fullstack
+npx dev-ai-agents --prompt backend-dotnet-webapi
+npx dev-ai-agents --prompt angular-ui-fullstack
+npx dev-ai-agents --prompt qa-review-gate
+```
+
+Default target:
+
+```text
+docs/prompts/<prompt>.md
+```
+
+#### MCP
+
+```bash
+npx dev-ai-agents --mcp github
+npx dev-ai-agents --mcp azure-devops
+npx dev-ai-agents --mcp playwright
+npx dev-ai-agents --mcp figma
+```
+
+Default target:
+
+```text
+.vscode/mcp/<mcp>.json
+```
+
+#### Plugin
 
 ```bash
 npx dev-ai-agents --plugin ai-team-orchestration
 ```
+
+Plugins may contain multiple files and are installed as a directory.
+
+#### Setting
+
+```bash
+npx dev-ai-agents --setting vscode-fullstack
+npx dev-ai-agents --setting runtime-bootstrap
+```
+
+#### Install multiple selected components
+
+You can combine component types in one command:
+
+```bash
+npx dev-ai-agents \
+  --agent dev-ai-fullstack-engineer \
+  --skill dotnet-development \
+  --mcp azure-devops \
+  --prompt ado-story-to-fullstack
+```
+
+#### Preview the complete catalog
+
+```bash
+npx dev-ai-agents --list
+```
+
+The list shows each component's **ID and installation target**, so you can choose only what your project needs.
 
 ### Browse the catalog
 
@@ -112,7 +192,9 @@ Use `--force` to intentionally overwrite an existing component:
 npx dev-ai-agents --agent dev-ai-fullstack-engineer --force
 ```
 
-The CLI reads `registry/marketplace.json`, downloads the selected component from its real GitHub source path, and installs it into the declared `target`. The registry remains the single source of truth for the web installer and CLI.
+The CLI reads `registry/marketplace.json`, downloads the selected component from its real GitHub source path, and installs it into the declared `target`. The registry remains the single source of truth for the installer.
+
+Supported individual component types are **agent, skill, prompt, MCP, plugin and setting**. This means a developer can install only the capability they need—for example, just the .NET agent, just the ADO MCP, or just the ADO-to-full-stack prompt—without pulling the rest of the ecosystem.
 
 > **Publishing note:** the repository now contains the npm package/CLI implementation. After publishing `dev-ai-agents` to npm, the commands above work directly through `npx`.
 
