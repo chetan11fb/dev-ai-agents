@@ -22,6 +22,8 @@ A production-focused engineering agent ecosystem for turning development work in
 - **Skills** — reusable engineering guidance that can be composed into agent workflows.
 - **Plugins** — selected integrations and workflows aligned with GitHub's awesome-copilot plugin ecosystem.
 - **MCP** — curated developer-tool MCP JSON definitions adapted from the devtools collection in claude-code-templates.
+- **Prompts** — reusable task prompts for ADO-to-full-stack, .NET/Web API, Angular UI, QA and accessibility workflows.
+- **Settings** — reusable runtime/VS Code setup presets.
 - **Registry** — `registry/marketplace.json` is the machine-readable catalog used by DEV-CLI and the npm/npx installer.
 
 ## 🧠 Agentic engineering flow
