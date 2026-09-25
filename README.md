@@ -163,3 +163,42 @@ The script:
 - clearly asks for a new VS Code terminal when PATH refresh cannot be applied.
 
 It never reports success without runtime verification.
+
+
+## 🧬 Full-Stack Engineering Reference Pack
+
+I also maintain a clearly separated **upstream reference pack** from [Shubhamsaboo/awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps). The upstream project currently describes 100+ open-source AI agents, agent skills and RAG applications, including agent skills, advanced coding/architecture examples, MCP agents and generative UI projects. citeturn0search0
+
+### Imported upstream engineering assets
+
+| Area | Imported reference |
+|---|---|
+| Git history / RCA | Commit Archaeologist |
+| Dependency analysis | Dependency Doctor |
+| PR/change hygiene | Scope Creep Detector |
+| Multi-agent orchestration | Advisor Orchestrator Worker |
+| Architecture | AI System Architect |
+| Coding | Multimodal Coding Agent Team |
+| GitHub MCP | GitHub MCP Agent |
+| Browser MCP | Browser MCP Agent |
+| MCP routing | Multi-MCP Agent Router |
+
+The imported source files are kept under `upstream/awesome-llm-apps/` and reusable skills under `skills/`. They are intentionally separated from DEV-AI's native agents so upstream code can be tracked without confusing it with Chetan's original implementation.
+
+**Important:** these are upstream Apache-2.0 assets. Their original attribution/license metadata is preserved. The imported projects may use Python/other runtimes and are reference implementations; they do not automatically become VS Code/Copilot agents.
+
+### DEV-AI adaptation layer
+
+For actual enterprise full-stack work, use the native DEV-AI agents for:
+- Azure DevOps / ADO user stories and acceptance criteria
+- .NET / C# / ASP.NET Core Web API
+- Angular / TypeScript UI
+- backend and microservices
+- QA / tester / Playwright
+- accessibility / NVDA / WCAG
+- GitHub / PR / code review
+- MCP configuration
+- runtime/bootstrap and CI/CD
+- domain/codebase discovery
+
+The goal is **upstream capability + DEV-AI enterprise specialization**, not a blind replacement of the existing architecture.
