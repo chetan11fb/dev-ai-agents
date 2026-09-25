@@ -432,6 +432,86 @@
       "path": "mcp/figma.json",
       "target": ".vscode/mcp/figma.json",
       "version": "0.1.0"
+    },
+    {
+      "id": "commit-archaeologist",
+      "type": "skill",
+      "path": "skills/commit-archaeologist/SKILL.md",
+      "target": ".github/skills/commit-archaeologist/SKILL.md",
+      "version": "0.1.0",
+      "source": "Shubhamsaboo/awesome-llm-apps"
+    },
+    {
+      "id": "dependency-doctor",
+      "type": "skill",
+      "path": "skills/dependency-doctor/SKILL.md",
+      "target": ".github/skills/dependency-doctor/SKILL.md",
+      "version": "0.1.0",
+      "source": "Shubhamsaboo/awesome-llm-apps"
+    },
+    {
+      "id": "scope-creep-detector",
+      "type": "skill",
+      "path": "skills/scope-creep-detector/SKILL.md",
+      "target": ".github/skills/scope-creep-detector/SKILL.md",
+      "version": "0.1.0",
+      "source": "Shubhamsaboo/awesome-llm-apps"
+    },
+    {
+      "id": "advisor-orchestrator-worker",
+      "type": "skill",
+      "path": "skills/advisor-orchestrator-worker/SKILL.md",
+      "target": ".github/skills/advisor-orchestrator-worker/SKILL.md",
+      "version": "0.1.0",
+      "source": "Shubhamsaboo/awesome-llm-apps"
+    },
+    {
+      "id": "ado-story-to-fullstack",
+      "type": "prompt",
+      "path": "prompts/ado-story-to-fullstack.md",
+      "target": "docs/prompts/ado-story-to-fullstack.md",
+      "version": "0.1.0",
+      "source": "dev-ai-native"
+    },
+    {
+      "id": "backend-dotnet-webapi",
+      "type": "prompt",
+      "path": "prompts/backend-dotnet-webapi.md",
+      "target": "docs/prompts/backend-dotnet-webapi.md",
+      "version": "0.1.0",
+      "source": "dev-ai-native"
+    },
+    {
+      "id": "angular-ui-fullstack",
+      "type": "prompt",
+      "path": "prompts/angular-ui-fullstack.md",
+      "target": "docs/prompts/angular-ui-fullstack.md",
+      "version": "0.1.0",
+      "source": "dev-ai-native"
+    },
+    {
+      "id": "qa-review-gate",
+      "type": "prompt",
+      "path": "prompts/qa-review-gate.md",
+      "target": "docs/prompts/qa-review-gate.md",
+      "version": "0.1.0",
+      "source": "dev-ai-native"
+    },
+    {
+      "id": "accessibility-nvda",
+      "type": "prompt",
+      "path": "prompts/accessibility-nvda.md",
+      "target": "docs/prompts/accessibility-nvda.md",
+      "version": "0.1.0",
+      "source": "dev-ai-native"
+    },
+    {
+      "id": "runtime-bootstrap-windows",
+      "type": "prompt",
+      "path": "prompts/runtime-bootstrap-windows.md",
+      "target": "docs/prompts/runtime-bootstrap-windows.md",
+      "version": "0.1.0",
+      "source": "dev-ai-native"
     }
   ],
   "sources": [
@@ -449,6 +529,12 @@
       "name": "claude-code-templates-devtools-mcps",
       "repository": "davila7/claude-code-templates",
       "path": "cli-tool/components/mcps/devtools"
+    },
+    {
+      "name": "shubhamsaboo-awesome-llm-apps",
+      "repository": "Shubhamsaboo/awesome-llm-apps",
+      "path": "agent_skills + selected coding/architecture/MCP examples",
+      "license": "Apache-2.0"
     }
   ]
 }
