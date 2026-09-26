@@ -286,3 +286,47 @@ For actual enterprise full-stack work, use the native DEV-AI agents for:
 - domain/codebase discovery
 
 The goal is **upstream capability + DEV-AI enterprise specialization**, not a blind replacement of the existing architecture.
+
+
+## 🧰 Selected VS Code + Full-Stack Development Reference Pack
+
+A small, focused set of **verbatim upstream files** from [davila7/claude-code-templates](https://github.com/davila7/claude-code-templates) has been added under `upstream/claude-code-templates/`.
+
+These files are intentionally kept separate from DEV-AI native agents. The imported source content is not rewritten or converted.
+
+### Imported development skills
+
+- `agent-development` — agent structure and authoring guidance
+- `agent-md-refactor` — AGENTS/CLAUDE/COPILOT instruction organization
+- `create-plan` — implementation planning
+- `dispatching-parallel-agents` — parallel independent task execution
+- `subagent-driven-development` — subagent implementation/review workflow
+- `writing-skills` — reusable skill authoring
+- `playwright-skill` — browser/UI automation reference
+- `react-state-management` — React state management reference
+- `shadcn` — shadcn UI reference
+
+### Imported full-stack development agents
+
+- Backend Architect
+- Backend Developer
+- Code Architect
+- Code Explorer
+- Frontend Developer
+- Fullstack Developer
+- Code Reviewer
+- Debugger
+- Refactoring Specialist
+- Playwright Tester
+- Accessibility Tester
+- C# Developer
+- .NET Core Expert
+- Angular Architect
+
+### VS Code / Copilot compatibility
+
+The imported files are preserved as **upstream reference content**. DEV-AI's native VS Code/GitHub Copilot agents remain under `agents/`, and the native installer/registry remains unchanged.
+
+For portable agent skills, the source project documents the Agent Skills format as usable across GitHub Copilot and other compatible agent tools. citeturn0search7
+
+Source attribution and original licensing should be respected for each upstream component. The upstream project itself documents that components retain their original license and attribution. citeturn0search5
