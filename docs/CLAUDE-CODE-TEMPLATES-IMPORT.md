@@ -1,38 +1,51 @@
-# Selected Claude Code Templates Import
+# Selected Claude Code Templates Development Pack
 
 ## Purpose
 
-This directory contains a deliberately small selection of development-focused files copied verbatim from:
+This directory documents a small, focused selection of development files copied from:
 
 https://github.com/davila7/claude-code-templates
 
-Import scope:
+The selected content covers:
 
-- VS Code / agent-workflow relevant skills
-- Full-stack development agents
-- .NET / C# development agents
-- Angular development agent
+- VS Code / agent workflow guidance
+- Full-stack development
+- .NET / C#
+- Angular
 - Code review, debugging and refactoring
 - Playwright and accessibility testing
-- Web-development reference skills
+- Web-development skills
 
-## Important
+## Repository integration
 
-The upstream files are kept under `upstream/claude-code-templates/` so they do not overwrite or replace DEV-AI's native VS Code/GitHub Copilot agents.
+The selected agents and skills are integrated into DEV-AI's **native** structure:
 
-The copied upstream content is intended as a reference pack. It is not automatically converted from Claude Code agent format into DEV-AI `.agent.md` format.
+- Agents → `agents/*.agent.md`
+- Development skills → `skills/development/*/SKILL.md`
+- Utility skills → `skills/utilities/*/SKILL.md`
+- Web-development skills → `skills/web-development/*/SKILL.md`
 
-## Source categories
+The temporary `upstream/claude-code-templates/` copy is intentionally not retained. This keeps the repository clean and makes the imported agents discoverable alongside the existing DEV-AI agents.
 
-- `skills/development/`
-- `skills/utilities/`
-- `skills/web-development/`
+## Naming and compatibility
+
+Existing DEV-AI agents are not overwritten. Imported agents use a `claude-` filename prefix and the `.agent.md` extension so they are easy to identify and discover in VS Code.
+
+The upstream agent content itself is preserved rather than rewritten into DEV-AI-specific behavior.
+
+## Selected source categories
+
 - `agents/development-team/`
 - `agents/development-tools/`
 - `agents/programming-languages/`
+- `skills/development/`
+- `skills/utilities/`
+- `skills/web-development/`
 
-## Selected files
+## Attribution
 
-The selection focuses on practical full-stack engineering rather than importing the complete upstream catalog.
+Source project:
 
-See the root README for the complete selected list.
+https://github.com/davila7/claude-code-templates
+
+Respect the source project's license and any individual component attribution/license requirements.
