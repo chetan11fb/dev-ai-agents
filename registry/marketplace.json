@@ -512,6 +512,141 @@
       "target": "docs/prompts/runtime-bootstrap-windows.md",
       "version": "0.1.0",
       "source": "dev-ai-native"
+    },
+    {
+      "id": "dev-ai-ecc-planner",
+      "type": "agent",
+      "path": "agents/dev-ai-ecc-planner.agent.md",
+      "target": ".github/agents/dev-ai-ecc-planner.agent.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
+    },
+    {
+      "id": "dev-ai-ecc-architect",
+      "type": "agent",
+      "path": "agents/dev-ai-ecc-architect.agent.md",
+      "target": ".github/agents/dev-ai-ecc-architect.agent.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
+    },
+    {
+      "id": "dev-ai-ecc-code-reviewer",
+      "type": "agent",
+      "path": "agents/dev-ai-ecc-code-reviewer.agent.md",
+      "target": ".github/agents/dev-ai-ecc-code-reviewer.agent.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
+    },
+    {
+      "id": "dev-ai-ecc-database-reviewer",
+      "type": "agent",
+      "path": "agents/dev-ai-ecc-database-reviewer.agent.md",
+      "target": ".github/agents/dev-ai-ecc-database-reviewer.agent.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
+    },
+    {
+      "id": "dev-ai-ecc-tdd-guide",
+      "type": "agent",
+      "path": "agents/dev-ai-ecc-tdd-guide.agent.md",
+      "target": ".github/agents/dev-ai-ecc-tdd-guide.agent.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
+    },
+    {
+      "id": "dev-ai-ecc-e2e-runner",
+      "type": "agent",
+      "path": "agents/dev-ai-ecc-e2e-runner.agent.md",
+      "target": ".github/agents/dev-ai-ecc-e2e-runner.agent.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
+    },
+    {
+      "id": "dev-ai-ecc-security-reviewer",
+      "type": "agent",
+      "path": "agents/dev-ai-ecc-security-reviewer.agent.md",
+      "target": ".github/agents/dev-ai-ecc-security-reviewer.agent.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
+    },
+    {
+      "id": "dev-ai-ecc-build-error-resolver",
+      "type": "agent",
+      "path": "agents/dev-ai-ecc-build-error-resolver.agent.md",
+      "target": ".github/agents/dev-ai-ecc-build-error-resolver.agent.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
+    },
+    {
+      "id": "dev-ai-ecc-typescript-reviewer",
+      "type": "agent",
+      "path": "agents/dev-ai-ecc-typescript-reviewer.agent.md",
+      "target": ".github/agents/dev-ai-ecc-typescript-reviewer.agent.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
+    },
+    {
+      "id": "ecc-orchestration",
+      "type": "skill",
+      "path": "skills/ecc-orchestration/SKILL.md",
+      "target": ".github/skills/ecc-orchestration/SKILL.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
+    },
+    {
+      "id": "ecc-tdd-workflow",
+      "type": "skill",
+      "path": "skills/ecc-tdd-workflow/SKILL.md",
+      "target": ".github/skills/ecc-tdd-workflow/SKILL.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
+    },
+    {
+      "id": "ecc-database-review",
+      "type": "skill",
+      "path": "skills/ecc-database-review/SKILL.md",
+      "target": ".github/skills/ecc-database-review/SKILL.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
+    },
+    {
+      "id": "ecc-security-review",
+      "type": "skill",
+      "path": "skills/ecc-security-review/SKILL.md",
+      "target": ".github/skills/ecc-security-review/SKILL.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
+    },
+    {
+      "id": "ado-ecc-fullstack-workflow",
+      "type": "prompt",
+      "path": "prompts/ado-ecc-fullstack-workflow.md",
+      "target": "docs/prompts/ado-ecc-fullstack-workflow.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
+    },
+    {
+      "id": "ecc-pr-review-gate",
+      "type": "prompt",
+      "path": "prompts/ecc-pr-review-gate.md",
+      "target": "docs/prompts/ecc-pr-review-gate.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
     }
   ],
   "sources": [
@@ -535,6 +670,13 @@
       "repository": "Shubhamsaboo/awesome-llm-apps",
       "path": "agent_skills + selected coding/architecture/MCP examples",
       "license": "Apache-2.0"
+    },
+    {
+      "name": "affaan-m-ECC",
+      "repository": "affaan-m/ECC",
+      "path": "agents + skills + workflow patterns",
+      "license": "MIT",
+      "note": "Selected ECC patterns adapted into DEV-AI native .NET/Angular/ADO components; unrelated language-specific assets are intentionally not imported."
     }
   ]
 }
