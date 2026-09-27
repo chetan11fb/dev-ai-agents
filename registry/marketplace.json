@@ -647,6 +647,60 @@
       "version": "0.3.0",
       "source": "affaan-m/ECC",
       "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
+    },
+    {
+      "id": "dev-ai-ecc-refactor-cleaner",
+      "type": "agent",
+      "path": "agents/dev-ai-ecc-refactor-cleaner.agent.md",
+      "target": ".github/agents/dev-ai-ecc-refactor-cleaner.agent.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
+    },
+    {
+      "id": "dev-ai-ecc-performance-optimizer",
+      "type": "agent",
+      "path": "agents/dev-ai-ecc-performance-optimizer.agent.md",
+      "target": ".github/agents/dev-ai-ecc-performance-optimizer.agent.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
+    },
+    {
+      "id": "dev-ai-ecc-silent-failure-hunter",
+      "type": "agent",
+      "path": "agents/dev-ai-ecc-silent-failure-hunter.agent.md",
+      "target": ".github/agents/dev-ai-ecc-silent-failure-hunter.agent.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
+    },
+    {
+      "id": "dev-ai-ecc-pr-test-analyzer",
+      "type": "agent",
+      "path": "agents/dev-ai-ecc-pr-test-analyzer.agent.md",
+      "target": ".github/agents/dev-ai-ecc-pr-test-analyzer.agent.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
+    },
+    {
+      "id": "dev-ai-ecc-spec-miner",
+      "type": "agent",
+      "path": "agents/dev-ai-ecc-spec-miner.agent.md",
+      "target": ".github/agents/dev-ai-ecc-spec-miner.agent.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
+    },
+    {
+      "id": "dev-ai-ecc-doc-updater",
+      "type": "agent",
+      "path": "agents/dev-ai-ecc-doc-updater.agent.md",
+      "target": ".github/agents/dev-ai-ecc-doc-updater.agent.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
     }
   ],
   "sources": [
