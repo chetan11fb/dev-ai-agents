@@ -19,10 +19,10 @@ A production-focused engineering agent ecosystem for turning development work in
 ### Agent ecosystem
 
 - **Agents** — 30+ engineering agents plus ECC-inspired enterprise specialists covering .NET, Angular, full-stack, QA, accessibility, security, architecture, debugging, API, database, performance, refactoring, testing, domain analysis and legacy .NET.
-- **Skills** — reusable engineering guidance that can be composed into agent workflows.
+- **Skills** — 16 reusable engineering guidance packs that can be composed into agent workflows.
 - **Plugins** — selected integrations and workflows aligned with GitHub's awesome-copilot plugin ecosystem.
 - **MCP** — curated developer-tool MCP JSON definitions adapted from the devtools collection in claude-code-templates.
-- **Prompts** — reusable task prompts for ADO-to-full-stack, .NET/Web API, Angular UI, QA and accessibility workflows.
+- **Prompts** — 8 reusable task prompts for ADO-to-full-stack, ECC-inspired orchestration, .NET/Web API, Angular UI, QA and accessibility workflows.
 - **Settings** — reusable runtime/VS Code setup presets.
 - **ECC-inspired layer** — planning, architecture, TDD, database, E2E, security, build repair and PR-review patterns adapted for enterprise .NET + Angular + ADO.
 - **Registry** — `registry/marketplace.json` is the machine-readable catalog used by DEV-CLI and the npm/npx installer.
@@ -221,6 +221,12 @@ DEV-AI now includes a native adaptation layer inspired by the engineering patter
 - ECC Security Reviewer
 - ECC Build Error Resolver
 - ECC TypeScript Reviewer
+- ECC Refactor Cleaner
+- ECC Performance Optimizer
+- ECC Silent Failure Hunter
+- ECC PR Test Analyzer
+- ECC Spec Miner
+- ECC Documentation Updater
 
 ### Added reusable skills
 
