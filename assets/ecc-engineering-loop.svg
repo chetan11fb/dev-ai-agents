@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 330" role="img" aria-labelledby="title desc">
+<title id="title">DEV-AI ECC-inspired engineering pipeline</title>
+<desc id="desc">Animated flow from ADO story through planning, implementation, testing, security, review and pull request.</desc>
+<defs>
+  <linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#00d4ff"/><stop offset="0.5" stop-color="#8b5cf6"/><stop offset="1" stop-color="#22c55e"/></linearGradient>
+  <filter id="glow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <path id="route" d="M110 165 C260 65 390 265 540 165 S820 65 960 165 S1210 265 1290 165"/>
+</defs>
+<rect width="1400" height="330" rx="28" fill="#0b1020"/>
+<text x="70" y="55" fill="#fff" font-family="Segoe UI,Arial" font-size="25" font-weight="700">DEV-AI × ECC INSPIRED ENGINEERING LOOP</text>
+<text x="70" y="84" fill="#9ca3af" font-family="Segoe UI,Arial" font-size="14">ADO → PLAN → BUILD → DATABASE → TEST → SECURITY → REVIEW → PR</text>
+<use href="#route" fill="none" stroke="url(#g)" stroke-width="4" opacity=".28"/>
+<g fill="#111827" stroke="url(#g)" stroke-width="2">
+<circle cx="110" cy="165" r="43"/><circle cx="280" cy="125" r="43"/><circle cx="450" cy="205" r="43"/><circle cx="620" cy="125" r="43"/><circle cx="790" cy="205" r="43"/><circle cx="960" cy="125" r="43"/><circle cx="1130" cy="205" r="43"/><circle cx="1290" cy="165" r="43"/>
+</g>
+<g fill="#fff" font-family="Segoe UI,Arial" font-size="12" text-anchor="middle" font-weight="700">
+<text x="110" y="169">ADO</text><text x="280" y="129">PLAN</text><text x="450" y="209">BUILD</text><text x="620" y="129">DB</text><text x="790" y="209">TEST</text><text x="960" y="129">SECURITY</text><text x="1130" y="209">REVIEW</text><text x="1290" y="169">PR</text>
+</g>
+<circle r="8" fill="#fff" filter="url(#glow)">
+<animateMotion dur="5s" repeatCount="indefinite" rotate="auto"><mpath href="#route"/></animateMotion>
+</circle>
+<circle r="3" fill="#fff" opacity=".8"><animateMotion dur="5s" begin="-1.7s" repeatCount="indefinite"><mpath href="#route"/></animateMotion></circle>
+<circle r="3" fill="#fff" opacity=".7"><animateMotion dur="5s" begin="-3.2s" repeatCount="indefinite"><mpath href="#route"/></animateMotion></circle>
+<text x="70" y="292" fill="#6b7280" font-family="Segoe UI,Arial" font-size="12">Specialized handoffs • evidence-first testing • security gates • enterprise .NET + Angular adaptation</text>
+</svg>
