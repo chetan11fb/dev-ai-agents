@@ -18,12 +18,13 @@ A production-focused engineering agent ecosystem for turning development work in
 
 ### Agent ecosystem
 
-- **Agents** — 16+ engineering agents covering .NET, Angular, full-stack, QA, accessibility, security, architecture, debugging, API, database, performance, refactoring, testing, domain analysis and legacy .NET.
+- **Agents** — 30+ engineering agents plus ECC-inspired enterprise specialists covering .NET, Angular, full-stack, QA, accessibility, security, architecture, debugging, API, database, performance, refactoring, testing, domain analysis and legacy .NET.
 - **Skills** — reusable engineering guidance that can be composed into agent workflows.
 - **Plugins** — selected integrations and workflows aligned with GitHub's awesome-copilot plugin ecosystem.
 - **MCP** — curated developer-tool MCP JSON definitions adapted from the devtools collection in claude-code-templates.
 - **Prompts** — reusable task prompts for ADO-to-full-stack, .NET/Web API, Angular UI, QA and accessibility workflows.
 - **Settings** — reusable runtime/VS Code setup presets.
+- **ECC-inspired layer** — planning, architecture, TDD, database, E2E, security, build repair and PR-review patterns adapted for enterprise .NET + Angular + ADO.
 - **Registry** — `registry/marketplace.json` is the machine-readable catalog used by DEV-CLI and the npm/npx installer.
 
 ## 🧠 Agentic engineering flow
@@ -199,6 +200,77 @@ The CLI reads `registry/marketplace.json`, downloads the selected component from
 Supported individual component types are **agent, skill, prompt, MCP, plugin and setting**. This means a developer can install only the capability they need—for example, just the .NET agent, just the ADO MCP, or just the ADO-to-full-stack prompt—without pulling the rest of the ecosystem.
 
 > **Publishing note:** the repository now contains the npm package/CLI implementation. After publishing `dev-ai-agents` to npm, the commands above work directly through `npx`.
+
+
+## ⚡ ECC-Inspired Enterprise Engineering Layer
+
+DEV-AI now includes a native adaptation layer inspired by the engineering patterns in **affaan-m/ECC**. The goal is not to turn DEV-AI into ECC or copy unrelated language-specific assets; it is to bring the useful **plan → build → test → security → database → review → PR** discipline into the existing .NET + Angular + ADO ecosystem.
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/chetan11fb/dev-ai-agents/main/assets/ecc-engineering-loop.svg" width="100%" alt="Animated DEV-AI ECC-inspired engineering loop"/>
+</p>
+
+### Added native agents
+
+- ECC Planner
+- ECC Architect
+- ECC Code Reviewer
+- ECC Database Reviewer
+- ECC TDD Guide
+- ECC E2E Runner
+- ECC Security Reviewer
+- ECC Build Error Resolver
+- ECC TypeScript Reviewer
+
+### Added reusable skills
+
+- ECC Orchestration
+- ECC TDD Workflow
+- ECC Database Review
+- ECC Security Review
+
+### Added workflow prompts
+
+- ADO → ECC-Inspired Full-Stack Workflow
+- ECC-Inspired PR Review Gate
+
+### Enterprise flow
+
+```text
+ADO Story
+   ↓
+Spec / SDD
+   ↓
+Planner → Architect → Code Explorer
+   ↓
+.NET / EF Core + Database
+   ↓
+Angular / TypeScript
+   ↓
+TDD → Integration → Playwright E2E
+   ↓
+Accessibility → Security
+   ↓
+Code Review → PR Evidence → Pull Request
+```
+
+This layer is deliberately **native to DEV-AI**. Existing ADO, .NET, Angular, accessibility, MCP and DevOps agents remain the enterprise specialization layer, while ECC contributes reusable engineering workflow patterns.
+
+### Individual installation
+
+```bash
+npx dev-ai-agents --agent dev-ai-ecc-code-reviewer
+npx dev-ai-agents --agent dev-ai-ecc-database-reviewer
+npx dev-ai-agents --agent dev-ai-ecc-tdd-guide
+npx dev-ai-agents --skill ecc-orchestration
+npx dev-ai-agents --skill ecc-database-review
+npx dev-ai-agents --prompt ado-ecc-fullstack-workflow
+npx dev-ai-agents --prompt ecc-pr-review-gate
+```
+
+### Source and attribution
+
+Selected patterns are adapted from **affaan-m/ECC**, MIT licensed. The imported/adapted files identify ECC as their source. Unrelated ECC language-specific agents are intentionally not copied into DEV-AI.
 
 ## 🔗 Upstream references
 
