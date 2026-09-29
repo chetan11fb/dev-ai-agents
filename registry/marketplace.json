@@ -701,6 +701,24 @@
       "version": "0.3.0",
       "source": "affaan-m/ECC",
       "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
+    },
+    {
+      "id": "dynatrace-expert",
+      "type": "agent",
+      "path": "agents/dynatrace-expert.agent.md",
+      "target": ".github/agents/dynatrace-expert.agent.md",
+      "version": "0.1.0",
+      "source": "github/awesome-copilot",
+      "description": "Dynatrace observability and security expert for incidents, deployments, errors, performance, release validation, vulnerabilities and DQL."
+    },
+    {
+      "id": "dynatrace-vscode",
+      "type": "mcp",
+      "path": "mcp/dynatrace-vscode.json",
+      "target": ".vscode/mcp.json",
+      "version": "0.1.0",
+      "source": "github/awesome-copilot",
+      "description": "VS Code remote Dynatrace MCP configuration template; replace the environment ID and provide COPILOT_MCP_DT_API_TOKEN securely."
     }
   ],
   "sources": [
