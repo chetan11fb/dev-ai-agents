@@ -406,3 +406,40 @@ The selected reusable skills are integrated directly under `skills/`:
 
 The imported assets are kept separate by filename where needed to avoid overwriting DEV-AI's existing agents, while sharing the same native `agents/` and `skills/` architecture. The temporary `upstream/claude-code-templates/` copy has been removed. Original upstream content and attribution should be respected.
 
+
+
+## 🔭 Dynatrace Expert + MCP
+
+DEV-AI includes the **Dynatrace Expert** agent from GitHub's awesome-copilot ecosystem, integrated into the native `agents/` structure.
+
+### Agent
+
+```bash
+npx dev-ai-agents --agent dynatrace-expert
+```
+
+Installs to:
+
+```text
+.github/agents/dynatrace-expert.agent.md
+```
+
+It covers incident RCA, deployment impact, production error triage, performance regression, release validation, security/vulnerability analysis and DQL.
+
+### VS Code MCP
+
+Use the included template:
+
+```text
+mcp/dynatrace-vscode.json
+```
+
+For a consuming project, configure `.vscode/mcp.json` with the Dynatrace remote MCP endpoint and an environment-backed `COPILOT_MCP_DT_API_TOKEN`. Never commit the real token.
+
+### Documentation
+
+- [Dynatrace setup](docs/dynatrace/setup.md)
+- [Copilot prompt cookbook](docs/dynatrace/copilot-prompts.md)
+- [Troubleshooting](docs/dynatrace/troubleshooting.md)
+
+Official Dynatrace MCP documentation: https://docs.dynatrace.com/docs/dynatrace-intelligence/dynatrace-mcp
