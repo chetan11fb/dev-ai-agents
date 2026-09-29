@@ -1,0 +1,11 @@
+{
+  "servers": {
+    "dynatrace-mcp": {
+      "type": "http",
+      "url": "https://<your-environment-id>.apps.dynatrace.com/platform-reserved/mcp-gateway/v0.1/servers/dynatrace-mcp/mcp",
+      "headers": {
+        "Authorization": "Bearer ${env:COPILOT_MCP_DT_API_TOKEN}"
+      }
+    }
+  }
+}
