@@ -2,7 +2,7 @@
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "azure-cloud-development",
   "description": "Azure-first cloud and Azure DevOps delivery patterns curated for Dev-AI, VS Code and GitHub Copilot.",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": {
     "name": "Dev-AI"
   },
@@ -36,7 +36,9 @@
         "./skills/azure-pricing/",
         "./skills/azure-resource-health-diagnose/",
         "./skills/import-infrastructure-as-code/",
-        "./skills/wshobson-deployment-pipeline-design/"
+        "./skills/wshobson-deployment-pipeline-design/",
+        "./skills/wshobson-cost-optimization/",
+        "./skills/wshobson-hybrid-cloud-networking/"
       ]
     }
   }
