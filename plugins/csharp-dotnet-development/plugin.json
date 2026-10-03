@@ -1,23 +1,28 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "csharp-dotnet-development",
-  "description": "Essential prompts, instructions, and chat modes for C# and .NET development including testing, documentation, and best practices.",
-  "version": "1.2.0",
+  "description": "C#/.NET development plugin curated for VS Code and GitHub Copilot, combining existing Dev-AI .NET guidance with wshobson production architecture and backend patterns.",
+  "version": "1.3.0",
   "author": {
-    "name": "Awesome Copilot Community"
+    "name": "Dev-AI"
   },
-  "repository": "https://github.com/github/awesome-copilot",
+  "repository": "https://github.com/chetan11fb/dev-ai-agents",
   "license": "MIT",
   "keywords": [
     "csharp",
     "dotnet",
     "aspnet",
-    "testing"
+    "dotnet-8",
+    "ef-core",
+    "dapper",
+    "github-copilot",
+    "vscode"
   ],
   "extensions": {
     "com.github.awesome-copilot": {
       "agents": [
-        "./agents/expert-dotnet-software-engineer.md"
+        "./agents/expert-dotnet-software-engineer.md",
+        "./agents/wshobson-dotnet-architect.md"
       ],
       "skills": [
         "./skills/aspnet-minimal-api-openapi/",
@@ -28,7 +33,8 @@
         "./skills/csharp-xunit/",
         "./skills/dotnet-best-practices/",
         "./skills/dotnet-upgrade/",
-        "./skills/resx-source-generator-migration/"
+        "./skills/resx-source-generator-migration/",
+        "./skills/wshobson-dotnet-backend-patterns/"
       ]
     }
   }
