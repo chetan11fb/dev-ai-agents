@@ -729,6 +729,70 @@
       "package": "@chetan11fb/dev-ai-super-fullstack-agent",
       "packageVersion": "1.0.0",
       "description": "End-to-end .NET 9 + Angular 19 production orchestration Super Agent."
+    },
+    {
+      "id": "wshobson-dotnet-architect",
+      "type": "agent",
+      "path": "agents/wshobson-dotnet-architect.agent.md",
+      "target": ".github/agents/wshobson-dotnet-architect.agent.md",
+      "version": "1.0.0",
+      "source": "wshobson/agents"
+    },
+    {
+      "id": "wshobson-csharp-pro",
+      "type": "agent",
+      "path": "agents/wshobson-csharp-pro.agent.md",
+      "target": ".github/agents/wshobson-csharp-pro.agent.md",
+      "version": "1.0.0",
+      "source": "wshobson/agents"
+    },
+    {
+      "id": "wshobson-legacy-modernizer",
+      "type": "agent",
+      "path": "agents/wshobson-legacy-modernizer.agent.md",
+      "target": ".github/agents/wshobson-legacy-modernizer.agent.md",
+      "version": "1.0.0",
+      "source": "wshobson/agents"
+    },
+    {
+      "id": "wshobson-cloud-architect",
+      "type": "agent",
+      "path": "agents/wshobson-cloud-architect.agent.md",
+      "target": ".github/agents/wshobson-cloud-architect.agent.md",
+      "version": "1.0.0",
+      "source": "wshobson/agents"
+    },
+    {
+      "id": "wshobson-dotnet-backend-patterns",
+      "type": "skill",
+      "path": "skills/wshobson-dotnet-backend-patterns/SKILL.md",
+      "target": ".github/skills/wshobson-dotnet-backend-patterns/SKILL.md",
+      "version": "1.0.0",
+      "source": "wshobson/agents"
+    },
+    {
+      "id": "wshobson-cloud-cost-optimization",
+      "type": "skill",
+      "path": "skills/wshobson-cloud-cost-optimization/SKILL.md",
+      "target": ".github/skills/wshobson-cloud-cost-optimization/SKILL.md",
+      "version": "1.0.0",
+      "source": "wshobson/agents"
+    },
+    {
+      "id": "wshobson-hybrid-cloud-networking",
+      "type": "skill",
+      "path": "skills/wshobson-hybrid-cloud-networking/SKILL.md",
+      "target": ".github/skills/wshobson-hybrid-cloud-networking/SKILL.md",
+      "version": "1.0.0",
+      "source": "wshobson/agents"
+    },
+    {
+      "id": "wshobson-deployment-pipeline-design",
+      "type": "skill",
+      "path": "skills/wshobson-deployment-pipeline-design/SKILL.md",
+      "target": ".github/skills/wshobson-deployment-pipeline-design/SKILL.md",
+      "version": "1.0.0",
+      "source": "wshobson/agents"
     }
   ],
   "sources": [
