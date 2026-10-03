@@ -1,22 +1,23 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "azure-cloud-development",
-  "description": "Comprehensive Azure cloud development tools including Infrastructure as Code, serverless functions, architecture patterns, and cost optimization for building scalable cloud applications.",
-  "version": "1.0.1",
+  "description": "Azure-first cloud and Azure DevOps delivery patterns curated for Dev-AI, VS Code and GitHub Copilot.",
+  "version": "1.1.0",
   "author": {
-    "name": "Awesome Copilot Community"
+    "name": "Dev-AI"
   },
-  "repository": "https://github.com/github/awesome-copilot",
+  "repository": "https://github.com/chetan11fb/dev-ai-agents",
   "license": "MIT",
   "keywords": [
     "azure",
+    "azure-devops",
+    "ado",
     "cloud",
-    "infrastructure",
     "bicep",
     "terraform",
-    "serverless",
-    "architecture",
-    "devops"
+    "devops",
+    "github-copilot",
+    "vscode"
   ],
   "extensions": {
     "com.github.awesome-copilot": {
@@ -27,13 +28,15 @@
         "./agents/azure-verified-modules-bicep.md",
         "./agents/azure-verified-modules-terraform.md",
         "./agents/terraform-azure-implement.md",
-        "./agents/terraform-azure-planning.md"
+        "./agents/terraform-azure-planning.md",
+        "./agents/wshobson-cloud-architect.md"
       ],
       "skills": [
         "./skills/az-cost-optimize/",
         "./skills/azure-pricing/",
         "./skills/azure-resource-health-diagnose/",
-        "./skills/import-infrastructure-as-code/"
+        "./skills/import-infrastructure-as-code/",
+        "./skills/wshobson-deployment-pipeline-design/"
       ]
     }
   }
