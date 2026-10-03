@@ -4,10 +4,32 @@
   "description": "DEV-AI Super Fullstack Agent for VS Code GitHub Copilot Agent Mode",
   "license": "MIT",
   "author": "Chetan Khandelwal",
-  "repository": {"type": "git", "url": "https://github.com/chetan11fb/dev-ai-agents.git"},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chetan11fb/dev-ai-agents.git"
+  },
   "homepage": "https://github.com/chetan11fb/dev-ai-agents",
-  "keywords": ["github-copilot","copilot-agent","custom-agent","dotnet","angular","fullstack","agentic-ai","dev-ai"],
-  "bin": {"dev-ai-super-fullstack-agent": "bin/cli.js"},
-  "files": ["bin/cli.js","agent/super-fullstack-agent.agent.md","README.md","LICENSE"],
-  "engines": {"node": ">=18"}
+  "keywords": [
+    "github-copilot",
+    "copilot-agent",
+    "custom-agent",
+    "dotnet",
+    "angular",
+    "fullstack",
+    "agentic-ai",
+    "dev-ai"
+  ],
+  "bin": {
+    "dev-ai-super-fullstack-agent": "bin/cli.js"
+  },
+  "files": [
+    "bin/cli.js",
+    "agent/super-fullstack-agent.agent.md",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "type": "module"
 }
