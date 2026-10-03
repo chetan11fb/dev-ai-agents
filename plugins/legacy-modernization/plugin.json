@@ -1,0 +1,16 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "legacy-modernization",
+  "description": "Safe legacy .NET and Angular modernization patterns curated from wshobson/agents for incremental migration, compatibility and controlled rollout.",
+  "version": "1.0.0",
+  "author": {"name": "Dev-AI"},
+  "repository": "https://github.com/chetan11fb/dev-ai-agents",
+  "license": "MIT",
+  "keywords": ["legacy", "dotnet", "angular", "migration", "modernization", "github-copilot", "vscode"],
+  "extensions": {
+    "com.github.awesome-copilot": {
+      "agents": ["./agents/wshobson-legacy-modernizer.md"],
+      "skills": ["./skills/angular-migration/"]
+    }
+  }
+}
