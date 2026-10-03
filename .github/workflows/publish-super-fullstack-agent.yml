@@ -1,0 +1,35 @@
+name: Publish Super Fullstack Agent to npm
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    if: startsWith(github.event.release.tag_name, 'super-fullstack-agent-v')
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/super-fullstack-agent
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org
+
+      - name: Verify package
+        run: |
+          npm pack --dry-run
+          node --check bin/cli.js
+
+      - name: Publish public package
+        run: npm publish --provenance --access public
