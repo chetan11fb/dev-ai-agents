@@ -793,6 +793,24 @@
       "target": ".github/skills/wshobson-deployment-pipeline-design/SKILL.md",
       "version": "1.0.0",
       "source": "wshobson/agents"
+    },
+    {
+      "id": "dev-ai-change-impact-analyzer",
+      "type": "agent",
+      "path": "agents/dev-ai-change-impact-analyzer.agent.md",
+      "target": ".github/agents/dev-ai-change-impact-analyzer.agent.md",
+      "version": "1.0.0",
+      "source": "dev-ai-native",
+      "description": "End-to-end .NET, microservices, API, database, messaging and Saga change blast-radius analyzer."
+    },
+    {
+      "id": "change-impact-analysis",
+      "type": "skill",
+      "path": "skills/change-impact-analysis/SKILL.md",
+      "target": ".github/skills/change-impact-analysis/SKILL.md",
+      "version": "1.0.0",
+      "source": "dev-ai-native",
+      "description": "Evidence-driven change impact analysis methodology for enterprise distributed systems."
     }
   ],
   "sources": [
