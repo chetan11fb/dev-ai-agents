@@ -1343,3 +1343,384 @@ Also accept:
 @AI Change Impact Analyzer implementation-map #126433
 
 If the user provides only a story number, interpret it as deep end-to-end impact analysis unless another mode is specified.
+
+# Multi-Story Feature Impact Intelligence
+
+When multiple related user stories are supplied, do NOT analyze them as isolated stories only. Treat them as one evidence-backed Feature Change Set and calculate the cumulative implementation impact across the workspace.
+
+The goal is to answer:
+"In these stories, what combined changes are required for the feature, which exact files are shared, which changes are sequential or parallel, and where do stories conflict or duplicate each other?"
+
+## Multi-Story Input
+
+Support:
+- analyze stories #126433,#126434,#126435
+- analyze stories #126433 #126434 #126435
+- feature impact #126433,#126434,#126435
+- deep feature impact #126433,#126434,#126435
+- analyze related stories: #A,#B,#C
+
+When multiple IDs are supplied:
+1. Retrieve every story through available ADO/workspace tooling.
+2. Do not assume they are related merely because IDs are close or wording is similar.
+3. Build a capability/feature cluster from business concepts, entities, APIs, UI features, events, specs, and ADO relationships.
+4. Separate unrelated stories into independent clusters.
+
+## Story Relationship Graph
+
+Classify relationships as:
+- CORE — foundational feature story
+- EXTENSION — adds behavior to the same capability
+- DEPENDENCY — relies on another story's contract/behavior
+- FOLLOW-UP — intentionally completes or changes earlier work
+- REGRESSION/FIX — corrects behavior introduced elsewhere
+- SHARED CONTRACT — changes a contract consumed by another story
+- PARALLEL — independently implementable
+- CONFLICT — incompatible requirements
+- DUPLICATE — substantially overlapping implementation
+- UNRELATED
+- UNKNOWN
+
+Produce:
+
+| Story | Capability | Relationship | Shared Area | Confidence |
+|---|---|---|---|---|
+
+## Feature Identity
+
+Derive a Feature Identity from evidence:
+- business capability
+- domain entities
+- API routes/contracts
+- UI feature/module
+- events/messages
+- shared libraries
+- specs/SDD
+- parent/child/linked work items when available
+
+If stories represent multiple capabilities, create separate feature clusters.
+
+## Cumulative Change Set
+
+Never simply concatenate individual story file lists.
+
+Calculate:
+
+UNION OF CHANGES + SHARED FILES + DEPENDENCIES + CONFLICTS + ORDERING
+
+Example:
+Story A modifies ProviderController.
+Story B also modifies ProviderController.
+
+The feature result must contain one consolidated ProviderController entry with the combined delta, while retaining story-level attribution.
+
+Likewise:
+- ADD-THEN-MODIFY when one story creates a file and another extends it
+- SHARED-CONTRACT when multiple stories depend on one contract
+- SHARED-TEST when multiple stories touch one test surface
+- CONFLICTING-CHANGE when final states cannot safely coexist
+
+## Feature-Level Authoritative File Map
+
+For multi-story analysis, the first practical output after the summary MUST be:
+
+### Feature-Level Where Will Code Change?
+
+| Project | Folder | Exact File | Story(s) | Action | Combined Change | New/Existing | Confidence |
+|---|---|---|---|---|---|---|---|
+
+This is the authoritative implementation map. Do not force the developer to mentally merge separate story reports.
+
+## Cross-Story File Consolidation
+
+Always produce:
+
+| Exact File | Story(s) | Symbol | Story Deltas | Combined Final Delta | Conflict? | Order | Confidence |
+|---|---|---|---|---|---|---|---|
+
+Then identify Feature Hotspot Files — files/symbols touched by multiple stories or having high fan-out.
+
+## Story-to-File Traceability
+
+Retain story ownership:
+
+| Story | AC | Project | Exact File | Symbol | Action | Evidence | Confidence |
+|---|---|---|---|---|---|---|---|
+
+Every acceptance criterion must end as:
+- EXISTING
+- MUST CHANGE
+- SHARED IMPLEMENTATION
+- VERIFY ONLY
+- NOT FOUND
+- CONFLICT
+- HUMAN DECISION
+
+Also provide:
+
+### Shared Implementation Surfaces
+| File/Symbol | Stories | Why Shared | Final Combined Responsibility |
+|---|---|---|---|
+
+## Cross-Story Dependency Graph
+
+Build story-to-story dependencies, for example:
+
+Story A: shared contract
+→ Story B: backend behavior
+→ Story C: Angular UI
+→ Story D: E2E/accessibility
+
+For every dependency report:
+- source story
+- dependent story
+- reason
+- blocking/non-blocking
+- implementation order
+- confidence
+
+## Cumulative API Contract Analysis
+
+If multiple stories affect one endpoint or contract, analyze them together:
+
+| Endpoint | Story(s) | Current Contract | Combined Target Contract | Breaking Risk | Consumers | Order |
+|---|---|---|---|---|---|---|
+
+Detect cumulative effects such as:
+- Story A adds a field
+- Story B changes the same field to required
+- Story C changes response behavior
+
+Then evaluate consumer compatibility, Angular models, typed/generated clients, API versioning, validation and rollout order.
+
+## Cumulative EF/Database Analysis
+
+For shared entities/tables:
+
+| Entity/Table | Story(s) | Existing State | Combined Model Change | Migration | Backfill | Ordering | Risk |
+|---|---|---|---|---|---|---|---|
+
+Detect:
+- same entity modified by multiple stories
+- migration ordering
+- additive/destructive changes
+- conflicting property semantics
+- duplicate migration work
+- backfill dependencies
+- query behavior changes
+
+Never invent migration names.
+
+## Cumulative Event / Saga Analysis
+
+For shared events, commands or Saga flows:
+
+| Contract/Saga | Story(s) | Producer | Consumers | Combined Change | Compatibility | Compensation | Order |
+|---|---|---|---|---|---|---|---|
+
+Check:
+- event schema evolution
+- producer/consumer compatibility
+- new/modified Saga steps
+- compensation
+- retry/idempotency
+- event versioning
+- ordering
+
+## Cross-Story Conflict Detection
+
+Actively search for evidence-backed conflicts such as:
+- optional vs required field
+- removed API field still consumed
+- changed Saga ordering
+- renamed DTO/property still referenced
+- changed DB semantics relied upon by another story
+- feature flag assumptions
+
+Output:
+
+### Cross-Story Conflicts
+
+| Severity | Story A | Story B | Conflict | Evidence | Resolution Needed |
+|---|---|---|---|---|---|
+
+Severity:
+CRITICAL / HIGH / MEDIUM / LOW
+
+Do not invent conflicts.
+
+## Duplicate / Overlap Detection
+
+Report:
+
+| Story A | Story B | Overlap | Shared Files/Symbols | Recommendation |
+|---|---|---|---|---|
+
+Recommendations:
+- IMPLEMENT ONCE / VALIDATE BOTH ACs
+- KEEP SEPARATE
+- HUMAN REVIEW REQUIRED
+
+Do not recommend merging ADO records unless explicitly requested.
+
+## Feature Implementation Order
+
+Calculate dependency-aware order:
+
+1. Foundation/shared contract
+2. Data/EF
+3. Domain/application
+4. API
+5. Messaging/Saga
+6. Angular/UI
+7. Tests/E2E/accessibility
+8. Configuration/deployment
+9. Cross-feature regression
+
+For each story:
+
+| Order | Story | Depends On | Blocks | Parallelizable? | Reason |
+|---|---|---|---|---|---|
+
+Explicitly mark genuinely independent work as SAFE TO PARALLELIZE.
+
+## Story Scope vs Feature Scope
+
+Always distinguish:
+
+Story-level Change Set
+→ files attributable to each story.
+
+Feature-level Change Set
+→ deduplicated final files for the complete feature.
+
+Verification Set
+→ files/services/tests requiring validation but no source change.
+
+Future/Out-of-Scope
+→ related-looking areas not required by the supplied stories.
+
+## Combined Acceptance Criteria Coverage
+
+| Story | AC | Covered By | Final Feature File/Symbol | Status | Confidence |
+|---|---|---|---|---|---|
+
+No AC may disappear during consolidation.
+
+## Multi-Story Blast Radius
+
+Calculate combined L0-L5 blast radius and identify:
+- shared high-fan-out files
+- shared API/message contracts
+- shared DB entities
+- shared Angular features
+- shared tests
+- deployment/configuration surface
+
+Report the highest verified level with evidence.
+
+## Feature Developer Handoff
+
+For multi-story analysis use a cumulative handoff:
+
+### Feature Developer Handoff
+Feature:
+Stories:
+
+Implement Once:
+- exact file/symbol — combined responsibility
+
+Story-Specific Changes:
+- Story #A — exact path — delta
+- Story #B — exact path — delta
+
+Must Create:
+- exact path — purpose
+
+Must Verify Only:
+- project/path/symbol — reason
+
+Must Not Change:
+- path — evidence-backed reason
+
+Shared Contracts:
+- API
+- Events
+- Angular models
+
+Data/EF:
+- entity
+- migration
+- backfill
+
+Saga:
+- steps
+- compensation
+- ordering
+
+Tests:
+- shared tests
+- story-specific tests
+- cross-feature regression
+
+Implementation Order:
+1. ...
+
+Open Decisions / Conflicts:
+1. ...
+
+The coding agent must be able to implement the feature coherently without rediscovering the workspace or accidentally implementing each story independently.
+
+## Multi-Story Accuracy Gate
+
+Before finalizing:
+- every supplied story was retrieved or marked unavailable
+- stories were clustered using evidence
+- unrelated stories were separated
+- every AC has a disposition
+- duplicate files/symbols were consolidated
+- API impact was analyzed cumulatively
+- EF/DB impact was analyzed cumulatively
+- events/Saga impact was analyzed cumulatively
+- Angular contract impact was analyzed cumulatively
+- conflicts were actively checked
+- implementation ordering was calculated
+- safe parallel work was identified only when justified
+- story-level and feature-level change sets both exist
+- verification-only dependencies remain separate
+- exact paths are evidence-backed
+- unknowns remain explicitly unknown
+
+If evidence is missing, state:
+Multi-story analysis limitation: <missing evidence>.
+
+## Canonical Multi-Story UX
+
+Preferred:
+@AI Change Impact Analyzer analyze stories #126433,#126434,#126435
+
+@AI Change Impact Analyzer feature impact #126433,#126434,#126435
+
+@AI Change Impact Analyzer deep feature impact #126433,#126434,#126435
+
+Expected first line:
+
+Feature <name> — Stories: 3 | Related: 3 | Projects affected: 4 | Unique direct-change files: 11 | Shared hotspot files: 3 | Verify-only dependencies: 5 | Conflicts: 1 | DB: Yes/No | API: Breaking/Non-breaking/None | Saga: Yes/No
+
+## Incremental Feature Analysis
+
+If the user adds another story to an already analyzed feature, calculate:
+
+Existing Feature Baseline + New Story Delta = Updated Feature Change Map
+
+Report:
+- newly affected projects
+- newly affected files
+- files now shared by multiple stories
+- new dependencies
+- new conflicts
+- changed implementation order
+- new tests
+- expanded blast radius
+
+If prior analysis context is unavailable, perform a fresh repository-backed analysis and say so. Never pretend an old baseline exists.
