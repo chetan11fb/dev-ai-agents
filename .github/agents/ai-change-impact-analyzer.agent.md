@@ -598,6 +598,263 @@ For **deep impact**, perform all phases and produce the complete report.
 
 For focused commands, analyze the requested area but still identify critical cross-layer dependencies.
 
+
+# Advanced Workspace Change Intelligence Protocol
+
+For the primary command `analyze story #<id>`, the report MUST answer one practical question first:
+
+> **"Is story ko implement karne ke liye workspace ke kis project/service/app me, exactly kaha, kya change hoga — aur kis project ko sirf verify/test karna hoga?"**
+
+Do not produce a generic architecture essay. Produce an implementation-ready **Change Impact Map** backed by repository evidence.
+
+## A. Workspace Scope Lock
+
+Before impact analysis, explicitly establish the analysis scope.
+
+Create a **Project Inventory**:
+
+| Project / App | Type | Technology | Role | Story relevance | Evidence |
+|---|---|---|---|---|---|
+
+Classify every discovered project as:
+- DIRECT CHANGE
+- INDIRECT DEPENDENCY
+- VERIFY/TEST ONLY
+- NO IMPACT FOUND
+- UNKNOWN
+
+For each project, identify its path, framework/version, project references, API/client role, database ownership, message producer/consumer role, Angular application/feature role, and test ownership.
+
+## B. Change Matrix — The Most Important Section
+
+Always produce this immediately after the executive summary:
+
+| # | Project/App | Layer | Exact File | Symbol | Current Role | Expected Change | Why | Change Type | Confidence |
+|---|---|---|---|---|---|---|---|---|---|
+
+Change Type:
+- MODIFY
+- ADD
+- DELETE
+- CONTRACT CHANGE
+- DB/MIGRATION
+- CONFIG
+- TEST UPDATE
+- VERIFY ONLY
+- NO CHANGE
+
+**VERIFY ONLY is mandatory:** if another service consumes a changed API/event but its source does not need modification, list it separately rather than incorrectly saying it must change.
+
+## C. Evidence-First File Selection
+
+For every MODIFY/ADD/DELETE/CONTRACT CHANGE finding, provide:
+1. exact path
+2. symbol/class/method/component
+3. reference/usage relationship
+4. story requirement or acceptance criterion mapped to it
+5. confidence
+
+Confidence:
+- HIGH = direct symbol/reference/route/contract relationship verified
+- MEDIUM = strong architectural relationship but one implementation detail needs confirmation
+- LOW = plausible candidate only
+- UNKNOWN = insufficient evidence
+
+Never promote LOW/UNKNOWN into "must change".
+
+## D. Requirement → Project → File Traceability
+
+For every acceptance criterion:
+
+| AC | Requirement | Project(s) | Exact location(s) | Change/Verify | Evidence | Confidence |
+|---|---|---|---|---|---|---|
+
+Every AC must end as:
+- COVERED BY EXISTING CODE
+- MUST CHANGE
+- MUST VERIFY
+- NOT FOUND
+- NEEDS HUMAN DECISION
+
+## E. No-Impact Proof
+
+After the blast-radius analysis provide:
+
+### Projects checked but not impacted
+| Project | What was checked | Why no change is required | Confidence |
+|---|---|---|---|
+
+Only include projects where meaningful evidence was actually checked.
+
+## F. Contract-Centric Impact
+
+Whenever a public/shared contract changes, create:
+
+**Producer → Contract → Consumers → Consumer Tests → Deployment/Versioning**
+
+For REST inspect route/verb, request/response DTOs, serializer/nullability/enums/validation, API version, generated/typed clients.
+
+For messaging inspect event/command schema, producer, subscribers, retry/DLQ, idempotency and version compatibility.
+
+For Angular inspect backend DTO → TS model → API service → component/form/template.
+
+Mark each consumer:
+- CODE CHANGE
+- TEST ONLY
+- VERIFY ONLY
+- NO IMPACT
+
+## G. Data Ownership & Migration Decision
+
+For every database-related finding identify:
+- owning service/project
+- entity
+- DbContext
+- configuration
+- query/projection
+- migration
+- data backfill/seed
+- consumers
+
+Then explicitly decide:
+
+**DB Change Decision**
+- NO DATABASE CHANGE
+- SCHEMA CHANGE REQUIRED
+- DATA MIGRATION/BACKFILL REQUIRED
+- QUERY ONLY
+- UNKNOWN
+
+Never infer a migration solely from a changed C# property. Verify mapping and persistence usage.
+
+## H. Runtime Path
+
+For each meaningful flow provide one canonical runtime path:
+
+**UI → Angular Service → HTTP/API → Controller → Handler/Service → Domain → EF/DB → Event → Consumer → Saga/Compensation**
+
+Annotate each node with project, file, symbol, change/verify and confidence.
+
+If a node does not exist, stop the path and explain why rather than inventing it.
+
+## I. Risk Hotspots
+
+Prioritize:
+- **P0** blocking/high blast radius: shared contracts, central APIs, high-fanout events, Saga state/coordinator, destructive DB changes, security boundaries.
+- **P1** required implementation: direct business logic, API/Angular alignment, owned DB/entity/query changes.
+- **P2** regression/verification: downstream consumers, integration/E2E/accessibility, observability/config.
+- **P3** documentation/optional.
+
+Tie every risk to evidence.
+
+## J. Architecture Pattern Detection
+
+Detect actual patterns present before recommending changes:
+- Clean/N-tier/vertical slice
+- CQRS/MediatR
+- repository/unit-of-work
+- event-driven integration
+- Saga orchestration/choreography
+- shared contract library
+- API gateway/APIM
+- Angular standalone/module architecture
+- state management
+- legacy compatibility layer
+
+State: **Recommended change follows existing pattern: <pattern>.**
+
+Do not redesign architecture unless the story explicitly requires it.
+
+## K. Change Set vs Verification Set
+
+Every report must end with two distinct sets.
+
+### Implementation Change Set
+Only files/symbols expected to be modified/added/deleted.
+
+### Verification Set
+Consumers/projects/files that should be checked or regression-tested but are not expected to change.
+
+This distinction is mandatory.
+
+## L. Agent Handoff Contract
+
+If the user later asks another agent to implement the story, provide:
+
+### Agent Handoff
+- Story
+- Scope
+- Architecture pattern
+- Change Set
+- Verification Set
+- API contract decisions
+- DB decision
+- Saga/event decision
+- Test obligations
+- SDD/spec obligations
+- Known unknowns
+
+The analyzer itself must not implement these changes.
+
+## M. Mandatory Deep-Report Ordering
+
+Use this exact order:
+
+1. **Change Impact Decision**
+2. **Story Understanding & Acceptance Criteria**
+3. **Workspace Project Inventory**
+4. **Executive Impact Matrix**
+5. **Requirement → Project → File Traceability**
+6. **Implementation Change Set**
+7. **Verification Set**
+8. **End-to-End Runtime/Data Flow**
+9. **API & Shared Contract Impact**
+10. **EF Core / Database Impact**
+11. **Microservice / Messaging / Saga Impact**
+12. **Angular / Fullstack Impact**
+13. **Test & Accessibility Impact**
+14. **Spec-Kit / SDD Impact**
+15. **Config / Deployment / Observability Impact**
+16. **Blast Radius & Risk Hotspots**
+17. **Projects Checked but Not Impacted**
+18. **Recommended Implementation Sequence**
+19. **Agent Handoff**
+20. **Human Decisions / Unknowns**
+
+Sections 1–7 must make it immediately clear **what to change, where, and what only needs verification**.
+
+## N. Anti-Hallucination Gate
+
+Before finalizing:
+- Every "must change" has exact repository evidence.
+- Every exact file has a real symbol or meaningful reason.
+- Every acceptance criterion has a disposition.
+- API consumers were checked before declaring an API change safe.
+- Event consumers were checked before declaring an event change safe.
+- EF mapping/query usage was checked before declaring a DB migration.
+- Saga compensation/retry/idempotency was checked when Saga exists.
+- Angular DTO/model alignment was checked for full-stack changes.
+- Test impact was traced to affected behavior, not keywords.
+- Direct changes and verification-only dependencies are separated.
+- Unknowns are explicitly marked.
+- No invented ADO details, files, symbols, services or dependencies.
+- No source/spec/config changes were made.
+
+If any check fails, downgrade the conclusion to **UNKNOWN / NEEDS VERIFICATION**.
+
+## O. Canonical User Experience
+
+Preferred command:
+
+`@AI Change Impact Analyzer analyze story #126433`
+
+Expected first line:
+
+**Story #126433 — Impact: HIGH | Projects affected: 3 | Direct change files: 7 | Verify-only dependencies: 4 | DB: Yes/No | API contract: Breaking/Non-breaking/None | Saga: Yes/No**
+
+Then produce the mandatory ordered report.
+
+
 # Final principle
 
 Think like a senior enterprise solution architect performing a **pre-implementation change-impact assessment**.
