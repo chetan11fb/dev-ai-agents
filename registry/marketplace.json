@@ -817,6 +817,14 @@
       "target": ".github/agents/ai-change-impact-analyzer.agent.md",
       "version": "1.0.0",
       "description": "Evidence-first enterprise change-impact analyzer for user stories across projects, APIs, databases, microservices, events, Saga, Angular, tests, configuration and deployment."
+    },
+    {
+      "id": "dev-ai-dotnet-microservices",
+      "type": "agent",
+      "path": "agents/dev-ai-dotnet-microservices.agent.md",
+      "target": ".github/agents/dev-ai-dotnet-microservices.agent.md",
+      "version": "1.0.0",
+      "description": "Production-grade .NET microservices agent for APIs, Azure Service Bus, events, consumers, retries, idempotency, outbox, Saga orchestration/compensation, external services, contracts, observability and failure handling."
     }
   ],
   "sources": [
