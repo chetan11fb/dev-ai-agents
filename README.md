@@ -96,7 +96,38 @@ Default target examples:
 .github/agents/dev-ai-qa.agent.md
 ```
 
-#### Skill
+#### ⭐ Global Dev-AI SDD — one-command install
+
+Install the complete global Spec-Driven Development kit into any VS Code/Copilot repository:
+
+```bash
+npx dev-ai-agents sdd
+```
+
+This installs:
+- `.github/agents/dev-ai-sdd.agent.md`
+- `.specify/memory/constitution.md`
+- `specs/_template/spec.md`
+- `specs/_template/plan.md`
+- `specs/_template/tasks.md`
+- `specs/_template/sdd-state.md`
+- `specs/_template/decisions.md`
+
+Then open VS Code Chat → **Agents** → **Dev-AI SDD** and run:
+
+```text
+@Dev-AI SDD initialize
+@Dev-AI SDD run story #126433
+```
+
+The workflow pauses for human review at Specification, Plan and Tasks, then continues through Analyze → Implement → Validate → Converge → Final Review.
+
+**Important:** SDD does **not** require a new ADO MCP. If the consuming VS Code workspace already has Azure DevOps MCP configured in `.vscode/mcp.json`, Dev-AI SDD uses that existing MCP connection to read and analyze the story. The installer does not overwrite or duplicate MCP configuration.
+
+For a repository with no ADO MCP, SDD can still work from local requirement text or another available integration; it never invents missing story data.
+
+
+### Skill
 
 ```bash
 npx dev-ai-agents --skill dotnet-development
