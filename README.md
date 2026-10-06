@@ -61,11 +61,25 @@ The repository is designed around **specialized agents working as a coordinated 
 
 DEV-AI Agents is designed as a zero-setup CLI, following the installation model of Claude Code Templates: users can install a selected component without cloning this repository.
 
-### Interactive help
+### Recommended one-command install
+
+For a developer who wants the primary engineering agent, there is no separate SDD subcommand:
 
 ```bash
 npx dev-ai-agents
 ```
+
+This installs the single primary **Dev-AI SDD** agent plus the project-local SDD templates needed to run it.
+
+After installation:
+
+```text
+VS Code Chat → Agents → Dev-AI SDD
+@Dev-AI SDD initialize
+@Dev-AI SDD run story #126433
+```
+
+The CLI also supports the full component catalog for developers who want additional specialized agents, skills, prompts, MCP templates or settings.
 
 ### Individual installation
 
@@ -96,12 +110,12 @@ Default target examples:
 .github/agents/dev-ai-qa.agent.md
 ```
 
-#### ⭐ Global Dev-AI SDD — one-command install
+#### ⭐ Primary Dev-AI SDD agent
 
-Install the complete global Spec-Driven Development kit into any VS Code/Copilot repository:
+The SDD capability is **not a separate CLI/package**. It is the primary global engineering agent installed by the normal Dev-AI command:
 
 ```bash
-npx dev-ai-agents sdd
+npx dev-ai-agents
 ```
 
 This installs:
@@ -208,6 +222,20 @@ npx dev-ai-agents --list
 
 The list shows each component's **ID and installation target**, so you can choose only what your project needs.
 
+### Backward compatibility
+
+Older scripts using:
+
+```bash
+npx dev-ai-agents sdd
+```
+
+continue to work, but the recommended command is simply:
+
+```bash
+npx dev-ai-agents
+```
+
 ### Browse the catalog
 
 ```bash
@@ -230,7 +258,7 @@ The CLI reads `registry/marketplace.json`, downloads the selected component from
 
 Supported individual component types are **agent, skill, prompt, MCP, plugin and setting**. This means a developer can install only the capability they need—for example, just the .NET agent, just the ADO MCP, or just the ADO-to-full-stack prompt—without pulling the rest of the ecosystem.
 
-> **Publishing note:** the repository now contains the npm package/CLI implementation. After publishing `dev-ai-agents` to npm, the commands above work directly through `npx`.
+> **Publishing note:** the public package is **dev-ai-agents**. After the first npm publication, developers can install the primary agent with `npx dev-ai-agents` or add it to a project with `npm install --save-dev dev-ai-agents`.
 
 
 ## ⚡ ECC-Inspired Enterprise Engineering Layer
