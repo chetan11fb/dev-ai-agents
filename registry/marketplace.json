@@ -809,6 +809,14 @@
       "target": ".",
       "version": "1.1.0",
       "description": "Project-local SDD templates for constitution, feature spec, plan, tasks, state and decisions."
+    },
+    {
+      "id": "ai-change-impact-analyzer",
+      "type": "agent",
+      "path": "agents/ai-change-impact-analyzer.agent.md",
+      "target": ".github/agents/ai-change-impact-analyzer.agent.md",
+      "version": "1.0.0",
+      "description": "Evidence-first enterprise change-impact analyzer for user stories across projects, APIs, databases, microservices, events, Saga, Angular, tests, configuration and deployment."
     }
   ],
   "sources": [
