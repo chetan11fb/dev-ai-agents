@@ -23,7 +23,7 @@ function usage() {
 DEV-AI Agents CLI
 
 Individual installation:
-  npx dev-ai-agents --agent dev-ai-fullstack-engineer
+  npx dev-ai-agents sdd
   npx dev-ai-agents --skill dotnet-development
   npx dev-ai-agents --prompt ado-story-to-fullstack
   npx dev-ai-agents --mcp azure-devops
@@ -35,7 +35,7 @@ Other:
   npx dev-ai-agents --all
 
 Options:
-  --agent <id>       Install an agent
+  sdd                Install the complete Dev-AI SDD kit
   --skill <id>       Install a skill
   --prompt <id>      Install a reusable prompt
   --plugin <id>      Install a plugin
@@ -46,6 +46,8 @@ Options:
   --target <path>    Override the installation root
   --force            Overwrite existing files
   --help             Show help
+
+SDD kit installs:\n  .github/agents/dev-ai-sdd.agent.md\n  .specify/memory/constitution.md\n  specs/_template/*\n\nThe SDD kit does NOT install or modify any MCP configuration. It reuses MCP servers already configured in the consuming VS Code workspace.
 
 Examples:
   npx dev-ai-agents --agent dev-ai-dotnet
@@ -70,6 +72,7 @@ async function fetchText(url) {
 }
 
 function parseArgs(argv) {
+  if (argv[0] === "sdd") return { sdd: true, components: [], target: ".", force: false, list: false, all: false };
   const o = { components: [], target: ".", force: false, list: false, all: false };
 
   for (let i = 0; i < argv.length; i++) {
@@ -115,7 +118,7 @@ async function writeRemoteFile(destination, url, force) {
 }
 
 async function install(component, root, force) {
-  if (component.type === "plugin") {
+  if (component.type === "sdd-kit") {
     const tree = await fetchJson(
       `https://api.github.com/repos/${REPO}/git/trees/${BRANCH}?recursive=1`
     );
@@ -149,7 +152,7 @@ async function install(component, root, force) {
 }
 
 function list(registry) {
-  const types = ["agent", "skill", "prompt", "plugin", "mcp", "setting"];
+  const types = ["agent", "skill", "prompt", "plugin", "mcp", "setting", "sdd-kit"];
 
   for (const type of types) {
     const items = registry.components.filter(x => x.type === type);
@@ -166,13 +169,25 @@ async function main() {
 
   if (o.help) return usage();
 
+  if (o.sdd) {
+    const sddItems = [
+      { id: "dev-ai-sdd", type: "agent" },
+      { id: "dev-ai-sdd-templates", type: "sdd-kit" }
+    ];
+    for (const item of sddItems) {
+      const found = find(registry, item.type, item.id);
+      if (!found) throw new Error(`SDD kit component not found: ${item.type}/${item.id}`);
+      selected = selected.concat(found);
+    }
+  }
+
   log("\\n◆ DEV-AI Agents", c.cyan);
 
   const registry = await fetchJson(REGISTRY_URL);
 
   if (o.list) return list(registry);
 
-  const selected = o.all
+  let selected = o.all
     ? registry.components
     : o.components.map(x => {
         const item = find(registry, x.type, x.id);
