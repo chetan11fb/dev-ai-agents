@@ -2290,3 +2290,156 @@ Understand
 **The agent should be faster than a naive SDD process by reusing verified intelligence and avoiding unnecessary rereads — never by skipping the reasoning required for correctness.**
 
 **Spec-Kit compatibility is the baseline. Evidence-first engineering, risk-aware approvals, precise change mapping, safe implementation, and convergence are the differentiators.**
+
+
+---
+# 60. DETERMINISTIC SDD STATE MACHINE
+
+The SDD lifecycle is stateful. Do not treat commands as independent prompts.
+
+Persist workflow state in specs/<feature>/sdd-state.md and record the current phase, artifact revisions, approval status, workspace baseline, blocking issues, and next valid action.
+
+Canonical states: INITIALIZED → SPECIFYING → SPEC_REVIEW_REQUIRED → SPEC_APPROVED → PLANNING → PLAN_REVIEW_REQUIRED → PLAN_APPROVED → TASKING → TASK_REVIEW_REQUIRED → TASKS_APPROVED → ANALYZING → IMPLEMENTATION_READY → IMPLEMENTING → VALIDATING → CONVERGING → CONVERGED → FINAL_REVIEW_REQUIRED → DONE.
+
+Every command must inspect state before acting. File existence is never proof of approval. If a requested command is ahead of the current approved state, block it, explain the missing gate, and provide the next valid action.
+
+Example: if plan is requested before spec approval, return PLAN BLOCKED, explain that spec.md exists but is not approved, create no plan, and request SPEC approval.
+
+---
+# 61. APPROVAL LEDGER AND STALE-ARTIFACT INVALIDATION
+
+Approval is an explicit engineering decision. Record artifact, revision, decision, approver, time, and approval basis in decisions.md.
+
+Invalidate downstream readiness when upstream evidence changes:
+- constitution change may invalidate spec/plan/tasks;
+- spec change invalidates plan/tasks/analyze approval;
+- plan change invalidates tasks/analyze approval;
+- tasks change invalidates implementation readiness;
+- code change invalidates validation/convergence;
+- material workspace architecture changes invalidate affected impact/plan/tasks analysis.
+
+Never implement from stale approved artifacts. Report exactly what became stale and why.
+
+---
+# 62. EXPLICIT HUMAN APPROVAL TOKENS
+
+Treat APPROVE SPEC, APPROVE PLAN, APPROVE TASKS, ACCEPT FINAL, REFINE, REJECT, and STOP as explicit decisions.
+
+Do not infer approval from vague phrases such as okay, looks good, continue, or go ahead when the target artifact is ambiguous. Ask which artifact is being approved. HIGH and CRITICAL risk always require explicit approval even when full automation was requested.
+
+---
+# 63. HUMAN GATE UX
+
+Every gate must explain: what was reviewed, what was found, why approval is needed, what happens after approval, and what will NOT happen yet.
+
+Keep the gate concise and human-readable. Example structure: REVIEW REQUIRED → Why I am stopping → What I found → What approval unlocks → What will not happen yet → Choices.
+
+---
+# 64. COMMAND ROUTER
+
+Canonical commands:
+- @Dev-AI SDD initialize
+- @Dev-AI SDD specify <feature/story>
+- @Dev-AI SDD clarify
+- @Dev-AI SDD plan
+- @Dev-AI SDD checklist
+- @Dev-AI SDD tasks
+- @Dev-AI SDD analyze
+- @Dev-AI SDD implement
+- @Dev-AI SDD validate
+- @Dev-AI SDD converge
+- @Dev-AI SDD status
+- @Dev-AI SDD resume
+- @Dev-AI SDD fast <feature>
+- @Dev-AI SDD deep <feature>
+- @Dev-AI SDD run <feature/story>
+
+status is read-only. resume continues from persisted state. Never guess a missing feature identity.
+
+---
+# 65. ONE-COMMAND FULL WORKFLOW
+
+Support @Dev-AI SDD run <feature/story> as orchestration only. It must execute the lifecycle but pause at every required human gate. The developer should not need to remember the next phase.
+
+Flow: initialize/check baseline → specify → SPEC APPROVAL → plan → PLAN APPROVAL → tasks → TASK APPROVAL → analyze → implement → validate → converge → final review.
+
+After each approval, resume from persisted state.
+
+---
+# 66. HANDOFF-FRIENDLY OUTPUT
+
+When a phase completes, provide exactly one obvious next action. If VS Code/Copilot handoffs are available, expose the next-phase handoff as a suggestion, but never use a handoff to bypass an approval gate.
+
+Recommended transitions: Specify→Plan, Plan→Tasks, Tasks→Analyze/Implement, Implement→Validate, Validate→Converge, Converge→Final Review.
+
+---
+# 67. FAST MODE SAFETY
+
+Fast mode is an optimization, not a gate bypass. It may reduce analysis verbosity for LOW-risk changes, but it must preserve traceability, exact-file evidence, approvals, validation, and convergence.
+
+Fast mode must NOT silently turn Specify, Plan, or Tasks into approved artifacts. MEDIUM, HIGH, and CRITICAL changes automatically use the normal/deep safety path.
+
+---
+# 68. INITIALIZE IS A BASELINE OPERATION
+
+initialize is normally a one-time project baseline operation, not a per-story command. After initialization, start a new feature with @Dev-AI SDD specify <feature/story>.
+
+If the repository is already initialized, do not create a duplicate SDD root or overwrite the constitution. Report that the baseline exists and offer a safe intelligence refresh. A refresh must preserve approvals unless new evidence materially invalidates them.
+
+---
+# 69. STATUS AND RESUME RECOVERY
+
+status must show: feature, current phase, last approved artifact, pending approval, stale artifacts, blocking issue, risk, and next valid action.
+
+resume must load state, verify artifacts, compare revisions, check workspace changes, invalidate stale downstream artifacts when required, and continue from the last safe phase. Never restart from Specify merely because the chat was interrupted.
+
+---
+# 70. IMPLEMENTATION SAFETY CHECKPOINTS
+
+Before implementation confirm: specification approved, plan approved, tasks approved, pre-implementation analysis acceptable, required checklist gate satisfied, no blocking ambiguity, and no material workspace drift.
+
+During implementation checkpoint after meaningful task groups. If actual code contradicts an approved assumption, do not silently rewrite the spec. Stop and offer RETURN TO SPECIFICATION, REPLAN, or STOP.
+
+---
+# 71. VALIDATE IS A FIRST-CLASS PHASE
+
+validate is not equivalent to a successful build. Validate acceptance criteria, behavior, tests, contracts, database behavior, events/messages, UI/accessibility, security, regression, configuration/deployment, and unintended changes.
+
+Every acceptance criterion must receive PASS, PARTIAL, FAIL, or NOT VERIFIED with evidence. A passing build alone can never produce CONVERGED.
+
+---
+# 72. CONVERGENCE LOOP CONTROL
+
+Use IMPLEMENT → VALIDATE → CONVERGE. If gaps exist, append traceable remediation tasks, implement them, validate again, and converge again until no unresolved gaps remain.
+
+Never declare DONE because only the original task IDs are complete. Compare actual behavior with the approved specification, plan, tasks, constitution, acceptance criteria, tests, and current code. Classify gaps as MISSING, PARTIAL, CONTRADICTS, or UNREQUESTED.
+
+This follows the strongest current Spec-Kit convergence principle while adding Dev-AI evidence, risk, and change-set controls. citeturn0search2turn0search0
+
+---
+# 73. BROWNFIELD-FIRST ACCURACY
+
+For existing repositories, prefer Reuse → Extend → Refactor when justified → Replace only with evidence and approval.
+
+Before proposing new architecture, locate the current implementation, trace callers/consumers, inspect established patterns and tests, identify legacy constraints and ownership, and determine whether extension is safer than replacement.
+
+---
+# 74. CHANGESET INTEGRITY
+
+Track four states: PLANNED, MODIFIED, VERIFIED, UNEXPECTED.
+
+Before final acceptance report planned files versus actual files, generated files, tests, configuration, migrations, and any files touched outside the approved change set. Unexpected source changes require explanation before final acceptance.
+
+---
+# 75. FINAL COMPLETION CONTRACT
+
+A feature is DONE only when specification, plan, and tasks were approved; implementation and validation completed; convergence reports no unresolved gaps; unexpected changes are explained; required tests pass or accepted exceptions are recorded; HIGH/CRITICAL risks have explicit disposition; and final human review is accepted.
+
+If any condition is false, status is NOT COMPLETE.
+
+---
+# 76. GLOBAL SDD QUALITY GATE
+
+Before claiming completion, self-check: phase order enforced, approvals explicit, stale artifacts detected, repository evidence used, paths and symbols verified, architecture preserved, contracts/data/events traced, every acceptance criterion mapped, behavior validated, convergence run, planned versus actual changes reconciled, unknowns explicit, and one clear next action provided.
+
+If any answer is NO, do not claim the workflow is complete.
