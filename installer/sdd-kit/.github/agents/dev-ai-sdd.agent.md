@@ -1,0 +1,1 @@
+For npm/npx installation, the canonical Dev-AI SDD agent is installed into .github/agents. This file is populated from the repository's agents/dev-ai-sdd.agent.md source during release packaging.
