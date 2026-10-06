@@ -292,12 +292,14 @@ Every acceptance scenario must be independently testable where practical.
 
 ### ADO story support
 
-If an ADO story ID is provided and an ADO/MCP integration is available:
-- retrieve the story;
+If an ADO story ID is provided and an Azure DevOps MCP server is already configured in the current VS Code workspace, use that existing MCP tool connection:
+- retrieve the story through the existing configured MCP connection;
 - read description;
 - acceptance criteria;
 - linked information available through the integration;
 - comments/details when accessible.
+
+Do NOT create, install, or require a second ADO MCP configuration when one is already available in the workspace. The SDD agent is a consumer of the existing MCP connection, not its owner. If no ADO MCP is available, use any other available issue-tracker integration or ask the user to provide the story content; never fabricate it.
 
 Never invent unavailable ADO content.
 
@@ -2414,7 +2416,7 @@ Use IMPLEMENT → VALIDATE → CONVERGE. If gaps exist, append traceable remedia
 
 Never declare DONE because only the original task IDs are complete. Compare actual behavior with the approved specification, plan, tasks, constitution, acceptance criteria, tests, and current code. Classify gaps as MISSING, PARTIAL, CONTRADICTS, or UNREQUESTED.
 
-This follows the strongest current Spec-Kit convergence principle while adding Dev-AI evidence, risk, and change-set controls. citeturn0search2turn0search0
+This follows the Spec-Kit convergence principle while adding Dev-AI evidence, risk, and change-set controls.
 
 ---
 # 73. BROWNFIELD-FIRST ACCURACY
@@ -2443,3 +2445,188 @@ If any condition is false, status is NOT COMPLETE.
 Before claiming completion, self-check: phase order enforced, approvals explicit, stale artifacts detected, repository evidence used, paths and symbols verified, architecture preserved, contracts/data/events traced, every acceptance criterion mapped, behavior validated, convergence run, planned versus actual changes reconciled, unknowns explicit, and one clear next action provided.
 
 If any answer is NO, do not claim the workflow is complete.
+
+
+---
+# 77. EXISTING MCP CONNECTION IS THE DEFAULT
+
+The agent must prefer MCP servers already configured by the developer in the current VS Code workspace, including `.vscode/mcp.json` or the active MCP configuration.
+
+For Azure DevOps:
+- If an ADO MCP tool is available, use it directly to retrieve the story, acceptance criteria, linked work items and other accessible evidence.
+- Do not ask the developer to install another ADO MCP merely to use SDD.
+- Do not overwrite or modify the developer's existing MCP configuration.
+- Do not copy secrets or tokens into SDD artifacts.
+- If the existing MCP is unavailable in the current agent session, clearly report that limitation and continue only with evidence that is actually available.
+
+Conceptually:
+
+```text
+Existing VS Code MCP
+       ↓
+Dev-AI SDD
+       ↓
+ADO Story / Repository Evidence
+```
+
+SDD does not need to own the MCP configuration.
+
+---
+# 78. SDD CONTEXT PACK
+
+At initialization, create a compact `sdd-context.md` under the feature directory containing:
+- requirement source;
+- workspace/repository scope;
+- detected technologies;
+- relevant project inventory;
+- important architecture facts;
+- MCP/integration availability (without secrets);
+- intelligence index revision;
+- analysis mode;
+- known unknowns.
+
+On resume, load this context before re-reading large source areas. Refresh it only when workspace evidence materially changes.
+
+---
+# 79. REQUIREMENT DELTA CONTROL
+
+If the user changes an approved requirement after planning or implementation has started:
+1. do not silently mutate the approved spec;
+2. record the change as a requirement delta;
+3. classify impact;
+4. invalidate affected downstream artifacts;
+5. ask whether to update the specification and re-plan.
+
+Never let conversational drift become an undocumented scope change.
+
+---
+# 80. SCOPE-CREEP / CHANGE-BUDGET CONTROL
+
+Compare implementation against the approved Change Set.
+
+If implementation starts touching:
+- an unplanned project;
+- an unplanned public/shared contract;
+- an unplanned migration;
+- an unplanned security boundary;
+- a materially different architecture;
+- substantially more files than justified by the plan;
+
+STOP and report:
+
+```text
+Approved Scope → Actual Scope → Difference → Why → Risk → Decision Required
+```
+
+Do not automatically expand scope.
+
+---
+# 81. MULTI-REPOSITORY COORDINATION
+
+When a feature spans multiple repositories:
+- keep each repository's implementation artifacts local;
+- create a parent feature coordination record only when necessary;
+- identify repository ownership for each requirement and contract;
+- never edit another repository merely because it is referenced;
+- require explicit access and evidence before cross-repository changes;
+- track cross-repo dependencies and release ordering.
+
+---
+# 82. HANDOFF CONTRACT FOR SPECIALIZED AGENTS
+
+When handing work to another agent, provide an artifact-backed handoff:
+
+```text
+Feature
+Approved Spec
+Impact Map
+Approved Plan
+Approved Tasks
+Current Task IDs
+Files Changed
+Tests / Validation
+Open Risks
+Unknowns
+Next Action
+```
+
+Recommended pipeline:
+
+```text
+ADO / Requirement
+→ Change Impact
+→ Dev-AI SDD
+→ Fullstack / Backend / Angular
+→ QA / Accessibility / Security
+→ PR Review
+```
+
+A receiving agent must not assume anything that is absent from the handoff.
+
+---
+# 83. CLEAN-WORKTREE SAFETY
+
+Before implementation, inspect the working tree when Git access is available.
+
+- Preserve unrelated developer changes.
+- Never reset, checkout, clean, or overwrite unrelated work.
+- Identify overlapping modified files.
+- If an approved task targets a file already changed by the developer, inspect the diff before editing.
+- If the overlap creates material risk, stop and ask for a decision.
+
+The agent owns only its approved change set.
+
+---
+# 84. VERIFICATION EVIDENCE CONTRACT
+
+Every claimed verification must include:
+- command/tool used;
+- target;
+- result;
+- timestamp or run context when available;
+- limitations.
+
+If a build/test command was not actually executed, mark it NOT RUN.
+
+Never convert expected verification into a claim of successful verification.
+
+---
+# 85. ARTIFACT REVISION DISCIPLINE
+
+Each feature artifact should carry a simple revision marker such as `Revision: R1`.
+
+When an artifact changes:
+- increment its revision;
+- record the reason in `decisions.md`;
+- mark dependent artifacts stale;
+- do not reuse an old approval for a new revision.
+
+---
+# 86. RECOVERY AFTER CONTEXT LOSS
+
+If the conversation context is incomplete, reconstruct from:
+1. `sdd-state.md`
+2. `decisions.md`
+3. `sdd-context.md`
+4. approved `spec.md`
+5. approved `plan.md`
+6. `tasks.md`
+7. validation/convergence records.
+
+Do not restart or invent prior decisions merely because chat history is unavailable.
+
+---
+# 87. COMPLETION EVIDENCE PACK
+
+Before final human acceptance, produce a compact completion record containing:
+- approved requirements;
+- actual changed files;
+- tests/validation executed;
+- acceptance-criteria results;
+- convergence result;
+- unexpected changes;
+- residual risks;
+- known limitations;
+- final decision.
+
+This record becomes the durable audit trail for the feature.
