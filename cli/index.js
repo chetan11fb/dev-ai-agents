@@ -73,12 +73,13 @@ async function fetchText(url) {
 
 function parseArgs(argv) {
   if (argv[0] === "sdd") return { sdd: true, components: [], target: ".", force: false, list: false, all: false };
-  const o = { components: [], target: ".", force: false, list: false, all: false };
+  const o = { components: [], target: ".", force: false, list: false, all: false, sdd: false };
 
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
 
-    if (a === "--help" || a === "-h") o.help = true;
+    if (a === "sdd" || a === "--sdd") o.sdd = true;
+    else if (a === "--help" || a === "-h") o.help = true;
     else if (a === "--list") o.list = true;
     else if (a === "--all") o.all = true;
     else if (a === "--force") o.force = true;
@@ -169,6 +170,20 @@ async function main() {
 
   if (o.help) return usage();
 
+  log("\n◆ DEV-AI Agents", c.cyan);
+
+  const registry = await fetchJson(REGISTRY_URL);
+
+  if (o.list) return list(registry);
+
+  let selected = o.all
+    ? registry.components
+    : o.components.map(x => {
+        const item = find(registry, x.type, x.id);
+        if (!item) throw new Error(`Component not found: ${x.type}/${x.id}`);
+        return item;
+      });
+
   if (o.sdd) {
     const sddItems = [
       { id: "dev-ai-sdd", type: "agent" },
@@ -177,7 +192,7 @@ async function main() {
     for (const item of sddItems) {
       const found = find(registry, item.type, item.id);
       if (!found) throw new Error(`SDD kit component not found: ${item.type}/${item.id}`);
-      selected = selected.concat(found);
+      selected.push(found);
     }
   }
 
