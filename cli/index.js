@@ -4,7 +4,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 
 const REPO = "chetan11fb/dev-ai-agents";
-const BRANCH = "main";
+const BRANCH = process.env.DEV_AI_SOURCE_REF || "main";
 const RAW_BASE = `https://raw.githubusercontent.com/${REPO}/${BRANCH}`;
 const REGISTRY_URL = `${RAW_BASE}/registry/marketplace.json`;
 
@@ -15,8 +15,14 @@ function usage() {
   console.log(`
 DEV-AI Agents CLI
 
-Quick install:
-  npx dev-ai-agents sdd
+Recommended one-command install:
+  npx dev-ai-agents
+
+This installs the single primary Dev-AI engineering agent:
+  Dev-AI SDD
+
+Optional catalog installation:
+  npx dev-ai-agents --agent <id>
 
 Individual installation:
   npx dev-ai-agents --agent dev-ai-fullstack-engineer
@@ -27,7 +33,7 @@ Individual installation:
   npx dev-ai-agents --setting vscode-fullstack
 
 Options:
-  sdd                Install the complete Dev-AI SDD kit
+  (no command)       Install the complete Dev-AI SDD kit
   --agent <id>       Install an agent
   --skill <id>       Install a skill
   --prompt <id>      Install a reusable prompt
@@ -117,7 +123,10 @@ async function main(){
     if(!item) throw new Error(`Component not found: ${x.type}/${x.id}`);
     return item;
   });
-  if(o.sdd){
+  // Default installation: one primary Dev-AI SDD agent + project-local SDD templates.
+  // "sdd" remains a backwards-compatible alias.
+  if(o.sdd || (!o.list && !o.all && !o.components.length)){
+    o.sdd=true;
     for(const key of [["agent","dev-ai-sdd"],["sdd-kit","dev-ai-sdd-templates"]]){
       const item=find(registry,key[0],key[1]);
       if(!item) throw new Error(`SDD kit component not found: ${key[0]}/${key[1]}`);
@@ -125,7 +134,7 @@ async function main(){
     }
   }
   if(!selected.length) return usage();
-  log(`\\n◆ DEV-AI Agents — installing ${selected.length} component(s)\\n`,c.cyan);
+  log(`\\n◆ DEV-AI — installing ${selected.length} component(s)\\n`,c.cyan);
   let count=0;
   for(const item of selected){ log(`→ ${item.type}: ${item.id}`,c.cyan); count+=await install(item,o.target,o.force); }
   log(`\\n✓ Installed ${count} file(s) successfully.`,c.green);
