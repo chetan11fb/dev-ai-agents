@@ -793,6 +793,22 @@
       "target": ".github/skills/wshobson-deployment-pipeline-design/SKILL.md",
       "version": "1.0.0",
       "source": "wshobson/agents"
+    },
+    {
+      "id": "dev-ai-sdd",
+      "type": "agent",
+      "path": "agents/dev-ai-sdd.agent.md",
+      "target": ".github/agents/dev-ai-sdd.agent.md",
+      "version": "1.1.0",
+      "description": "Global repository-agnostic Spec-Driven Development agent with evidence-first impact analysis, human approval gates, state/resume, validation and convergence."
+    },
+    {
+      "id": "dev-ai-sdd-templates",
+      "type": "sdd-kit",
+      "path": "installer/sdd-kit",
+      "target": ".",
+      "version": "1.0.0",
+      "description": "Project-local SDD templates for constitution, feature spec, plan, tasks, state and decisions."
     }
   ],
   "sources": [
