@@ -1,4 +1,4 @@
-name: Publish dev-ai-agents to npm
+name: Publish dev-ai-agents to npm (Trusted Publishing)
 
 on:
   release:
@@ -34,6 +34,5 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           package-manager-cache: false
       - run: npm install --ignore-scripts
-      - run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+      # npm Trusted Publishing uses GitHub OIDC; no long-lived npm token is required.
+      - run: npm publish --access public
