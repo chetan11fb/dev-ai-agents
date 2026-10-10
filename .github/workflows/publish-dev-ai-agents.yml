@@ -1,0 +1,42 @@
+name: Publish DEV-AI Agents CLI to npm
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  validate-and-publish:
+    if: startsWith(github.event.release.tag_name, 'dev-ai-agents-v')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+
+      - name: Verify release tag matches package version
+        shell: bash
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          TAG="${GITHUB_REF_NAME}"
+          if [ "$TAG" != "dev-ai-agents-v$VERSION" ]; then
+            echo "Release tag $TAG does not match package version $VERSION"
+            exit 1
+          fi
+
+      - name: Validate registry and agent install commands
+        run: npm run validate:registry
+
+      - name: Verify package contents
+        run: npm pack --dry-run
+
+      - name: Publish public npm package with provenance
+        run: npm publish --provenance --access public
