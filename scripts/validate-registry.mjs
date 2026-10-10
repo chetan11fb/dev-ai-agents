@@ -15,6 +15,8 @@ for (const item of registry.components ?? []) {
   if (item.type === "agent") {
     const expected = `npx dev-ai-agents --agent ${item.id}`;
     if (item.installCommand !== expected) errors.push(`Incorrect installCommand for ${key}; expected: ${expected}`);
+    const expectedNpmExec = `npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent ${item.id}`;
+    if (item.npmExecCommand !== expectedNpmExec) errors.push(`Incorrect npmExecCommand for ${key}; expected: ${expectedNpmExec}`);
     if (item.target !== `.github/agents/${item.path.split("/").pop()}`) errors.push(`Unexpected agent install target for ${key}: ${item.target}`);
   }
 }
