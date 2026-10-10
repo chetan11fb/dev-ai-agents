@@ -1,6 +1,6 @@
 {
   "name": "dev-ai-agents",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "Production-oriented DEV-AI engineering agents, skills, workflows and MCP configurations for VS Code + GitHub Copilot.",
   "type": "module",
   "bin": {
@@ -43,5 +43,9 @@
   "license": "MIT",
   "publishConfig": {
     "access": "public"
+  },
+  "scripts": {
+    "validate:registry": "node scripts/validate-registry.mjs",
+    "prepack": "npm run validate:registry"
   }
 }
