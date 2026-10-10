@@ -291,6 +291,8 @@ Supported individual component types are **agent, skill, prompt, MCP, plugin and
 
 > **Publishing note:** the public package is **dev-ai-agents**. After the npm package release is published, developers can install the primary agent with `npx dev-ai-agents` or add it to a project with `npm install --save-dev dev-ai-agents`.
 
+For the full individual-agent command contract, registry validation, and npm publishing steps, see [`docs/npm-publishing-and-dev-ai-app.md`](docs/npm-publishing-and-dev-ai-app.md).
+
 
 ## ⚡ ECC-Inspired Enterprise Engineering Layer
 
