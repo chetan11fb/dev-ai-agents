@@ -6,172 +6,862 @@
   "defaultBranch": "main",
   "components": [
     {
-      "id": "dev-ai-fullstack-engineer",
+      "id": "accessibility-review-agent",
       "type": "agent",
-      "path": "agents/dev-ai-fullstack-engineer.agent.md",
-      "target": ".github/agents/dev-ai-fullstack-engineer.agent.md",
-      "version": "0.2.0"
+      "path": "agents/accessibility-review-agent.agent.md",
+      "target": ".github/agents/accessibility-review-agent.agent.md",
+      "version": "0.1.0",
+      "installCommand": "npx dev-ai-agents --agent accessibility-review-agent",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent accessibility-review-agent",
+      "installTarget": ".github/agents/accessibility-review-agent.agent.md"
     },
     {
-      "id": "dev-ai-dotnet",
+      "id": "agency-ai-engineer",
       "type": "agent",
-      "path": "agents/dev-ai-dotnet.agent.md",
-      "target": ".github/agents/dev-ai-dotnet.agent.md",
-      "version": "0.2.0"
+      "path": "agents/agency-ai-engineer.agent.md",
+      "target": ".github/agents/agency-ai-engineer.agent.md",
+      "version": "0.1.0",
+      "installCommand": "npx dev-ai-agents --agent agency-ai-engineer",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent agency-ai-engineer",
+      "installTarget": ".github/agents/agency-ai-engineer.agent.md"
     },
     {
-      "id": "dev-ai-angular",
+      "id": "agency-api-platform-engineer",
       "type": "agent",
-      "path": "agents/dev-ai-angular.agent.md",
-      "target": ".github/agents/dev-ai-angular.agent.md",
-      "version": "0.2.0"
+      "path": "agents/agency-api-platform-engineer.agent.md",
+      "target": ".github/agents/agency-api-platform-engineer.agent.md",
+      "version": "0.1.0",
+      "installCommand": "npx dev-ai-agents --agent agency-api-platform-engineer",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent agency-api-platform-engineer",
+      "installTarget": ".github/agents/agency-api-platform-engineer.agent.md"
     },
     {
-      "id": "dev-ai-code-review",
+      "id": "agency-backend-architect",
       "type": "agent",
-      "path": "agents/dev-ai-code-review.agent.md",
-      "target": ".github/agents/dev-ai-code-review.agent.md",
-      "version": "0.2.0"
+      "path": "agents/agency-backend-architect.agent.md",
+      "target": ".github/agents/agency-backend-architect.agent.md",
+      "version": "0.1.0",
+      "installCommand": "npx dev-ai-agents --agent agency-backend-architect",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent agency-backend-architect",
+      "installTarget": ".github/agents/agency-backend-architect.agent.md"
     },
     {
-      "id": "dev-ai-qa",
+      "id": "agency-code-reviewer",
       "type": "agent",
-      "path": "agents/dev-ai-qa.agent.md",
-      "target": ".github/agents/dev-ai-qa.agent.md",
-      "version": "0.2.0"
+      "path": "agents/agency-code-reviewer.agent.md",
+      "target": ".github/agents/agency-code-reviewer.agent.md",
+      "version": "0.1.0",
+      "installCommand": "npx dev-ai-agents --agent agency-code-reviewer",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent agency-code-reviewer",
+      "installTarget": ".github/agents/agency-code-reviewer.agent.md"
+    },
+    {
+      "id": "agency-codebase-onboarding",
+      "type": "agent",
+      "path": "agents/agency-codebase-onboarding.agent.md",
+      "target": ".github/agents/agency-codebase-onboarding.agent.md",
+      "version": "0.1.0",
+      "installCommand": "npx dev-ai-agents --agent agency-codebase-onboarding",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent agency-codebase-onboarding",
+      "installTarget": ".github/agents/agency-codebase-onboarding.agent.md"
+    },
+    {
+      "id": "agency-database-optimizer",
+      "type": "agent",
+      "path": "agents/agency-database-optimizer.agent.md",
+      "target": ".github/agents/agency-database-optimizer.agent.md",
+      "version": "0.1.0",
+      "installCommand": "npx dev-ai-agents --agent agency-database-optimizer",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent agency-database-optimizer",
+      "installTarget": ".github/agents/agency-database-optimizer.agent.md"
+    },
+    {
+      "id": "agency-frontend-developer",
+      "type": "agent",
+      "path": "agents/agency-frontend-developer.agent.md",
+      "target": ".github/agents/agency-frontend-developer.agent.md",
+      "version": "0.1.0",
+      "installCommand": "npx dev-ai-agents --agent agency-frontend-developer",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent agency-frontend-developer",
+      "installTarget": ".github/agents/agency-frontend-developer.agent.md"
+    },
+    {
+      "id": "agency-git-workflow-master",
+      "type": "agent",
+      "path": "agents/agency-git-workflow-master.agent.md",
+      "target": ".github/agents/agency-git-workflow-master.agent.md",
+      "version": "0.1.0",
+      "installCommand": "npx dev-ai-agents --agent agency-git-workflow-master",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent agency-git-workflow-master",
+      "installTarget": ".github/agents/agency-git-workflow-master.agent.md"
+    },
+    {
+      "id": "agency-minimal-change",
+      "type": "agent",
+      "path": "agents/agency-minimal-change.agent.md",
+      "target": ".github/agents/agency-minimal-change.agent.md",
+      "version": "0.1.0",
+      "installCommand": "npx dev-ai-agents --agent agency-minimal-change",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent agency-minimal-change",
+      "installTarget": ".github/agents/agency-minimal-change.agent.md"
+    },
+    {
+      "id": "agency-multi-agent-systems",
+      "type": "agent",
+      "path": "agents/agency-multi-agent-systems.agent.md",
+      "target": ".github/agents/agency-multi-agent-systems.agent.md",
+      "version": "0.1.0",
+      "installCommand": "npx dev-ai-agents --agent agency-multi-agent-systems",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent agency-multi-agent-systems",
+      "installTarget": ".github/agents/agency-multi-agent-systems.agent.md"
+    },
+    {
+      "id": "agency-software-architect",
+      "type": "agent",
+      "path": "agents/agency-software-architect.agent.md",
+      "target": ".github/agents/agency-software-architect.agent.md",
+      "version": "0.1.0",
+      "installCommand": "npx dev-ai-agents --agent agency-software-architect",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent agency-software-architect",
+      "installTarget": ".github/agents/agency-software-architect.agent.md"
+    },
+    {
+      "id": "ai-change-impact-analyzer",
+      "type": "agent",
+      "path": "agents/ai-change-impact-analyzer.agent.md",
+      "target": ".github/agents/ai-change-impact-analyzer.agent.md",
+      "version": "1.0.0",
+      "description": "Evidence-first enterprise change-impact analyzer for user stories across projects, APIs, databases, microservices, events, Saga, Angular, tests, configuration and deployment.",
+      "installCommand": "npx dev-ai-agents --agent ai-change-impact-analyzer",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent ai-change-impact-analyzer",
+      "installTarget": ".github/agents/ai-change-impact-analyzer.agent.md"
+    },
+    {
+      "id": "claude-accessibility-tester",
+      "type": "agent",
+      "path": "agents/claude-accessibility-tester.agent.md",
+      "target": ".github/agents/claude-accessibility-tester.agent.md",
+      "version": "0.1.0",
+      "installCommand": "npx dev-ai-agents --agent claude-accessibility-tester",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent claude-accessibility-tester",
+      "installTarget": ".github/agents/claude-accessibility-tester.agent.md"
+    },
+    {
+      "id": "claude-angular-architect",
+      "type": "agent",
+      "path": "agents/claude-angular-architect.agent.md",
+      "target": ".github/agents/claude-angular-architect.agent.md",
+      "version": "0.1.0",
+      "installCommand": "npx dev-ai-agents --agent claude-angular-architect",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent claude-angular-architect",
+      "installTarget": ".github/agents/claude-angular-architect.agent.md"
+    },
+    {
+      "id": "claude-backend-architect",
+      "type": "agent",
+      "path": "agents/claude-backend-architect.agent.md",
+      "target": ".github/agents/claude-backend-architect.agent.md",
+      "version": "0.1.0",
+      "installCommand": "npx dev-ai-agents --agent claude-backend-architect",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent claude-backend-architect",
+      "installTarget": ".github/agents/claude-backend-architect.agent.md"
+    },
+    {
+      "id": "claude-backend-developer",
+      "type": "agent",
+      "path": "agents/claude-backend-developer.agent.md",
+      "target": ".github/agents/claude-backend-developer.agent.md",
+      "version": "0.1.0",
+      "installCommand": "npx dev-ai-agents --agent claude-backend-developer",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent claude-backend-developer",
+      "installTarget": ".github/agents/claude-backend-developer.agent.md"
+    },
+    {
+      "id": "claude-code-architect",
+      "type": "agent",
+      "path": "agents/claude-code-architect.agent.md",
+      "target": ".github/agents/claude-code-architect.agent.md",
+      "version": "0.1.0",
+      "installCommand": "npx dev-ai-agents --agent claude-code-architect",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent claude-code-architect",
+      "installTarget": ".github/agents/claude-code-architect.agent.md"
+    },
+    {
+      "id": "claude-code-explorer",
+      "type": "agent",
+      "path": "agents/claude-code-explorer.agent.md",
+      "target": ".github/agents/claude-code-explorer.agent.md",
+      "version": "0.1.0",
+      "installCommand": "npx dev-ai-agents --agent claude-code-explorer",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent claude-code-explorer",
+      "installTarget": ".github/agents/claude-code-explorer.agent.md"
+    },
+    {
+      "id": "claude-code-reviewer",
+      "type": "agent",
+      "path": "agents/claude-code-reviewer.agent.md",
+      "target": ".github/agents/claude-code-reviewer.agent.md",
+      "version": "0.1.0",
+      "installCommand": "npx dev-ai-agents --agent claude-code-reviewer",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent claude-code-reviewer",
+      "installTarget": ".github/agents/claude-code-reviewer.agent.md"
+    },
+    {
+      "id": "claude-csharp-developer",
+      "type": "agent",
+      "path": "agents/claude-csharp-developer.agent.md",
+      "target": ".github/agents/claude-csharp-developer.agent.md",
+      "version": "0.1.0",
+      "installCommand": "npx dev-ai-agents --agent claude-csharp-developer",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent claude-csharp-developer",
+      "installTarget": ".github/agents/claude-csharp-developer.agent.md"
+    },
+    {
+      "id": "claude-csharp-expert",
+      "type": "agent",
+      "path": "agents/claude-csharp-expert.agent.md",
+      "target": ".github/agents/claude-csharp-expert.agent.md",
+      "version": "0.1.0",
+      "installCommand": "npx dev-ai-agents --agent claude-csharp-expert",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent claude-csharp-expert",
+      "installTarget": ".github/agents/claude-csharp-expert.agent.md"
+    },
+    {
+      "id": "claude-debugger",
+      "type": "agent",
+      "path": "agents/claude-debugger.agent.md",
+      "target": ".github/agents/claude-debugger.agent.md",
+      "version": "0.1.0",
+      "installCommand": "npx dev-ai-agents --agent claude-debugger",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent claude-debugger",
+      "installTarget": ".github/agents/claude-debugger.agent.md"
+    },
+    {
+      "id": "claude-dotnet-core-expert",
+      "type": "agent",
+      "path": "agents/claude-dotnet-core-expert.agent.md",
+      "target": ".github/agents/claude-dotnet-core-expert.agent.md",
+      "version": "0.1.0",
+      "installCommand": "npx dev-ai-agents --agent claude-dotnet-core-expert",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent claude-dotnet-core-expert",
+      "installTarget": ".github/agents/claude-dotnet-core-expert.agent.md"
+    },
+    {
+      "id": "claude-frontend-developer",
+      "type": "agent",
+      "path": "agents/claude-frontend-developer.agent.md",
+      "target": ".github/agents/claude-frontend-developer.agent.md",
+      "version": "0.1.0",
+      "installCommand": "npx dev-ai-agents --agent claude-frontend-developer",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent claude-frontend-developer",
+      "installTarget": ".github/agents/claude-frontend-developer.agent.md"
+    },
+    {
+      "id": "claude-fullstack-developer",
+      "type": "agent",
+      "path": "agents/claude-fullstack-developer.agent.md",
+      "target": ".github/agents/claude-fullstack-developer.agent.md",
+      "version": "0.1.0",
+      "installCommand": "npx dev-ai-agents --agent claude-fullstack-developer",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent claude-fullstack-developer",
+      "installTarget": ".github/agents/claude-fullstack-developer.agent.md"
+    },
+    {
+      "id": "claude-playwright-tester",
+      "type": "agent",
+      "path": "agents/claude-playwright-tester.agent.md",
+      "target": ".github/agents/claude-playwright-tester.agent.md",
+      "version": "0.1.0",
+      "installCommand": "npx dev-ai-agents --agent claude-playwright-tester",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent claude-playwright-tester",
+      "installTarget": ".github/agents/claude-playwright-tester.agent.md"
+    },
+    {
+      "id": "claude-refactoring-specialist",
+      "type": "agent",
+      "path": "agents/claude-refactoring-specialist.agent.md",
+      "target": ".github/agents/claude-refactoring-specialist.agent.md",
+      "version": "0.1.0",
+      "installCommand": "npx dev-ai-agents --agent claude-refactoring-specialist",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent claude-refactoring-specialist",
+      "installTarget": ".github/agents/claude-refactoring-specialist.agent.md"
     },
     {
       "id": "dev-ai-accessibility",
       "type": "agent",
       "path": "agents/dev-ai-accessibility.agent.md",
       "target": ".github/agents/dev-ai-accessibility.agent.md",
-      "version": "0.2.0"
+      "version": "0.2.0",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-accessibility",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-accessibility",
+      "installTarget": ".github/agents/dev-ai-accessibility.agent.md"
     },
     {
-      "id": "dev-ai-security",
+      "id": "dev-ai-angular",
       "type": "agent",
-      "path": "agents/dev-ai-security.agent.md",
-      "target": ".github/agents/dev-ai-security.agent.md",
-      "version": "0.2.0"
-    },
-    {
-      "id": "dev-ai-architecture",
-      "type": "agent",
-      "path": "agents/dev-ai-architecture.agent.md",
-      "target": ".github/agents/dev-ai-architecture.agent.md",
-      "version": "0.2.0"
-    },
-    {
-      "id": "dev-ai-refactoring",
-      "type": "agent",
-      "path": "agents/dev-ai-refactoring.agent.md",
-      "target": ".github/agents/dev-ai-refactoring.agent.md",
-      "version": "0.2.0"
-    },
-    {
-      "id": "dev-ai-bug-fix",
-      "type": "agent",
-      "path": "agents/dev-ai-bug-fix.agent.md",
-      "target": ".github/agents/dev-ai-bug-fix.agent.md",
-      "version": "0.2.0"
+      "path": "agents/dev-ai-angular.agent.md",
+      "target": ".github/agents/dev-ai-angular.agent.md",
+      "version": "0.2.0",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-angular",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-angular",
+      "installTarget": ".github/agents/dev-ai-angular.agent.md"
     },
     {
       "id": "dev-ai-api-review",
       "type": "agent",
       "path": "agents/dev-ai-api-review.agent.md",
       "target": ".github/agents/dev-ai-api-review.agent.md",
-      "version": "0.2.0"
+      "version": "0.2.0",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-api-review",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-api-review",
+      "installTarget": ".github/agents/dev-ai-api-review.agent.md"
     },
     {
-      "id": "dev-ai-performance",
+      "id": "dev-ai-architecture",
       "type": "agent",
-      "path": "agents/dev-ai-performance.agent.md",
-      "target": ".github/agents/dev-ai-performance.agent.md",
-      "version": "0.2.0"
+      "path": "agents/dev-ai-architecture.agent.md",
+      "target": ".github/agents/dev-ai-architecture.agent.md",
+      "version": "0.2.0",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-architecture",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-architecture",
+      "installTarget": ".github/agents/dev-ai-architecture.agent.md"
     },
     {
-      "id": "dev-ai-test-engineer",
+      "id": "dev-ai-bug-fix",
       "type": "agent",
-      "path": "agents/dev-ai-test-engineer.agent.md",
-      "target": ".github/agents/dev-ai-test-engineer.agent.md",
-      "version": "0.2.0"
+      "path": "agents/dev-ai-bug-fix.agent.md",
+      "target": ".github/agents/dev-ai-bug-fix.agent.md",
+      "version": "0.2.0",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-bug-fix",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-bug-fix",
+      "installTarget": ".github/agents/dev-ai-bug-fix.agent.md"
     },
     {
-      "id": "dev-ai-domain-knowledge",
+      "id": "dev-ai-code-review",
       "type": "agent",
-      "path": "agents/dev-ai-domain-knowledge.agent.md",
-      "target": ".github/agents/dev-ai-domain-knowledge.agent.md",
-      "version": "0.2.0"
+      "path": "agents/dev-ai-code-review.agent.md",
+      "target": ".github/agents/dev-ai-code-review.agent.md",
+      "version": "0.2.0",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-code-review",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-code-review",
+      "installTarget": ".github/agents/dev-ai-code-review.agent.md"
     },
     {
       "id": "dev-ai-database-review",
       "type": "agent",
       "path": "agents/dev-ai-database-review.agent.md",
       "target": ".github/agents/dev-ai-database-review.agent.md",
-      "version": "0.2.0"
+      "version": "0.2.0",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-database-review",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-database-review",
+      "installTarget": ".github/agents/dev-ai-database-review.agent.md"
+    },
+    {
+      "id": "dev-ai-domain-knowledge",
+      "type": "agent",
+      "path": "agents/dev-ai-domain-knowledge.agent.md",
+      "target": ".github/agents/dev-ai-domain-knowledge.agent.md",
+      "version": "0.2.0",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-domain-knowledge",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-domain-knowledge",
+      "installTarget": ".github/agents/dev-ai-domain-knowledge.agent.md"
+    },
+    {
+      "id": "dev-ai-dotnet",
+      "type": "agent",
+      "path": "agents/dev-ai-dotnet.agent.md",
+      "target": ".github/agents/dev-ai-dotnet.agent.md",
+      "version": "0.2.0",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-dotnet",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-dotnet",
+      "installTarget": ".github/agents/dev-ai-dotnet.agent.md"
+    },
+    {
+      "id": "dev-ai-dotnet-microservices",
+      "type": "agent",
+      "path": "agents/dev-ai-dotnet-microservices.agent.md",
+      "target": ".github/agents/dev-ai-dotnet-microservices.agent.md",
+      "version": "1.0.0",
+      "description": "Production-grade .NET microservices agent for APIs, Azure Service Bus, events, consumers, retries, idempotency, outbox, Saga orchestration/compensation, external services, contracts, observability and failure handling.",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-dotnet-microservices",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-dotnet-microservices",
+      "installTarget": ".github/agents/dev-ai-dotnet-microservices.agent.md"
+    },
+    {
+      "id": "dev-ai-ecc-architect",
+      "type": "agent",
+      "path": "agents/dev-ai-ecc-architect.agent.md",
+      "target": ".github/agents/dev-ai-ecc-architect.agent.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development.",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-ecc-architect",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-ecc-architect",
+      "installTarget": ".github/agents/dev-ai-ecc-architect.agent.md"
+    },
+    {
+      "id": "dev-ai-ecc-build-error-resolver",
+      "type": "agent",
+      "path": "agents/dev-ai-ecc-build-error-resolver.agent.md",
+      "target": ".github/agents/dev-ai-ecc-build-error-resolver.agent.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development.",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-ecc-build-error-resolver",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-ecc-build-error-resolver",
+      "installTarget": ".github/agents/dev-ai-ecc-build-error-resolver.agent.md"
+    },
+    {
+      "id": "dev-ai-ecc-code-reviewer",
+      "type": "agent",
+      "path": "agents/dev-ai-ecc-code-reviewer.agent.md",
+      "target": ".github/agents/dev-ai-ecc-code-reviewer.agent.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development.",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-ecc-code-reviewer",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-ecc-code-reviewer",
+      "installTarget": ".github/agents/dev-ai-ecc-code-reviewer.agent.md"
+    },
+    {
+      "id": "dev-ai-ecc-database-reviewer",
+      "type": "agent",
+      "path": "agents/dev-ai-ecc-database-reviewer.agent.md",
+      "target": ".github/agents/dev-ai-ecc-database-reviewer.agent.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development.",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-ecc-database-reviewer",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-ecc-database-reviewer",
+      "installTarget": ".github/agents/dev-ai-ecc-database-reviewer.agent.md"
+    },
+    {
+      "id": "dev-ai-ecc-doc-updater",
+      "type": "agent",
+      "path": "agents/dev-ai-ecc-doc-updater.agent.md",
+      "target": ".github/agents/dev-ai-ecc-doc-updater.agent.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development.",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-ecc-doc-updater",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-ecc-doc-updater",
+      "installTarget": ".github/agents/dev-ai-ecc-doc-updater.agent.md"
+    },
+    {
+      "id": "dev-ai-ecc-e2e-runner",
+      "type": "agent",
+      "path": "agents/dev-ai-ecc-e2e-runner.agent.md",
+      "target": ".github/agents/dev-ai-ecc-e2e-runner.agent.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development.",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-ecc-e2e-runner",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-ecc-e2e-runner",
+      "installTarget": ".github/agents/dev-ai-ecc-e2e-runner.agent.md"
+    },
+    {
+      "id": "dev-ai-ecc-performance-optimizer",
+      "type": "agent",
+      "path": "agents/dev-ai-ecc-performance-optimizer.agent.md",
+      "target": ".github/agents/dev-ai-ecc-performance-optimizer.agent.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development.",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-ecc-performance-optimizer",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-ecc-performance-optimizer",
+      "installTarget": ".github/agents/dev-ai-ecc-performance-optimizer.agent.md"
+    },
+    {
+      "id": "dev-ai-ecc-planner",
+      "type": "agent",
+      "path": "agents/dev-ai-ecc-planner.agent.md",
+      "target": ".github/agents/dev-ai-ecc-planner.agent.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development.",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-ecc-planner",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-ecc-planner",
+      "installTarget": ".github/agents/dev-ai-ecc-planner.agent.md"
+    },
+    {
+      "id": "dev-ai-ecc-pr-test-analyzer",
+      "type": "agent",
+      "path": "agents/dev-ai-ecc-pr-test-analyzer.agent.md",
+      "target": ".github/agents/dev-ai-ecc-pr-test-analyzer.agent.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development.",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-ecc-pr-test-analyzer",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-ecc-pr-test-analyzer",
+      "installTarget": ".github/agents/dev-ai-ecc-pr-test-analyzer.agent.md"
+    },
+    {
+      "id": "dev-ai-ecc-refactor-cleaner",
+      "type": "agent",
+      "path": "agents/dev-ai-ecc-refactor-cleaner.agent.md",
+      "target": ".github/agents/dev-ai-ecc-refactor-cleaner.agent.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development.",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-ecc-refactor-cleaner",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-ecc-refactor-cleaner",
+      "installTarget": ".github/agents/dev-ai-ecc-refactor-cleaner.agent.md"
+    },
+    {
+      "id": "dev-ai-ecc-security-reviewer",
+      "type": "agent",
+      "path": "agents/dev-ai-ecc-security-reviewer.agent.md",
+      "target": ".github/agents/dev-ai-ecc-security-reviewer.agent.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development.",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-ecc-security-reviewer",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-ecc-security-reviewer",
+      "installTarget": ".github/agents/dev-ai-ecc-security-reviewer.agent.md"
+    },
+    {
+      "id": "dev-ai-ecc-silent-failure-hunter",
+      "type": "agent",
+      "path": "agents/dev-ai-ecc-silent-failure-hunter.agent.md",
+      "target": ".github/agents/dev-ai-ecc-silent-failure-hunter.agent.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development.",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-ecc-silent-failure-hunter",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-ecc-silent-failure-hunter",
+      "installTarget": ".github/agents/dev-ai-ecc-silent-failure-hunter.agent.md"
+    },
+    {
+      "id": "dev-ai-ecc-spec-miner",
+      "type": "agent",
+      "path": "agents/dev-ai-ecc-spec-miner.agent.md",
+      "target": ".github/agents/dev-ai-ecc-spec-miner.agent.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development.",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-ecc-spec-miner",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-ecc-spec-miner",
+      "installTarget": ".github/agents/dev-ai-ecc-spec-miner.agent.md"
+    },
+    {
+      "id": "dev-ai-ecc-tdd-guide",
+      "type": "agent",
+      "path": "agents/dev-ai-ecc-tdd-guide.agent.md",
+      "target": ".github/agents/dev-ai-ecc-tdd-guide.agent.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development.",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-ecc-tdd-guide",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-ecc-tdd-guide",
+      "installTarget": ".github/agents/dev-ai-ecc-tdd-guide.agent.md"
+    },
+    {
+      "id": "dev-ai-ecc-typescript-reviewer",
+      "type": "agent",
+      "path": "agents/dev-ai-ecc-typescript-reviewer.agent.md",
+      "target": ".github/agents/dev-ai-ecc-typescript-reviewer.agent.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development.",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-ecc-typescript-reviewer",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-ecc-typescript-reviewer",
+      "installTarget": ".github/agents/dev-ai-ecc-typescript-reviewer.agent.md"
+    },
+    {
+      "id": "dev-ai-fullstack-engineer",
+      "type": "agent",
+      "path": "agents/dev-ai-fullstack-engineer.agent.md",
+      "target": ".github/agents/dev-ai-fullstack-engineer.agent.md",
+      "version": "0.2.0",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-fullstack-engineer",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-fullstack-engineer",
+      "installTarget": ".github/agents/dev-ai-fullstack-engineer.agent.md"
     },
     {
       "id": "dev-ai-legacy-dotnet",
       "type": "agent",
       "path": "agents/dev-ai-legacy-dotnet.agent.md",
       "target": ".github/agents/dev-ai-legacy-dotnet.agent.md",
-      "version": "0.2.0"
+      "version": "0.2.0",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-legacy-dotnet",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-legacy-dotnet",
+      "installTarget": ".github/agents/dev-ai-legacy-dotnet.agent.md"
     },
     {
-      "id": "frontend-design",
-      "type": "skill",
-      "path": "skills/frontend-design/SKILL.md",
-      "target": ".github/skills/frontend-design/SKILL.md",
-      "version": "0.2.0"
+      "id": "dev-ai-performance",
+      "type": "agent",
+      "path": "agents/dev-ai-performance.agent.md",
+      "target": ".github/agents/dev-ai-performance.agent.md",
+      "version": "0.2.0",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-performance",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-performance",
+      "installTarget": ".github/agents/dev-ai-performance.agent.md"
     },
     {
-      "id": "dotnet-development",
-      "type": "skill",
-      "path": "skills/dotnet-development/SKILL.md",
-      "target": ".github/skills/dotnet-development/SKILL.md",
-      "version": "0.2.0"
+      "id": "dev-ai-qa",
+      "type": "agent",
+      "path": "agents/dev-ai-qa.agent.md",
+      "target": ".github/agents/dev-ai-qa.agent.md",
+      "version": "0.2.0",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-qa",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-qa",
+      "installTarget": ".github/agents/dev-ai-qa.agent.md"
     },
     {
-      "id": "angular-development",
-      "type": "skill",
-      "path": "skills/angular-development/SKILL.md",
-      "target": ".github/skills/angular-development/SKILL.md",
-      "version": "0.2.0"
+      "id": "dev-ai-refactoring",
+      "type": "agent",
+      "path": "agents/dev-ai-refactoring.agent.md",
+      "target": ".github/agents/dev-ai-refactoring.agent.md",
+      "version": "0.2.0",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-refactoring",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-refactoring",
+      "installTarget": ".github/agents/dev-ai-refactoring.agent.md"
     },
     {
-      "id": "accessibility",
-      "type": "skill",
-      "path": "skills/accessibility/SKILL.md",
-      "target": ".github/skills/accessibility/SKILL.md",
-      "version": "0.2.0"
+      "id": "dev-ai-sdd",
+      "type": "agent",
+      "path": "agents/dev-ai-sdd.agent.md",
+      "target": ".github/agents/dev-ai-sdd.agent.md",
+      "version": "1.2.0",
+      "description": "Global repository-agnostic Spec-Driven Development agent with evidence-first impact analysis, human approval gates, state/resume, validation and convergence.",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-sdd",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-sdd",
+      "installTarget": ".github/agents/dev-ai-sdd.agent.md"
     },
     {
-      "id": "code-review",
-      "type": "skill",
-      "path": "skills/code-review/SKILL.md",
-      "target": ".github/skills/code-review/SKILL.md",
-      "version": "0.2.0"
+      "id": "dev-ai-security",
+      "type": "agent",
+      "path": "agents/dev-ai-security.agent.md",
+      "target": ".github/agents/dev-ai-security.agent.md",
+      "version": "0.2.0",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-security",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-security",
+      "installTarget": ".github/agents/dev-ai-security.agent.md"
     },
     {
-      "id": "testing",
-      "type": "skill",
-      "path": "skills/testing/SKILL.md",
-      "target": ".github/skills/testing/SKILL.md",
-      "version": "0.2.0"
+      "id": "dev-ai-swarm-orchestrator",
+      "type": "agent",
+      "path": "agents/dev-ai-swarm-orchestrator.agent.md",
+      "target": ".github/agents/dev-ai-swarm-orchestrator.agent.md",
+      "version": "1.0.0",
+      "description": "Ruflo-inspired but Dev-AI-native orchestrator for dependency-aware multi-agent routing, safe parallel execution, shared context, integration and convergence.",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-swarm-orchestrator",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-swarm-orchestrator",
+      "installTarget": ".github/agents/dev-ai-swarm-orchestrator.agent.md"
     },
     {
-      "id": "security-review",
-      "type": "skill",
-      "path": "skills/security-review/SKILL.md",
-      "target": ".github/skills/security-review/SKILL.md",
-      "version": "0.2.0"
+      "id": "dev-ai-test-engineer",
+      "type": "agent",
+      "path": "agents/dev-ai-test-engineer.agent.md",
+      "target": ".github/agents/dev-ai-test-engineer.agent.md",
+      "version": "0.2.0",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-test-engineer",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-test-engineer",
+      "installTarget": ".github/agents/dev-ai-test-engineer.agent.md"
     },
     {
-      "id": "domain-analysis",
-      "type": "skill",
-      "path": "skills/domain-analysis/SKILL.md",
-      "target": ".github/skills/domain-analysis/SKILL.md",
-      "version": "0.2.0"
+      "id": "documentation-agent",
+      "type": "agent",
+      "path": "agents/documentation-agent.agent.md",
+      "target": ".github/agents/documentation-agent.agent.md",
+      "version": "0.1.0",
+      "installCommand": "npx dev-ai-agents --agent documentation-agent",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent documentation-agent",
+      "installTarget": ".github/agents/documentation-agent.agent.md"
+    },
+    {
+      "id": "dynatrace-expert",
+      "type": "agent",
+      "path": "agents/dynatrace-expert.agent.md",
+      "target": ".github/agents/dynatrace-expert.agent.md",
+      "version": "0.1.0",
+      "source": "github/awesome-copilot",
+      "description": "Dynatrace observability and security expert for incidents, deployments, errors, performance, release validation, vulnerabilities and DQL.",
+      "installCommand": "npx dev-ai-agents --agent dynatrace-expert",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dynatrace-expert",
+      "installTarget": ".github/agents/dynatrace-expert.agent.md"
+    },
+    {
+      "id": "fullstack-imlement-code-agent",
+      "type": "agent",
+      "path": "agents/fullstack-Imlement-code-agent.agent.md",
+      "target": ".github/agents/fullstack-Imlement-code-agent.agent.md",
+      "version": "0.1.0",
+      "installCommand": "npx dev-ai-agents --agent fullstack-imlement-code-agent",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent fullstack-imlement-code-agent",
+      "installTarget": ".github/agents/fullstack-Imlement-code-agent.agent.md"
+    },
+    {
+      "id": "token-efficient-fullstack",
+      "type": "agent",
+      "path": "agents/token-efficient-fullstack.agent.md",
+      "target": ".github/agents/token-efficient-fullstack.agent.md",
+      "version": "0.1.0",
+      "installCommand": "npx dev-ai-agents --agent token-efficient-fullstack",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent token-efficient-fullstack",
+      "installTarget": ".github/agents/token-efficient-fullstack.agent.md"
+    },
+    {
+      "id": "wshobson-cloud-architect",
+      "type": "agent",
+      "path": "agents/wshobson-cloud-architect.agent.md",
+      "target": ".github/agents/wshobson-cloud-architect.agent.md",
+      "version": "1.0.0",
+      "source": "wshobson/agents",
+      "installCommand": "npx dev-ai-agents --agent wshobson-cloud-architect",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent wshobson-cloud-architect",
+      "installTarget": ".github/agents/wshobson-cloud-architect.agent.md"
+    },
+    {
+      "id": "wshobson-csharp-pro",
+      "type": "agent",
+      "path": "agents/wshobson-csharp-pro.agent.md",
+      "target": ".github/agents/wshobson-csharp-pro.agent.md",
+      "version": "1.0.0",
+      "source": "wshobson/agents",
+      "installCommand": "npx dev-ai-agents --agent wshobson-csharp-pro",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent wshobson-csharp-pro",
+      "installTarget": ".github/agents/wshobson-csharp-pro.agent.md"
+    },
+    {
+      "id": "wshobson-dotnet-architect",
+      "type": "agent",
+      "path": "agents/wshobson-dotnet-architect.agent.md",
+      "target": ".github/agents/wshobson-dotnet-architect.agent.md",
+      "version": "1.0.0",
+      "source": "wshobson/agents",
+      "installCommand": "npx dev-ai-agents --agent wshobson-dotnet-architect",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent wshobson-dotnet-architect",
+      "installTarget": ".github/agents/wshobson-dotnet-architect.agent.md"
+    },
+    {
+      "id": "wshobson-legacy-modernizer",
+      "type": "agent",
+      "path": "agents/wshobson-legacy-modernizer.agent.md",
+      "target": ".github/agents/wshobson-legacy-modernizer.agent.md",
+      "version": "1.0.0",
+      "source": "wshobson/agents",
+      "installCommand": "npx dev-ai-agents --agent wshobson-legacy-modernizer",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent wshobson-legacy-modernizer",
+      "installTarget": ".github/agents/wshobson-legacy-modernizer.agent.md"
+    },
+    {
+      "id": "azure-devops",
+      "type": "mcp",
+      "path": "mcp/azure-devops.json",
+      "target": ".vscode/mcp/azure-devops.json",
+      "version": "0.2.0",
+      "description": "Azure DevOps MCP; local setup requires Node.js 20+, remote setup can avoid local Node.js."
+    },
+    {
+      "id": "chrome-devtools",
+      "type": "mcp",
+      "path": "mcp/chrome-devtools.json",
+      "target": ".vscode/mcp/chrome-devtools.json",
+      "version": "0.1.0",
+      "source": "davila7/claude-code-templates"
+    },
+    {
+      "id": "context7",
+      "type": "mcp",
+      "path": "mcp/context7.json",
+      "target": ".vscode/mcp/context7.json",
+      "version": "0.1.0",
+      "source": "davila7/claude-code-templates"
+    },
+    {
+      "id": "dynatrace",
+      "type": "mcp",
+      "path": "mcp/dynatrace.json",
+      "target": ".vscode/mcp/dynatrace.json",
+      "version": "0.1.0",
+      "source": "davila7/claude-code-templates"
+    },
+    {
+      "id": "dynatrace-vscode",
+      "type": "mcp",
+      "path": "mcp/dynatrace-vscode.json",
+      "target": ".vscode/mcp.json",
+      "version": "0.1.0",
+      "source": "github/awesome-copilot",
+      "description": "VS Code remote Dynatrace MCP configuration template; replace the environment ID and provide COPILOT_MCP_DT_API_TOKEN securely."
+    },
+    {
+      "id": "figma",
+      "type": "mcp",
+      "path": "mcp/figma.json",
+      "target": ".vscode/mcp/figma.json",
+      "version": "0.1.0"
+    },
+    {
+      "id": "figma-dev-mode",
+      "type": "mcp",
+      "path": "mcp/figma-dev-mode.json",
+      "target": ".vscode/mcp/figma-dev-mode.json",
+      "version": "0.1.0",
+      "source": "davila7/claude-code-templates"
+    },
+    {
+      "id": "firecrawl",
+      "type": "mcp",
+      "path": "mcp/firecrawl.json",
+      "target": ".vscode/mcp/firecrawl.json",
+      "version": "0.1.0",
+      "source": "davila7/claude-code-templates"
+    },
+    {
+      "id": "github",
+      "type": "mcp",
+      "path": "mcp/github.json",
+      "target": ".vscode/mcp/github.json",
+      "version": "0.1.0"
+    },
+    {
+      "id": "github-official",
+      "type": "mcp",
+      "path": "mcp/github-official.json",
+      "target": ".vscode/mcp/github-official.json",
+      "version": "0.1.0",
+      "source": "davila7/claude-code-templates"
+    },
+    {
+      "id": "playwright",
+      "type": "mcp",
+      "path": "mcp/playwright.json",
+      "target": ".vscode/mcp/playwright.json",
+      "version": "0.1.0"
+    },
+    {
+      "id": "postman",
+      "type": "mcp",
+      "path": "mcp/postman.json",
+      "target": ".vscode/mcp/postman.json",
+      "version": "0.1.0",
+      "source": "davila7/claude-code-templates"
+    },
+    {
+      "id": "sentry",
+      "type": "mcp",
+      "path": "mcp/sentry.json",
+      "target": ".vscode/mcp/sentry.json",
+      "version": "0.1.0",
+      "source": "davila7/claude-code-templates"
+    },
+    {
+      "id": "ai-team-orchestration",
+      "type": "plugin",
+      "path": "plugins/ai-team-orchestration",
+      "target": ".github/plugins/ai-team-orchestration",
+      "version": "0.1.0",
+      "source": "github/awesome-copilot"
+    },
+    {
+      "id": "azure-cloud-development",
+      "type": "plugin",
+      "path": "plugins/azure-cloud-development",
+      "target": ".github/plugins/azure-cloud-development",
+      "version": "0.1.0",
+      "source": "github/awesome-copilot"
     },
     {
       "id": "csharp-dotnet-development",
@@ -206,195 +896,84 @@
       "source": "github/awesome-copilot"
     },
     {
-      "id": "ai-team-orchestration",
-      "type": "plugin",
-      "path": "plugins/ai-team-orchestration",
-      "target": ".github/plugins/ai-team-orchestration",
+      "id": "accessibility-nvda",
+      "type": "prompt",
+      "path": "prompts/accessibility-nvda.md",
+      "target": "docs/prompts/accessibility-nvda.md",
       "version": "0.1.0",
-      "source": "github/awesome-copilot"
+      "source": "dev-ai-native"
     },
     {
-      "id": "azure-cloud-development",
-      "type": "plugin",
-      "path": "plugins/azure-cloud-development",
-      "target": ".github/plugins/azure-cloud-development",
+      "id": "ado-ecc-fullstack-workflow",
+      "type": "prompt",
+      "path": "prompts/ado-ecc-fullstack-workflow.md",
+      "target": "docs/prompts/ado-ecc-fullstack-workflow.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
+    },
+    {
+      "id": "ado-story-to-fullstack",
+      "type": "prompt",
+      "path": "prompts/ado-story-to-fullstack.md",
+      "target": "docs/prompts/ado-story-to-fullstack.md",
       "version": "0.1.0",
-      "source": "github/awesome-copilot"
+      "source": "dev-ai-native"
     },
     {
-      "id": "github-official",
-      "type": "mcp",
-      "path": "mcp/github-official.json",
-      "target": ".vscode/mcp/github-official.json",
+      "id": "angular-ui-fullstack",
+      "type": "prompt",
+      "path": "prompts/angular-ui-fullstack.md",
+      "target": "docs/prompts/angular-ui-fullstack.md",
       "version": "0.1.0",
-      "source": "davila7/claude-code-templates"
+      "source": "dev-ai-native"
     },
     {
-      "id": "context7",
-      "type": "mcp",
-      "path": "mcp/context7.json",
-      "target": ".vscode/mcp/context7.json",
+      "id": "backend-dotnet-webapi",
+      "type": "prompt",
+      "path": "prompts/backend-dotnet-webapi.md",
+      "target": "docs/prompts/backend-dotnet-webapi.md",
       "version": "0.1.0",
-      "source": "davila7/claude-code-templates"
+      "source": "dev-ai-native"
     },
     {
-      "id": "chrome-devtools",
-      "type": "mcp",
-      "path": "mcp/chrome-devtools.json",
-      "target": ".vscode/mcp/chrome-devtools.json",
+      "id": "ecc-pr-review-gate",
+      "type": "prompt",
+      "path": "prompts/ecc-pr-review-gate.md",
+      "target": "docs/prompts/ecc-pr-review-gate.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
+    },
+    {
+      "id": "qa-review-gate",
+      "type": "prompt",
+      "path": "prompts/qa-review-gate.md",
+      "target": "docs/prompts/qa-review-gate.md",
       "version": "0.1.0",
-      "source": "davila7/claude-code-templates"
+      "source": "dev-ai-native"
     },
     {
-      "id": "postman",
-      "type": "mcp",
-      "path": "mcp/postman.json",
-      "target": ".vscode/mcp/postman.json",
+      "id": "runtime-bootstrap-windows",
+      "type": "prompt",
+      "path": "prompts/runtime-bootstrap-windows.md",
+      "target": "docs/prompts/runtime-bootstrap-windows.md",
       "version": "0.1.0",
-      "source": "davila7/claude-code-templates"
+      "source": "dev-ai-native"
     },
     {
-      "id": "dynatrace",
-      "type": "mcp",
-      "path": "mcp/dynatrace.json",
-      "target": ".vscode/mcp/dynatrace.json",
-      "version": "0.1.0",
-      "source": "davila7/claude-code-templates"
-    },
-    {
-      "id": "sentry",
-      "type": "mcp",
-      "path": "mcp/sentry.json",
-      "target": ".vscode/mcp/sentry.json",
-      "version": "0.1.0",
-      "source": "davila7/claude-code-templates"
-    },
-    {
-      "id": "figma-dev-mode",
-      "type": "mcp",
-      "path": "mcp/figma-dev-mode.json",
-      "target": ".vscode/mcp/figma-dev-mode.json",
-      "version": "0.1.0",
-      "source": "davila7/claude-code-templates"
-    },
-    {
-      "id": "firecrawl",
-      "type": "mcp",
-      "path": "mcp/firecrawl.json",
-      "target": ".vscode/mcp/firecrawl.json",
-      "version": "0.1.0",
-      "source": "davila7/claude-code-templates"
-    },
-    {
-      "id": "dev-ai-vscode",
-      "type": "agent",
-      "path": "agents/dev-ai-vscode.agent.md",
-      "target": ".github/agents/dev-ai-vscode.agent.md",
-      "version": "0.1.0"
-    },
-    {
-      "id": "dev-ai-github",
-      "type": "agent",
-      "path": "agents/dev-ai-github.agent.md",
-      "target": ".github/agents/dev-ai-github.agent.md",
-      "version": "0.1.0"
-    },
-    {
-      "id": "dev-ai-backend",
-      "type": "agent",
-      "path": "agents/dev-ai-backend.agent.md",
-      "target": ".github/agents/dev-ai-backend.agent.md",
-      "version": "0.1.0"
-    },
-    {
-      "id": "dev-ai-webapi",
-      "type": "agent",
-      "path": "agents/dev-ai-webapi.agent.md",
-      "target": ".github/agents/dev-ai-webapi.agent.md",
-      "version": "0.1.0"
-    },
-    {
-      "id": "dev-ai-csharp-dotnet",
-      "type": "agent",
-      "path": "agents/dev-ai-csharp-dotnet.agent.md",
-      "target": ".github/agents/dev-ai-csharp-dotnet.agent.md",
-      "version": "0.1.0"
-    },
-    {
-      "id": "dev-ai-fullstack",
-      "type": "agent",
-      "path": "agents/dev-ai-fullstack.agent.md",
-      "target": ".github/agents/dev-ai-fullstack.agent.md",
-      "version": "0.1.0"
-    },
-    {
-      "id": "dev-ai-angular-enterprise",
-      "type": "agent",
-      "path": "agents/dev-ai-angular-enterprise.agent.md",
-      "target": ".github/agents/dev-ai-angular-enterprise.agent.md",
-      "version": "0.1.0"
-    },
-    {
-      "id": "dev-ai-documentation",
-      "type": "agent",
-      "path": "agents/dev-ai-documentation.agent.md",
-      "target": ".github/agents/dev-ai-documentation.agent.md",
-      "version": "0.1.0"
-    },
-    {
-      "id": "dev-ai-ado",
-      "type": "agent",
-      "path": "agents/dev-ai-ado.agent.md",
-      "target": ".github/agents/dev-ai-ado.agent.md",
-      "version": "0.1.0"
-    },
-    {
-      "id": "dev-ai-mcp",
-      "type": "agent",
-      "path": "agents/dev-ai-mcp.agent.md",
-      "target": ".github/agents/dev-ai-mcp.agent.md",
-      "version": "0.1.0"
-    },
-    {
-      "id": "dev-ai-code-explorer",
-      "type": "agent",
-      "path": "agents/dev-ai-code-explorer.agent.md",
-      "target": ".github/agents/dev-ai-code-explorer.agent.md",
-      "version": "0.1.0"
-    },
-    {
-      "id": "dev-ai-e2e",
-      "type": "agent",
-      "path": "agents/dev-ai-e2e.agent.md",
-      "target": ".github/agents/dev-ai-e2e.agent.md",
-      "version": "0.1.0"
-    },
-    {
-      "id": "dev-ai-devops",
-      "type": "agent",
-      "path": "agents/dev-ai-devops.agent.md",
-      "target": ".github/agents/dev-ai-devops.agent.md",
-      "version": "0.1.0"
-    },
-    {
-      "id": "dev-ai-modernization",
-      "type": "agent",
-      "path": "agents/dev-ai-modernization.agent.md",
-      "target": ".github/agents/dev-ai-modernization.agent.md",
-      "version": "0.1.0"
+      "id": "dev-ai-sdd-templates",
+      "type": "sdd-kit",
+      "path": "installer/sdd-kit",
+      "target": ".",
+      "version": "1.1.0",
+      "description": "Project-local SDD templates for constitution, feature spec, plan, tasks, state and decisions."
     },
     {
       "id": "dev-ai-defaults",
       "type": "setting",
       "path": "settings/dev-ai-defaults.json",
       "target": "settings/dev-ai-defaults.json",
-      "version": "0.1.0"
-    },
-    {
-      "id": "vscode-fullstack",
-      "type": "setting",
-      "path": "settings/vscode-fullstack.json",
-      "target": "settings/vscode-fullstack.json",
       "version": "0.1.0"
     },
     {
@@ -405,33 +984,40 @@
       "version": "0.1.0"
     },
     {
-      "id": "github",
-      "type": "mcp",
-      "path": "mcp/github.json",
-      "target": ".vscode/mcp/github.json",
+      "id": "vscode-fullstack",
+      "type": "setting",
+      "path": "settings/vscode-fullstack.json",
+      "target": "settings/vscode-fullstack.json",
       "version": "0.1.0"
     },
     {
-      "id": "azure-devops",
-      "type": "mcp",
-      "path": "mcp/azure-devops.json",
-      "target": ".vscode/mcp/azure-devops.json",
-      "version": "0.2.0",
-      "description": "Azure DevOps MCP; local setup requires Node.js 20+, remote setup can avoid local Node.js."
+      "id": "accessibility",
+      "type": "skill",
+      "path": "skills/accessibility/SKILL.md",
+      "target": ".github/skills/accessibility/SKILL.md",
+      "version": "0.2.0"
     },
     {
-      "id": "playwright",
-      "type": "mcp",
-      "path": "mcp/playwright.json",
-      "target": ".vscode/mcp/playwright.json",
-      "version": "0.1.0"
+      "id": "advisor-orchestrator-worker",
+      "type": "skill",
+      "path": "skills/advisor-orchestrator-worker/SKILL.md",
+      "target": ".github/skills/advisor-orchestrator-worker/SKILL.md",
+      "version": "0.1.0",
+      "source": "Shubhamsaboo/awesome-llm-apps"
     },
     {
-      "id": "figma",
-      "type": "mcp",
-      "path": "mcp/figma.json",
-      "target": ".vscode/mcp/figma.json",
-      "version": "0.1.0"
+      "id": "angular-development",
+      "type": "skill",
+      "path": "skills/angular-development/SKILL.md",
+      "target": ".github/skills/angular-development/SKILL.md",
+      "version": "0.2.0"
+    },
+    {
+      "id": "code-review",
+      "type": "skill",
+      "path": "skills/code-review/SKILL.md",
+      "target": ".github/skills/code-review/SKILL.md",
+      "version": "0.2.0"
     },
     {
       "id": "commit-archaeologist",
@@ -450,146 +1036,24 @@
       "source": "Shubhamsaboo/awesome-llm-apps"
     },
     {
-      "id": "scope-creep-detector",
+      "id": "domain-analysis",
       "type": "skill",
-      "path": "skills/scope-creep-detector/SKILL.md",
-      "target": ".github/skills/scope-creep-detector/SKILL.md",
-      "version": "0.1.0",
-      "source": "Shubhamsaboo/awesome-llm-apps"
+      "path": "skills/domain-analysis/SKILL.md",
+      "target": ".github/skills/domain-analysis/SKILL.md",
+      "version": "0.2.0"
     },
     {
-      "id": "advisor-orchestrator-worker",
+      "id": "dotnet-development",
       "type": "skill",
-      "path": "skills/advisor-orchestrator-worker/SKILL.md",
-      "target": ".github/skills/advisor-orchestrator-worker/SKILL.md",
-      "version": "0.1.0",
-      "source": "Shubhamsaboo/awesome-llm-apps"
+      "path": "skills/dotnet-development/SKILL.md",
+      "target": ".github/skills/dotnet-development/SKILL.md",
+      "version": "0.2.0"
     },
     {
-      "id": "ado-story-to-fullstack",
-      "type": "prompt",
-      "path": "prompts/ado-story-to-fullstack.md",
-      "target": "docs/prompts/ado-story-to-fullstack.md",
-      "version": "0.1.0",
-      "source": "dev-ai-native"
-    },
-    {
-      "id": "backend-dotnet-webapi",
-      "type": "prompt",
-      "path": "prompts/backend-dotnet-webapi.md",
-      "target": "docs/prompts/backend-dotnet-webapi.md",
-      "version": "0.1.0",
-      "source": "dev-ai-native"
-    },
-    {
-      "id": "angular-ui-fullstack",
-      "type": "prompt",
-      "path": "prompts/angular-ui-fullstack.md",
-      "target": "docs/prompts/angular-ui-fullstack.md",
-      "version": "0.1.0",
-      "source": "dev-ai-native"
-    },
-    {
-      "id": "qa-review-gate",
-      "type": "prompt",
-      "path": "prompts/qa-review-gate.md",
-      "target": "docs/prompts/qa-review-gate.md",
-      "version": "0.1.0",
-      "source": "dev-ai-native"
-    },
-    {
-      "id": "accessibility-nvda",
-      "type": "prompt",
-      "path": "prompts/accessibility-nvda.md",
-      "target": "docs/prompts/accessibility-nvda.md",
-      "version": "0.1.0",
-      "source": "dev-ai-native"
-    },
-    {
-      "id": "runtime-bootstrap-windows",
-      "type": "prompt",
-      "path": "prompts/runtime-bootstrap-windows.md",
-      "target": "docs/prompts/runtime-bootstrap-windows.md",
-      "version": "0.1.0",
-      "source": "dev-ai-native"
-    },
-    {
-      "id": "dev-ai-ecc-planner",
-      "type": "agent",
-      "path": "agents/dev-ai-ecc-planner.agent.md",
-      "target": ".github/agents/dev-ai-ecc-planner.agent.md",
-      "version": "0.3.0",
-      "source": "affaan-m/ECC",
-      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
-    },
-    {
-      "id": "dev-ai-ecc-architect",
-      "type": "agent",
-      "path": "agents/dev-ai-ecc-architect.agent.md",
-      "target": ".github/agents/dev-ai-ecc-architect.agent.md",
-      "version": "0.3.0",
-      "source": "affaan-m/ECC",
-      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
-    },
-    {
-      "id": "dev-ai-ecc-code-reviewer",
-      "type": "agent",
-      "path": "agents/dev-ai-ecc-code-reviewer.agent.md",
-      "target": ".github/agents/dev-ai-ecc-code-reviewer.agent.md",
-      "version": "0.3.0",
-      "source": "affaan-m/ECC",
-      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
-    },
-    {
-      "id": "dev-ai-ecc-database-reviewer",
-      "type": "agent",
-      "path": "agents/dev-ai-ecc-database-reviewer.agent.md",
-      "target": ".github/agents/dev-ai-ecc-database-reviewer.agent.md",
-      "version": "0.3.0",
-      "source": "affaan-m/ECC",
-      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
-    },
-    {
-      "id": "dev-ai-ecc-tdd-guide",
-      "type": "agent",
-      "path": "agents/dev-ai-ecc-tdd-guide.agent.md",
-      "target": ".github/agents/dev-ai-ecc-tdd-guide.agent.md",
-      "version": "0.3.0",
-      "source": "affaan-m/ECC",
-      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
-    },
-    {
-      "id": "dev-ai-ecc-e2e-runner",
-      "type": "agent",
-      "path": "agents/dev-ai-ecc-e2e-runner.agent.md",
-      "target": ".github/agents/dev-ai-ecc-e2e-runner.agent.md",
-      "version": "0.3.0",
-      "source": "affaan-m/ECC",
-      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
-    },
-    {
-      "id": "dev-ai-ecc-security-reviewer",
-      "type": "agent",
-      "path": "agents/dev-ai-ecc-security-reviewer.agent.md",
-      "target": ".github/agents/dev-ai-ecc-security-reviewer.agent.md",
-      "version": "0.3.0",
-      "source": "affaan-m/ECC",
-      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
-    },
-    {
-      "id": "dev-ai-ecc-build-error-resolver",
-      "type": "agent",
-      "path": "agents/dev-ai-ecc-build-error-resolver.agent.md",
-      "target": ".github/agents/dev-ai-ecc-build-error-resolver.agent.md",
-      "version": "0.3.0",
-      "source": "affaan-m/ECC",
-      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
-    },
-    {
-      "id": "dev-ai-ecc-typescript-reviewer",
-      "type": "agent",
-      "path": "agents/dev-ai-ecc-typescript-reviewer.agent.md",
-      "target": ".github/agents/dev-ai-ecc-typescript-reviewer.agent.md",
+      "id": "ecc-database-review",
+      "type": "skill",
+      "path": "skills/ecc-database-review/SKILL.md",
+      "target": ".github/skills/ecc-database-review/SKILL.md",
       "version": "0.3.0",
       "source": "affaan-m/ECC",
       "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
@@ -604,24 +1068,6 @@
       "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
     },
     {
-      "id": "ecc-tdd-workflow",
-      "type": "skill",
-      "path": "skills/ecc-tdd-workflow/SKILL.md",
-      "target": ".github/skills/ecc-tdd-workflow/SKILL.md",
-      "version": "0.3.0",
-      "source": "affaan-m/ECC",
-      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
-    },
-    {
-      "id": "ecc-database-review",
-      "type": "skill",
-      "path": "skills/ecc-database-review/SKILL.md",
-      "target": ".github/skills/ecc-database-review/SKILL.md",
-      "version": "0.3.0",
-      "source": "affaan-m/ECC",
-      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
-    },
-    {
       "id": "ecc-security-review",
       "type": "skill",
       "path": "skills/ecc-security-review/SKILL.md",
@@ -631,158 +1077,48 @@
       "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
     },
     {
-      "id": "ado-ecc-fullstack-workflow",
-      "type": "prompt",
-      "path": "prompts/ado-ecc-fullstack-workflow.md",
-      "target": "docs/prompts/ado-ecc-fullstack-workflow.md",
-      "version": "0.3.0",
-      "source": "affaan-m/ECC",
-      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
-    },
-    {
-      "id": "ecc-pr-review-gate",
-      "type": "prompt",
-      "path": "prompts/ecc-pr-review-gate.md",
-      "target": "docs/prompts/ecc-pr-review-gate.md",
-      "version": "0.3.0",
-      "source": "affaan-m/ECC",
-      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
-    },
-    {
-      "id": "dev-ai-ecc-refactor-cleaner",
-      "type": "agent",
-      "path": "agents/dev-ai-ecc-refactor-cleaner.agent.md",
-      "target": ".github/agents/dev-ai-ecc-refactor-cleaner.agent.md",
-      "version": "0.3.0",
-      "source": "affaan-m/ECC",
-      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
-    },
-    {
-      "id": "dev-ai-ecc-performance-optimizer",
-      "type": "agent",
-      "path": "agents/dev-ai-ecc-performance-optimizer.agent.md",
-      "target": ".github/agents/dev-ai-ecc-performance-optimizer.agent.md",
-      "version": "0.3.0",
-      "source": "affaan-m/ECC",
-      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
-    },
-    {
-      "id": "dev-ai-ecc-silent-failure-hunter",
-      "type": "agent",
-      "path": "agents/dev-ai-ecc-silent-failure-hunter.agent.md",
-      "target": ".github/agents/dev-ai-ecc-silent-failure-hunter.agent.md",
-      "version": "0.3.0",
-      "source": "affaan-m/ECC",
-      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
-    },
-    {
-      "id": "dev-ai-ecc-pr-test-analyzer",
-      "type": "agent",
-      "path": "agents/dev-ai-ecc-pr-test-analyzer.agent.md",
-      "target": ".github/agents/dev-ai-ecc-pr-test-analyzer.agent.md",
-      "version": "0.3.0",
-      "source": "affaan-m/ECC",
-      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
-    },
-    {
-      "id": "dev-ai-ecc-spec-miner",
-      "type": "agent",
-      "path": "agents/dev-ai-ecc-spec-miner.agent.md",
-      "target": ".github/agents/dev-ai-ecc-spec-miner.agent.md",
-      "version": "0.3.0",
-      "source": "affaan-m/ECC",
-      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
-    },
-    {
-      "id": "dev-ai-ecc-doc-updater",
-      "type": "agent",
-      "path": "agents/dev-ai-ecc-doc-updater.agent.md",
-      "target": ".github/agents/dev-ai-ecc-doc-updater.agent.md",
-      "version": "0.3.0",
-      "source": "affaan-m/ECC",
-      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
-    },
-    {
-      "id": "dynatrace-expert",
-      "type": "agent",
-      "path": "agents/dynatrace-expert.agent.md",
-      "target": ".github/agents/dynatrace-expert.agent.md",
-      "version": "0.1.0",
-      "source": "github/awesome-copilot",
-      "description": "Dynatrace observability and security expert for incidents, deployments, errors, performance, release validation, vulnerabilities and DQL."
-    },
-    {
-      "id": "dynatrace-vscode",
-      "type": "mcp",
-      "path": "mcp/dynatrace-vscode.json",
-      "target": ".vscode/mcp.json",
-      "version": "0.1.0",
-      "source": "github/awesome-copilot",
-      "description": "VS Code remote Dynatrace MCP configuration template; replace the environment ID and provide COPILOT_MCP_DT_API_TOKEN securely."
-    },
-    {
-      "id": "super-fullstack-agent",
-      "type": "super-agent",
-      "path": "super-agents/super-fullstack-agent.agent.md",
-      "target": ".github/agents/super-fullstack-agent.agent.md",
-      "version": "1.0.0",
-      "package": "@chetan11fb/dev-ai-super-fullstack-agent",
-      "packageVersion": "1.0.0",
-      "description": "End-to-end .NET 9 + Angular 19 production orchestration Super Agent."
-    },
-    {
-      "id": "wshobson-dotnet-architect",
-      "type": "agent",
-      "path": "agents/wshobson-dotnet-architect.agent.md",
-      "target": ".github/agents/wshobson-dotnet-architect.agent.md",
-      "version": "1.0.0",
-      "source": "wshobson/agents"
-    },
-    {
-      "id": "wshobson-csharp-pro",
-      "type": "agent",
-      "path": "agents/wshobson-csharp-pro.agent.md",
-      "target": ".github/agents/wshobson-csharp-pro.agent.md",
-      "version": "1.0.0",
-      "source": "wshobson/agents"
-    },
-    {
-      "id": "wshobson-legacy-modernizer",
-      "type": "agent",
-      "path": "agents/wshobson-legacy-modernizer.agent.md",
-      "target": ".github/agents/wshobson-legacy-modernizer.agent.md",
-      "version": "1.0.0",
-      "source": "wshobson/agents"
-    },
-    {
-      "id": "wshobson-cloud-architect",
-      "type": "agent",
-      "path": "agents/wshobson-cloud-architect.agent.md",
-      "target": ".github/agents/wshobson-cloud-architect.agent.md",
-      "version": "1.0.0",
-      "source": "wshobson/agents"
-    },
-    {
-      "id": "wshobson-dotnet-backend-patterns",
+      "id": "ecc-tdd-workflow",
       "type": "skill",
-      "path": "skills/wshobson-dotnet-backend-patterns/SKILL.md",
-      "target": ".github/skills/wshobson-dotnet-backend-patterns/SKILL.md",
-      "version": "1.0.0",
-      "source": "wshobson/agents"
+      "path": "skills/ecc-tdd-workflow/SKILL.md",
+      "target": ".github/skills/ecc-tdd-workflow/SKILL.md",
+      "version": "0.3.0",
+      "source": "affaan-m/ECC",
+      "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
+    },
+    {
+      "id": "frontend-design",
+      "type": "skill",
+      "path": "skills/frontend-design/SKILL.md",
+      "target": ".github/skills/frontend-design/SKILL.md",
+      "version": "0.2.0"
+    },
+    {
+      "id": "scope-creep-detector",
+      "type": "skill",
+      "path": "skills/scope-creep-detector/SKILL.md",
+      "target": ".github/skills/scope-creep-detector/SKILL.md",
+      "version": "0.1.0",
+      "source": "Shubhamsaboo/awesome-llm-apps"
+    },
+    {
+      "id": "security-review",
+      "type": "skill",
+      "path": "skills/security-review/SKILL.md",
+      "target": ".github/skills/security-review/SKILL.md",
+      "version": "0.2.0"
+    },
+    {
+      "id": "testing",
+      "type": "skill",
+      "path": "skills/testing/SKILL.md",
+      "target": ".github/skills/testing/SKILL.md",
+      "version": "0.2.0"
     },
     {
       "id": "wshobson-cloud-cost-optimization",
       "type": "skill",
       "path": "skills/wshobson-cloud-cost-optimization/SKILL.md",
       "target": ".github/skills/wshobson-cloud-cost-optimization/SKILL.md",
-      "version": "1.0.0",
-      "source": "wshobson/agents"
-    },
-    {
-      "id": "wshobson-hybrid-cloud-networking",
-      "type": "skill",
-      "path": "skills/wshobson-hybrid-cloud-networking/SKILL.md",
-      "target": ".github/skills/wshobson-hybrid-cloud-networking/SKILL.md",
       "version": "1.0.0",
       "source": "wshobson/agents"
     },
@@ -795,44 +1131,30 @@
       "source": "wshobson/agents"
     },
     {
-      "id": "dev-ai-sdd",
-      "type": "agent",
-      "path": "agents/dev-ai-sdd.agent.md",
-      "target": ".github/agents/dev-ai-sdd.agent.md",
-      "version": "1.2.0",
-      "description": "Global repository-agnostic Spec-Driven Development agent with evidence-first impact analysis, human approval gates, state/resume, validation and convergence."
-    },
-    {
-      "id": "dev-ai-sdd-templates",
-      "type": "sdd-kit",
-      "path": "installer/sdd-kit",
-      "target": ".",
-      "version": "1.1.0",
-      "description": "Project-local SDD templates for constitution, feature spec, plan, tasks, state and decisions."
-    },
-    {
-      "id": "ai-change-impact-analyzer",
-      "type": "agent",
-      "path": "agents/ai-change-impact-analyzer.agent.md",
-      "target": ".github/agents/ai-change-impact-analyzer.agent.md",
+      "id": "wshobson-dotnet-backend-patterns",
+      "type": "skill",
+      "path": "skills/wshobson-dotnet-backend-patterns/SKILL.md",
+      "target": ".github/skills/wshobson-dotnet-backend-patterns/SKILL.md",
       "version": "1.0.0",
-      "description": "Evidence-first enterprise change-impact analyzer for user stories across projects, APIs, databases, microservices, events, Saga, Angular, tests, configuration and deployment."
+      "source": "wshobson/agents"
     },
     {
-      "id": "dev-ai-dotnet-microservices",
-      "type": "agent",
-      "path": "agents/dev-ai-dotnet-microservices.agent.md",
-      "target": ".github/agents/dev-ai-dotnet-microservices.agent.md",
+      "id": "wshobson-hybrid-cloud-networking",
+      "type": "skill",
+      "path": "skills/wshobson-hybrid-cloud-networking/SKILL.md",
+      "target": ".github/skills/wshobson-hybrid-cloud-networking/SKILL.md",
       "version": "1.0.0",
-      "description": "Production-grade .NET microservices agent for APIs, Azure Service Bus, events, consumers, retries, idempotency, outbox, Saga orchestration/compensation, external services, contracts, observability and failure handling."
+      "source": "wshobson/agents"
     },
     {
-      "id": "dev-ai-swarm-orchestrator",
-      "type": "agent",
-      "path": "agents/dev-ai-swarm-orchestrator.agent.md",
-      "target": ".github/agents/dev-ai-swarm-orchestrator.agent.md",
+      "id": "super-fullstack-agent",
+      "type": "super-agent",
+      "path": "super-agents/super-fullstack-agent.agent.md",
+      "target": ".github/agents/super-fullstack-agent.agent.md",
       "version": "1.0.0",
-      "description": "Ruflo-inspired but Dev-AI-native orchestrator for dependency-aware multi-agent routing, safe parallel execution, shared context, integration and convergence."
+      "package": "@chetan11fb/dev-ai-super-fullstack-agent",
+      "packageVersion": "1.0.0",
+      "description": "End-to-end .NET 9 + Angular 19 production orchestration Super Agent."
     }
   ],
   "sources": [
