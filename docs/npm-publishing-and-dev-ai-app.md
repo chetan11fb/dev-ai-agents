@@ -31,7 +31,6 @@ This model lets all current agents be installed individually without publishing 
 Node.js 18+ is required. Run from the repository root:
 
 ```bash
-npm ci
 npm run validate:registry
 npm pack --dry-run
 ```
