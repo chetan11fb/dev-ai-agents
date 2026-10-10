@@ -81,6 +81,37 @@ VS Code Chat → Agents → Dev-AI SDD
 
 The CLI also supports the full component catalog for developers who want additional specialized agents, skills, prompts, MCP templates or settings.
 
+### Install any agent (registry-backed commands)
+
+The registry now covers **all 70 VS Code agent files** under `agents/`. Every agent card can use the same verified command pattern; the ID must match the registry exactly.
+
+```bash
+# List every available component and target
+npx dev-ai-agents --list
+
+# Install one agent
+npx dev-ai-agents --agent ai-change-impact-analyzer
+npx dev-ai-agents --agent dev-ai-sdd
+npx dev-ai-agents --agent dev-ai-code-explorer
+
+# Install every VS Code agent (agents only; not MCPs, skills, plugins or settings)
+npx dev-ai-agents --all-agents
+
+# Install several agents together
+npx dev-ai-agents --agent dev-ai-sdd --agent dev-ai-fullstack-engineer --agent dev-ai-qa
+
+# Alternative npm exec form, without a global install
+npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-sdd
+
+# Optional project dependency, then run the CLI locally
+npm install --save-dev dev-ai-agents
+npx dev-ai-agents --agent dev-ai-sdd
+```
+
+Agents install into `.github/agents/<agent-file>.agent.md`. Existing files are protected by default; use `--force` only when you intentionally want to overwrite them. The DEV-AI app should read each agent's `installCommand` and `npmExecCommand` from `registry/marketplace.json` rather than constructing package names for agents that do not have separate npm packages.
+
+A separate package command such as `npx @chetan11fb/dev-ai-super-fullstack-agent` is available only for the Super Agent package that is actually published separately; it is not the default distribution model for every Markdown agent.
+
 ### Individual installation
 
 Every registry component can be installed **individually**. You do not need to install the complete DEV-AI stack.
@@ -258,7 +289,7 @@ The CLI reads `registry/marketplace.json`, downloads the selected component from
 
 Supported individual component types are **agent, skill, prompt, MCP, plugin and setting**. This means a developer can install only the capability they need—for example, just the .NET agent, just the ADO MCP, or just the ADO-to-full-stack prompt—without pulling the rest of the ecosystem.
 
-> **Publishing note:** the public package is **dev-ai-agents**. After the first npm publication, developers can install the primary agent with `npx dev-ai-agents` or add it to a project with `npm install --save-dev dev-ai-agents`.
+> **Publishing note:** the public package is **dev-ai-agents**. After the npm package release is published, developers can install the primary agent with `npx dev-ai-agents` or add it to a project with `npm install --save-dev dev-ai-agents`.
 
 
 ## ⚡ ECC-Inspired Enterprise Engineering Layer
