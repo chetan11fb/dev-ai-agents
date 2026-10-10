@@ -34,7 +34,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/chetan11fb/dev-ai-agents.git"
+    "url": "git+https://github.com/chetan11fb/dev-ai-agents.git"
   },
   "homepage": "https://github.com/chetan11fb/dev-ai-agents",
   "bugs": {
