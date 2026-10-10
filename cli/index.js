@@ -23,6 +23,7 @@ This installs the single primary Dev-AI engineering agent:
 
 Optional catalog installation:
   npx dev-ai-agents --agent <id>
+  npx dev-ai-agents --all-agents
 
 Individual installation:
   npx dev-ai-agents --agent dev-ai-fullstack-engineer
@@ -34,7 +35,9 @@ Individual installation:
 
 Options:
   (no command)       Install the complete Dev-AI SDD kit
-  --agent <id>       Install an agent
+  --agent <id>       Install an agent (repeatable)
+  --all-agents       Install every registered VS Code agent only
+  --super-agent <id> Install a separately packaged Super Agent
   --skill <id>       Install a skill
   --prompt <id>      Install a reusable prompt
   --plugin <id>      Install a plugin
@@ -65,17 +68,18 @@ async function fetchText(url) {
   return r.text();
 }
 function parseArgs(argv) {
-  const o={components:[],target:".",force:false,list:false,all:false,sdd:false};
+  const o={components:[],target:".",force:false,list:false,all:false,allAgents:false,sdd:false};
   for(let i=0;i<argv.length;i++){
     const a=argv[i];
     if(a==="sdd" || a==="--sdd") o.sdd=true;
     else if(a==="--help" || a==="-h") o.help=true;
     else if(a==="--list") o.list=true;
     else if(a==="--all") o.all=true;
+    else if(a==="--all-agents") o.allAgents=true;
     else if(a==="--force") o.force=true;
-    else if(["--agent","--skill","--prompt","--plugin","--mcp","--setting"].includes(a)){
+    else if(["--agent","--super-agent","--skill","--prompt","--plugin","--mcp","--setting"].includes(a)){
       const id=argv[++i]; if(!id) throw new Error(`Missing value for ${a}`);
-      o.components.push({type:a.slice(2),id});
+      o.components.push({type:a === "--super-agent" ? "super-agent" : a.slice(2),id});
     } else if(a==="--target") o.target=argv[++i] ?? ".";
     else throw new Error(`Unknown option: ${a}`);
   }
@@ -106,7 +110,7 @@ async function install(component,root,force){
   return 1;
 }
 function list(registry){
-  for(const type of ["agent","skill","prompt","plugin","mcp","setting","sdd-kit"]){
+  for(const type of ["agent","super-agent","skill","prompt","plugin","mcp","setting","sdd-kit"]){
     const items=registry.components.filter(x=>x.type===type);
     if(!items.length) continue;
     log(`\\n${type.toUpperCase()}S (${items.length})`,c.cyan);
@@ -118,7 +122,7 @@ async function main(){
   if(o.help) return usage();
   const registry=await fetchJson(REGISTRY_URL);
   if(o.list) return list(registry);
-  let selected=o.all ? registry.components : o.components.map(x=>{
+  let selected=o.all ? registry.components : o.allAgents ? registry.components.filter(x=>x.type==="agent") : o.components.map(x=>{
     const item=find(registry,x.type,x.id);
     if(!item) throw new Error(`Component not found: ${x.type}/${x.id}`);
     return item;
