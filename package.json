@@ -46,6 +46,8 @@
   },
   "scripts": {
     "validate:registry": "node scripts/validate-registry.mjs",
-    "prepack": "npm run validate:registry"
+    "prepack": "npm test",
+    "test:sdd": "node scripts/test-sdd-contract.mjs",
+    "test": "npm run validate:registry && npm run test:sdd"
   }
 }
