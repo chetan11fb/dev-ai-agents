@@ -1,0 +1,44 @@
+name: Validate Dev-AI SDD
+
+on:
+  pull_request:
+    paths:
+      - "agents/dev-ai-sdd.agent.md"
+      - "installer/sdd-kit/**"
+      - "scripts/**"
+      - "registry/marketplace.json"
+      - "package.json"
+      - "README.md"
+      - ".github/workflows/validate-sdd.yml"
+  push:
+    branches: [main]
+    paths:
+      - "agents/dev-ai-sdd.agent.md"
+      - "installer/sdd-kit/**"
+      - "scripts/**"
+      - "registry/marketplace.json"
+      - "package.json"
+      - "README.md"
+      - ".github/workflows/validate-sdd.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check JavaScript syntax
+        run: |
+          node --check scripts/validate-registry.mjs
+          node --check scripts/validate-sdd-kit.mjs
+          node --check scripts/test-sdd-state.mjs
+          node --check installer/sdd-kit/scripts/validate-sdd-state.mjs
+      - name: Validate registry, SDD contract and state integrity
+        run: npm test
+      - name: Verify package contents and prepack checks
+        run: npm pack --dry-run
