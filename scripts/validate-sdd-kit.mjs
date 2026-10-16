@@ -20,6 +20,7 @@ const spec = await read("installer/sdd-kit/specs/_template/spec.md");
 const plan = await read("installer/sdd-kit/specs/_template/plan.md");
 const tasks = await read("installer/sdd-kit/specs/_template/tasks.md");
 const schemaText = await read("installer/sdd-kit/.specify/schemas/sdd-state.schema.json");
+const stateValidator = await read("installer/sdd-kit/scripts/validate-sdd-state.mjs");
 const registryText = await read("registry/marketplace.json");
 const packageText = await read("package.json");
 
