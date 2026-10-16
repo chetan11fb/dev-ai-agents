@@ -17,7 +17,9 @@
     "stale",
     "blockingIssue",
     "nextAction",
-    "finalRevision"
+    "finalRevision",
+    "verification",
+    "convergence"
   ],
   "properties": {
     "schemaVersion": {
@@ -194,6 +196,57 @@
         "string",
         "null"
       ]
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "completedAt"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "NOT_RUN",
+            "RUNNING",
+            "PASS",
+            "PARTIAL",
+            "FAIL",
+            "STALE"
+          ]
+        },
+        "completedAt": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "convergence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "completedAt"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "NOT_RUN",
+            "RUNNING",
+            "PASS",
+            "FAIL",
+            "STALE"
+          ]
+        },
+        "completedAt": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
     }
   },
   "$defs": {
