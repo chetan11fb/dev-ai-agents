@@ -157,7 +157,7 @@ This installs:
 - `specs/_template/plan.md`
 - `specs/_template/tasks.md`
 
-The agent creates exactly one `sdd-state.json` inside each feature folder. It does not install a competing Markdown state file or a default decisions log. Template revision metadata uses `SDD Revision: R1` consistently. Run `npm test` in the source repository to validate the registry and SDD kit; validate a generated feature state with `npm run validate:sdd-state -- specs/001-feature-name`.
+The agent creates exactly one `sdd-state.json` inside each feature folder. It does not install a competing Markdown state file or a default decisions log. The constitution starts at revision `C1` in DRAFT status; ratification and review date must be recorded before feature work. Feature templates use `SDD Revision: R1` consistently. The installed kit includes `scripts/validate-sdd-state.mjs`, which checks state shape, artifact revisions, approval bindings, and feature-path boundaries. In this source repository, run `npm test` for registry/kit checks and `npm run validate:sdd-state -- specs/001-feature-name` to validate a feature state.
 
 Then open VS Code Chat → **Agents** → **Dev-AI SDD** and run:
 
