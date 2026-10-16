@@ -6,7 +6,7 @@ import { join, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 
 const temp = await mkdtemp(join(tmpdir(), "dev-ai-sdd-state-test-"));
-const validator = resolve("scripts/validate-sdd-state.mjs");
+const validator = resolve("installer/sdd-kit/scripts/validate-sdd-state.mjs");
 const run = (dir) => spawnSync(process.execPath, [validator, dir], { encoding: "utf8" });
 try {
   const featureDir = join(temp, "specs", "001-demo");
