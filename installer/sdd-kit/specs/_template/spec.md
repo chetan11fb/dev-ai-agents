@@ -1,6 +1,6 @@
 # Feature Specification
 
-Revision: R1
+SDD Revision: R1
 Status: DRAFT
 
 ## Source / Requirement

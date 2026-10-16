@@ -1,0 +1,323 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chetan11fb/dev-ai-agents/sdd-state.schema.json",
+  "title": "Dev-AI SDD feature state",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "feature",
+    "featurePath",
+    "status",
+    "risk",
+    "constitution",
+    "artifacts",
+    "approvals",
+    "analysis",
+    "stale",
+    "blockingIssue",
+    "nextAction",
+    "finalRevision",
+    "verification",
+    "convergence"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "feature": {
+      "type": "string",
+      "minLength": 1
+    },
+    "featurePath": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "INITIALIZING",
+        "CONSTITUTION_REVIEW_REQUIRED",
+        "READY_FOR_SPEC",
+        "SPECIFYING",
+        "SPEC_REVIEW_REQUIRED",
+        "SPEC_APPROVED",
+        "PLANNING",
+        "PLAN_REVIEW_REQUIRED",
+        "PLAN_APPROVED",
+        "TASKING",
+        "TASK_REVIEW_REQUIRED",
+        "TASKS_APPROVED",
+        "ANALYZING",
+        "IMPLEMENTATION_READY",
+        "IMPLEMENTING",
+        "VALIDATING",
+        "CONVERGING",
+        "CONVERGED",
+        "FINAL_REVIEW_REQUIRED",
+        "DONE",
+        "BLOCKED"
+      ]
+    },
+    "risk": {
+      "enum": [
+        "UNKNOWN",
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "CRITICAL"
+      ]
+    },
+    "constitution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "revision",
+        "status",
+        "approvedAt"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "enum": [
+            "MISSING",
+            "DRAFT",
+            "RATIFIED",
+            "STALE"
+          ]
+        },
+        "approvedAt": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "artifacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "spec",
+        "plan",
+        "tasks"
+      ],
+      "properties": {
+        "spec": {
+          "$ref": "#/$defs/artifact"
+        },
+        "plan": {
+          "$ref": "#/$defs/artifact"
+        },
+        "tasks": {
+          "$ref": "#/$defs/artifact"
+        }
+      }
+    },
+    "approvals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "constitution",
+        "spec",
+        "plan",
+        "tasks",
+        "final"
+      ],
+      "properties": {
+        "constitution": {
+          "$ref": "#/$defs/approval"
+        },
+        "spec": {
+          "$ref": "#/$defs/approval"
+        },
+        "plan": {
+          "$ref": "#/$defs/approval"
+        },
+        "tasks": {
+          "$ref": "#/$defs/approval"
+        },
+        "final": {
+          "$ref": "#/$defs/approval"
+        }
+      }
+    },
+    "analysis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "completedAt"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "NOT_RUN",
+            "PASS",
+            "FAIL",
+            "STALE"
+          ]
+        },
+        "completedAt": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "stale": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "blockingIssue": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "nextAction": {
+      "type": "string",
+      "minLength": 1
+    },
+    "finalRevision": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "completedAt"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "NOT_RUN",
+            "RUNNING",
+            "PASS",
+            "PARTIAL",
+            "FAIL",
+            "STALE"
+          ]
+        },
+        "completedAt": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "convergence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "completedAt"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "NOT_RUN",
+            "RUNNING",
+            "PASS",
+            "FAIL",
+            "STALE"
+          ]
+        },
+        "completedAt": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  },
+  "$defs": {
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "revision",
+        "status"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "enum": [
+            "MISSING",
+            "DRAFT",
+            "CURRENT",
+            "STALE"
+          ]
+        }
+      }
+    },
+    "approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "revision",
+        "status",
+        "decision",
+        "approvedAt"
+      ],
+      "properties": {
+        "revision": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "enum": [
+            "NOT_REQUIRED",
+            "PENDING",
+            "APPROVED",
+            "REJECTED",
+            "STALE"
+          ]
+        },
+        "decision": {
+          "enum": [
+            "APPROVE",
+            "REJECT",
+            null
+          ]
+        },
+        "approvedAt": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}

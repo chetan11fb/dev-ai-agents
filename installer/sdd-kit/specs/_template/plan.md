@@ -1,6 +1,6 @@
 # Implementation Plan
 
-Revision: R1
+SDD Revision: R1
 Status: DRAFT
 
 ## Approved Specification

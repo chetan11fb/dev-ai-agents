@@ -151,12 +151,12 @@ npx dev-ai-agents
 
 This installs:
 - `.github/agents/dev-ai-sdd.agent.md`
-- `.specify/memory/constitution.md`
+- `.specify/memory/constitution.md` (draft; human ratification required)
+- `.specify/schemas/sdd-state.schema.json`
+- `.specify/scripts/validate-sdd-state.mjs`
 - `specs/_template/spec.md`
 - `specs/_template/plan.md`
 - `specs/_template/tasks.md`
-- `specs/_template/sdd-state.md`
-- `specs/_template/decisions.md`
 
 Then open VS Code Chat → **Agents** → **Dev-AI SDD** and run:
 
