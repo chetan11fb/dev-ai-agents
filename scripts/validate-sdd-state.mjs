@@ -38,7 +38,7 @@ for (const name of ["spec","plan","tasks"]) {
     try {
       await stat(target);
       const body = await readFile(target, "utf8");
-      const match = body.match(/^SDD Revision:\\s*(R[0-9]+)\\s*$/m);
+      const match = body.match(/^SDD Revision:\s*(R[0-9]+)\s*$/m);
       if (!match) errors.push(`${artifact.path} has no canonical 'SDD Revision: Rn' metadata`);
       else if (artifact.revision !== match[1]) errors.push(`State revision for ${name} (${artifact.revision}) does not match ${artifact.path} (${match[1]})`);
     } catch { errors.push(`Artifact ${name} marked ${status} but file is missing/unreadable: ${artifact.path}`); }
