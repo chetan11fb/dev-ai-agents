@@ -1,11 +1,11 @@
 # Feature Specification
 
-Revision: R1
+SDD Revision: R1
 Status: DRAFT
 
 ## Source / Requirement
 
-Describe the source requirement, story, or business request.
+Describe the source requirement, story, or business request. Preserve source IDs and links where available.
 
 ## User Stories
 
@@ -13,29 +13,18 @@ Describe the source requirement, story, or business request.
 
 ## Acceptance Criteria
 
-- AC-001: Given <context>, when <action>, then <observable result>.
+Use stable IDs (AC-001, AC-002). Each criterion must be observable and independently verifiable.
 
 ## Functional Requirements
 
-- FR-001:
+Use stable IDs (FR-001, FR-002). Link each requirement to one or more acceptance criteria.
 
-## Edge Cases
+## Scope and Non-Goals
 
-- 
+## Edge Cases and Failure Behavior
 
-## Scope / Non-goals
+## Assumptions and Open Questions
 
-### In Scope
-- 
-
-### Out of Scope
-- 
-
-## Assumptions
-- 
-
-## Open Questions
-- 
+Separate repository-verifiable facts from decisions requiring the user.
 
 ## Success Criteria
-- SC-001:
