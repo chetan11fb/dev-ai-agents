@@ -73,12 +73,15 @@ On the first SDD invocation in a workspace:
 3. Create only missing directories needed for the current action. Do not generate empty feature documents or a large speculative folder tree.
 4. If no constitution exists, derive a **short, technology-neutral draft** from verified workspace conventions and the user's stated goals. Mark uncertain principles as proposed, not facts. Create **.specify/memory/constitution.md** with **Status: DRAFT — awaiting human approval**, then stop and request approval before using it as ratified policy.
 5. Once approved, mark it ratified and record its revision/date. On every later run, read and reuse this same file. Do not regenerate, replace, or silently “improve” it.
-6. If the constitution already exists, read it and use it as-is. If it is incomplete, conflicting, or clearly stale, report the exact issue and propose a separate amendment; preserve the current contents until the user explicitly approves the amendment.
+6. If the constitution exists, inspect its explicit status before doing feature work:
+   - **DRAFT / REVIEW REQUIRED / status missing or ambiguous:** treat it as unratified. Review/adapt the existing draft in place only when needed, preserve the user's content, then stop at **CONSTITUTION_REVIEW_REQUIRED**. Do not create feature artifacts or proceed until the user explicitly approves it.
+   - **RATIFIED / APPROVED:** reuse it as-is. If incomplete, conflicting, or clearly stale, report the exact issue and propose a separate amendment; preserve the current contents until the user explicitly approves that amendment.
+   - **Rejected:** retain the draft, record the blocker, and ask for the required decision; do not repeatedly regenerate it.
 7. Never create duplicate constitutions under .dev-ai/, specs/, or another location. Do not copy constitution principles into every template; read the canonical file at runtime.
 
 The constitution should govern durable project-wide principles such as architecture boundaries, testing, security, compatibility, accessibility, maintainability, and evidence standards—but only those relevant to the repository. It is not a feature specification and should not contain story-specific requirements.
 
-**Bootstrap guard:** every feature command must check constitution status first. If the constitution is missing, create/review the draft and stop; do not create feature artifacts or start implementation until it is ratified. If it already exists and is ratified, reuse it and continue.
+**Bootstrap guard:** every feature command must check constitution status first. A preinstalled template marked DRAFT is **not** approved. If the constitution is missing, create the draft and stop. If it exists but is DRAFT, missing status, ambiguous, or rejected, stop at **CONSTITUTION_REVIEW_REQUIRED** and ask for an explicit decision. Only a clearly ratified constitution permits feature artifacts and implementation.
 
 ## 4. Workspace memory and evidence cache
 
@@ -158,7 +161,7 @@ Use a compact schema like:
 }
 ~~~
 
-Adapt fields only as needed; do not replace valid state with a fresh template on resume.
+Adapt fields only when the repository has a documented compatible convention; do not casually rename canonical fields. Keep the feature folder's **sdd-state.json** as the only per-feature state source. A project-level schema may live at **.specify/schemas/sdd-state.schema.json**. If that schema exists, validate new/updated state against it using an available runtime; do not install dependencies just for validation. On resume, parse and validate state before acting. If JSON is malformed, schema-invalid, or its artifact paths escape the feature folder, do not overwrite/reset it: report the exact issue and recover only after preserving the existing contents.
 
 Valid lifecycle states:
 
@@ -180,6 +183,7 @@ IMPLEMENTATION_READY
 IMPLEMENTING
 VALIDATING
 CONVERGING
+CONVERGED
 FINAL_REVIEW_REQUIRED
 DONE
 BLOCKED
@@ -188,6 +192,8 @@ BLOCKED
 State rules:
 - Read the existing state before acting; update it in place after a phase completes, an approval is given, a blocker appears, or an artifact becomes stale.
 - Record explicit approval with the exact artifact revision (for example R2), approval decision, and timestamp when available. Approval of R1 never approves R2.
+- Before accepting an approval, re-read the target artifact and compare its current revision to the revision presented for review. If the artifact changed, do not record the approval; increment/reconcile the revision and return to review.
+- Store a compact approval record containing the approved revision, explicit decision, and timestamp (ISO 8601 when available). Do not fabricate a timestamp; if the environment cannot provide one, use null and say so.
 - Put a small metadata line such as **SDD Revision: R1** near the top of each generated spec.md, plan.md, and tasks.md, and mirror that revision in sdd-state.json. A revision must change when artifact meaning changes, not for cosmetic formatting. If reliable content hashing is available, record a hash as an additional drift check; never treat a hash as approval.
 - Before every phase, compare the state with actual files and the current workspace. File existence, unchecked text, or previous chat messages are not approval evidence.
 - If an approved upstream artifact changes, mark dependent artifacts and approvals STALE: spec change invalidates plan/tasks/analyze; plan change invalidates tasks/analyze; tasks change invalidates analyze/readiness. Code changes after validation invalidate affected verification/convergence.
@@ -350,7 +356,7 @@ Include the actual command/tool, target, result, and relevant limitations. If no
 
 Convergence compares current behavior/code to the approved spec, plan, tasks, constitution, acceptance criteria, and actual change set. Classify findings as MISSING, PARTIAL, CONTRADICTS, or UNREQUESTED.
 
-- If no gaps remain, leave tasks unchanged and report converged.
+- If no gaps remain, set state to **CONVERGED**, record the exact spec/plan/tasks revisions and validation evidence used, and report converged. Do not jump directly from VALIDATING to DONE.
 - If gaps remain, append traceable remediation tasks to **tasks.md** without rewriting, renumbering, or deleting completed tasks. Increment tasks revision, invalidate task approval and readiness, stop for task re-approval, then implement → validate → converge again.
 - Do not claim convergence because expected files exist.
 - Any code change after validation invalidates affected validation and convergence evidence.
@@ -364,7 +370,7 @@ On status or resume:
 4. Mark stale items and approvals; resume from the last safe state, not from memory of the chat.
 5. Report one next valid action.
 
-A feature is **DONE** only when approved artifacts are current, implementation is complete, material acceptance criteria have real verification evidence or an explicitly accepted limitation, convergence has no unresolved gaps, scope is reconciled, and any required final acceptance is recorded. Otherwise report **NOT COMPLETE** with the blocker.
+A feature is **DONE** only when approved artifacts are current, implementation is complete, material acceptance criteria have real verification evidence or an explicitly accepted limitation, state is **CONVERGED**, convergence has no unresolved gaps, scope is reconciled, and any required final acceptance is recorded. Otherwise report **NOT COMPLETE** with the blocker.
 
 Keep phase output compact:
 
@@ -379,7 +385,19 @@ NEXT: <one action or explicit approval needed>
 
 Never repeat this instruction set in user-facing responses. Do not promise 100% accuracy. If material evidence is missing, the reliable action is STOP / ASK / UNKNOWN—not a confident guess.
 
-## 16. Final self-check
+## 16. Idempotence and correction control
+
+Before creating or updating any artifact:
+1. Search for an existing artifact for the same feature, including alternate names and the repository's established SDD root.
+2. Compare its meaning and revision with the requested work. Reuse it if compatible; never create a second feature folder just because the current conversation is new.
+3. Make one coherent pass over requirements before writing: every requirement must have a stable ID, observable acceptance criteria, explicit scope/non-goals, and a disposition for material unknowns.
+4. Before asking the user a question, check the source story, existing code/configuration, tests, documentation, and available MCP data. Ask only questions that evidence cannot resolve and whose answer changes behavior, risk, scope, or acceptance.
+5. Before each approval request, run a self-review for contradictions, missing requirements, unsupported paths, duplicate artifacts, and unnecessary sections. Fix objective defects before presenting the artifact; do not ask the user to catch them.
+6. After a user correction, update the owning artifact and only the downstream artifacts invalidated by that change. Explain the dependency-based impact briefly; do not restart the whole workflow or re-ask unchanged approvals.
+
+Do not equate “fewer questions” with guessing. Optimize for **one evidence pass, one coherent artifact draft, one quality pass, then a focused approval request**.
+
+## 17. Final self-check
 
 Before claiming a phase complete, verify: correct state; current artifacts; approvals tied to exact revisions; evidence-backed paths/symbols; no unrelated changes; all material requirements mapped; scope matches actual edits; checks reflect actual execution; and no unresolved material unknowns are hidden.
 
