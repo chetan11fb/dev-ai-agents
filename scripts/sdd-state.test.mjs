@@ -88,6 +88,26 @@ test("rejects a downstream phase without its required approvals", async () => {
   } finally { await rm(f.root, { recursive: true, force: true }); }
 });
 
+test("invalidates downstream approvals when an upstream revision changes", async () => {
+  const f = await fixture();
+  try {
+    await writeFile(join(f.featureDir, "spec.md"), "# Spec\n\nSDD Revision: R2\n");
+    await writeFile(join(f.featureDir, "plan.md"), "# Plan\n\nSDD Revision: R1\n");
+    await writeFile(join(f.featureDir, "tasks.md"), "# Tasks\n\nSDD Revision: R1\n");
+    f.state.status = "TASKS_APPROVED";
+    f.state.artifacts.spec = { path: "spec.md", revision: "R2", status: "CURRENT" };
+    f.state.artifacts.plan = { path: "plan.md", revision: "R1", status: "CURRENT" };
+    f.state.artifacts.tasks = { path: "tasks.md", revision: "R1", status: "CURRENT" };
+    f.state.approvals.spec = { revision: "R2", status: "APPROVED", approvedAt: "2026-10-16T11:00:00.000Z", dependsOn: {} };
+    f.state.approvals.plan = { revision: "R1", status: "APPROVED", approvedAt: "2026-10-16T11:10:00.000Z", dependsOn: { spec: "R1" } };
+    f.state.approvals.tasks = { revision: "R1", status: "APPROVED", approvedAt: "2026-10-16T11:20:00.000Z", dependsOn: { spec: "R1", plan: "R1" } };
+    await writeFile(f.statePath, JSON.stringify(f.state, null, 2));
+    const result = run(f.featureDir);
+    assert.equal(result.status, 1);
+    assert.match(result.stderr, /approval is stale: dependsOn\.spec must equal current spec revision/);
+  } finally { await rm(f.root, { recursive: true, force: true }); }
+});
+
 test("rejects artifact paths that escape the feature folder", async () => {
   const f = await fixture();
   try {
