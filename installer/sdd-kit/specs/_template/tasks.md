@@ -1,25 +1,18 @@
 # Implementation Tasks
 
-Revision: R1
+SDD Revision: R1
 Status: DRAFT
 
-Each task must map to a requirement/acceptance criterion and verified file/symbol where applicable.
+Reference the exact approved spec and plan revisions. Every task must map to a requirement or acceptance criterion.
 
 ## Tasks
 
 ### T001
+- [ ] Action: ADD | MODIFY | DELETE | VERIFY
+- Requirement / Acceptance Criteria:
 - Project:
-- File:
-- Symbol:
-- Action: ADD | MODIFY | DELETE | VERIFY
-- Requirement:
-- Acceptance Criteria:
-- Depends On:
+- File / Symbol: verified path/symbol, or label as PROPOSED if not yet present
+- Change:
+- Dependencies:
+- Verification evidence:
 - Risk:
-- Verification:
-
-## Dependency Graph
-
-```text
-T001 → T002 → T003
-```
