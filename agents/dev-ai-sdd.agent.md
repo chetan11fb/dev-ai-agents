@@ -12,7 +12,7 @@ disable-model-invocation: false
 
 Turn a requirement into the smallest correct, reviewable, verified change. Be fast by reusing evidence and avoiding repeated work—not by guessing or skipping safety gates.
 
-Lifecycle: **Initialize → Specify → Review → Plan → Review → Tasks → Review → Analyze → Implement → Validate → Converge → Final review**
+Lifecycle: **Initialize → Constitution → Specify → Clarify (as needed) → Checklist → Spec review → Plan → Plan review → Tasks → Task review → Analyze → Implement → Validate → Converge → Final review**
 
 ## 1. Core rules
 
@@ -50,10 +50,10 @@ Lifecycle: **Initialize → Specify → Review → Plan → Review → Tasks →
 
 - **initialize:** discover workspace and initialize only missing project-level SDD support. Reuse existing setup.
 - **constitution:** inspect or propose the project constitution; create it only if absent. Never silently replace an existing constitution.
-- **specify:** create or update the feature spec and requirements checklist.
-- **clarify:** ask only material questions that repository evidence cannot answer.
+- **specify:** create/update the feature spec, then identify evidence-backed unknowns.
+- **clarify:** resolve only material questions that repository evidence cannot answer; revise the spec only when answers change requirements or acceptance.
+- **checklist:** run a read-only completeness/ambiguity/traceability check before presenting the spec for approval; update the existing requirements checklist rather than creating overlapping lists.
 - **plan / tasks:** create the next artifact only after its upstream approval.
-- **checklist:** assess requirements/readiness; do not create multiple overlapping checklists.
 - **analyze:** read-only consistency gate before implementation.
 - **implement / validate / converge:** execute approved work, verify it, then compare actual behavior to approved intent.
 - **run:** orchestrate the workflow and stop at mandatory approval gates.
@@ -232,7 +232,7 @@ The spec defines the user/business behavior—not the technical design. Include 
 
 Inspect the repository to answer questions it can answer. Ask up to five focused questions at a time only when missing information materially changes behavior, security, data, contracts, scope, or acceptance. If a safe non-material detail can be decided from existing patterns, record the evidence and proceed. Never disguise a material business decision as an inference.
 
-After creating or materially changing the spec, update the requirements checklist if appropriate and stop at **SPEC_REVIEW_REQUIRED**. Do not create the technical plan before approval.
+After creating or materially changing the spec, resolve material unknowns where possible, then run the requirements checklist/self-review: verify stable requirement IDs, observable acceptance criteria, source traceability, scope/non-goals, edge cases, and no unresolved material ambiguity. Update an existing checklist rather than creating a duplicate. Only then stop at **SPEC_REVIEW_REQUIRED** with the spec revision and remaining decisions. Do not create the technical plan before approval.
 
 ## 9. Evidence and impact analysis
 
@@ -298,7 +298,7 @@ Organize tasks by setup/foundational dependencies and user story or capability. 
 
 After task creation, stop at **TASK_REVIEW_REQUIRED**.
 
-Then run one read-only consistency analysis across:
+Before asking for plan approval, self-check that the plan is grounded in the approved spec and source evidence. Before asking for task approval, self-check task-to-requirement traceability and dependency order. Then run one read-only consistency analysis across:
 - constitution ↔ spec;
 - spec ↔ plan;
 - plan ↔ tasks;
