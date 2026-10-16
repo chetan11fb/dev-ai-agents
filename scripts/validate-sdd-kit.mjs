@@ -44,6 +44,12 @@ try { registry = JSON.parse(registryText); } catch (e) { errors.push(`Invalid re
 try { pkg = JSON.parse(packageText); } catch (e) { errors.push(`Invalid package.json: ${e.message}`); }
 
 const expectedStates = ["CONSTITUTION_REVIEW_REQUIRED", "SPEC_REVIEW_REQUIRED", "PLAN_REVIEW_REQUIRED", "TASK_REVIEW_REQUIRED", "IMPLEMENTATION_READY", "CONVERGING", "CONVERGED", "FINAL_REVIEW_REQUIRED", "DONE", "BLOCKED"];
+const lifecycleMatch = agent.match(/Valid lifecycle states:\\s*\\n\\n~~~text\\n([\\s\\S]*?)\\n~~~/);
+if (!lifecycleMatch) errors.push("Agent must define a canonical lifecycle state list");
+else {
+  const agentStates = lifecycleMatch[1].split(/\\r?\\n/).map(x => x.trim()).filter(Boolean);
+  if (schemaText && schema && agentStates.join("|") !== schema.properties?.status?.enum?.join("|")) errors.push("Agent lifecycle states and JSON schema enum are inconsistent");
+}
 if (schema) {
   if (schema.properties?.status?.enum?.join("|") !== ["INITIALIZING","CONSTITUTION_REVIEW_REQUIRED","READY_FOR_SPEC","SPECIFYING","SPEC_REVIEW_REQUIRED","SPEC_APPROVED","PLANNING","PLAN_REVIEW_REQUIRED","PLAN_APPROVED","TASKING","TASK_REVIEW_REQUIRED","TASKS_APPROVED","ANALYZING","IMPLEMENTATION_READY","IMPLEMENTING","VALIDATING","CONVERGING","CONVERGED","FINAL_REVIEW_REQUIRED","DONE","BLOCKED"].join("|")) errors.push("State schema lifecycle enum is missing or out of canonical order");
   for (const state of expectedStates) if (!schema.properties?.status?.enum?.includes(state)) errors.push(`State schema missing lifecycle state ${state}`);
