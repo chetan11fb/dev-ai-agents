@@ -2,7 +2,7 @@
 
 ## Status
 
-DRAFT — review before use.
+DRAFT — awaiting explicit human approval. Do not treat this template as ratified until the project owner approves it and the status/revision/approval record are updated.
 
 ## Principles
 
