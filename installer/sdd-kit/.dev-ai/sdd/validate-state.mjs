@@ -31,7 +31,12 @@ try {
   process.exit(1);
 }
 
-if (!state || typeof state !== "object" || Array.isArray(state)) {\n  console.error("SDD state validation failed: state root must be a JSON object.");\n  process.exit(1);\n}\n\nif (state.schemaVersion !== 1) fail("schemaVersion must be 1.");
+if (!state || typeof state !== "object" || Array.isArray(state)) {
+  console.error("SDD state validation failed: state root must be a JSON object.");
+  process.exit(1);
+}
+
+if (state.schemaVersion !== 1) fail("schemaVersion must be 1.");
 if (typeof state.feature !== "string" || !state.feature.trim()) fail("feature must be a non-empty string.");
 if (typeof state.featurePath !== "string" || !state.featurePath.trim()) fail("featurePath must be a non-empty string.");
 if (!allowedStates.has(state.status)) fail("Unknown workflow status: " + String(state.status));
