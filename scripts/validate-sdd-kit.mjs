@@ -44,10 +44,10 @@ try { registry = JSON.parse(registryText); } catch (e) { errors.push(`Invalid re
 try { pkg = JSON.parse(packageText); } catch (e) { errors.push(`Invalid package.json: ${e.message}`); }
 
 const expectedStates = ["CONSTITUTION_REVIEW_REQUIRED", "SPEC_REVIEW_REQUIRED", "PLAN_REVIEW_REQUIRED", "TASK_REVIEW_REQUIRED", "IMPLEMENTATION_READY", "CONVERGING", "CONVERGED", "FINAL_REVIEW_REQUIRED", "DONE", "BLOCKED"];
-const lifecycleMatch = agent.match(/Valid lifecycle states:\\s*\\n\\n~~~text\\n([\\s\\S]*?)\\n~~~/);
+const lifecycleMatch = agent.match(/Valid lifecycle states:\s*\n\n~~~text\n([\s\S]*?)\n~~~/);
 if (!lifecycleMatch) errors.push("Agent must define a canonical lifecycle state list");
 else {
-  const agentStates = lifecycleMatch[1].split(/\\r?\\n/).map(x => x.trim()).filter(Boolean);
+  const agentStates = lifecycleMatch[1].split(/\r?\n/).map(x => x.trim()).filter(Boolean);
   if (schemaText && schema && agentStates.join("|") !== schema.properties?.status?.enum?.join("|")) errors.push("Agent lifecycle states and JSON schema enum are inconsistent");
 }
 if (schema) {
