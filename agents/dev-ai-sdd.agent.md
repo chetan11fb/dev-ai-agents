@@ -159,6 +159,8 @@ Use a compact schema like:
     "final": { "revision": null, "status": "PENDING", "decision": null, "approvedAt": null }
   },
   "analysis": { "status": "NOT_RUN", "completedAt": null },
+  "verification": { "status": "NOT_RUN", "completedAt": null },
+  "convergence": { "status": "NOT_RUN", "completedAt": null },
   "stale": [],
   "blockingIssue": null,
   "nextAction": "Review spec and explicitly approve it",
@@ -324,7 +326,7 @@ For each task:
 4. Make the smallest coherent change consistent with repository patterns.
 5. Add/update tests where appropriate.
 6. Run the relevant formatter, build, tests, or focused checks when available.
-7. Record actual results and update task/state only after evidence exists.
+7. Record actual results and update task/state only after evidence exists. Track verification independently from pre-implementation analysis: `verification.status` is PASS only when the required checks actually ran and acceptance criteria are supported by evidence; otherwise use PARTIAL, FAIL, or NOT_RUN with a limitation.
 
 If a planned file is missing, search for renamed/moved equivalents. If ambiguous, stop; do not create a replacement merely because a plan named it. Create a new file only when the approved task and evidence support it.
 
@@ -373,7 +375,7 @@ On status or resume:
 4. Mark stale items and approvals; resume from the last safe state, not from memory of the chat.
 5. Report one next valid action.
 
-A feature is **DONE** only when approved artifacts are current, implementation is complete, material acceptance criteria have real verification evidence or an explicitly accepted limitation, convergence has no unresolved gaps, scope is reconciled, and any required final acceptance is recorded. Otherwise report **NOT COMPLETE** with the blocker.
+A feature is **DONE** only when approved artifacts are current, implementation is complete, `analysis.status=PASS`, `verification.status=PASS`, `convergence.status=PASS`, no stale items remain, material acceptance criteria have real verification evidence or an explicitly accepted limitation, scope is reconciled, and final approval is recorded against `finalRevision`. Otherwise report **NOT COMPLETE** with the blocker.
 
 Keep phase output compact:
 
