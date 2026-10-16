@@ -31,7 +31,7 @@ try {
   process.exit(1);
 }
 
-if (state.schemaVersion !== 1) fail("schemaVersion must be 1.");
+if (!state || typeof state !== "object" || Array.isArray(state)) {\n  console.error("SDD state validation failed: state root must be a JSON object.");\n  process.exit(1);\n}\n\nif (state.schemaVersion !== 1) fail("schemaVersion must be 1.");
 if (typeof state.feature !== "string" || !state.feature.trim()) fail("feature must be a non-empty string.");
 if (typeof state.featurePath !== "string" || !state.featurePath.trim()) fail("featurePath must be a non-empty string.");
 if (!allowedStates.has(state.status)) fail("Unknown workflow status: " + String(state.status));
@@ -75,7 +75,7 @@ for (const name of artifactNames) {
         if (item.revision !== match[1]) fail(name + " state revision " + String(item.revision) + " does not match file revision " + match[1] + ".");
       }
     }
-  } else if (item.status === "STALE" && state.status !== "BLOCKED" && !state.stale.includes(name)) {
+  } else if (item.status === "STALE" && state.status !== "BLOCKED" && !(Array.isArray(state.stale) && state.stale.includes(name))) {
     fail(name + " is STALE but is not listed in stale.");
   }
 }
