@@ -1,0 +1,220 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chetan11fb/dev-ai-agents/blob/main/installer/sdd-kit/.specify/schemas/sdd-state.schema.json",
+  "title": "Dev-AI SDD Feature State",
+  "description": "Canonical per-feature workflow state. Approval records must refer to exact current artifact revisions.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "feature",
+    "featurePath",
+    "status",
+    "risk",
+    "artifacts",
+    "approvals",
+    "stale",
+    "blockingIssue",
+    "nextAction"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "feature": {
+      "type": "string",
+      "minLength": 1
+    },
+    "featurePath": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "INITIALIZING",
+        "CONSTITUTION_REVIEW_REQUIRED",
+        "READY_FOR_SPEC",
+        "SPECIFYING",
+        "SPEC_REVIEW_REQUIRED",
+        "SPEC_APPROVED",
+        "PLANNING",
+        "PLAN_REVIEW_REQUIRED",
+        "PLAN_APPROVED",
+        "TASKING",
+        "TASK_REVIEW_REQUIRED",
+        "TASKS_APPROVED",
+        "ANALYZING",
+        "IMPLEMENTATION_READY",
+        "IMPLEMENTING",
+        "VALIDATING",
+        "CONVERGING",
+        "CONVERGED",
+        "FINAL_REVIEW_REQUIRED",
+        "DONE",
+        "BLOCKED"
+      ]
+    },
+    "risk": {
+      "enum": [
+        "UNKNOWN",
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "CRITICAL"
+      ]
+    },
+    "artifacts": {
+      "type": "object",
+      "required": [
+        "spec",
+        "plan",
+        "tasks"
+      ],
+      "properties": {
+        "spec": {
+          "$ref": "#/$defs/artifact"
+        },
+        "plan": {
+          "$ref": "#/$defs/artifact"
+        },
+        "tasks": {
+          "$ref": "#/$defs/artifact"
+        }
+      },
+      "additionalProperties": true
+    },
+    "approvals": {
+      "type": "object",
+      "required": [
+        "constitution",
+        "spec",
+        "plan",
+        "tasks",
+        "final"
+      ],
+      "properties": {
+        "constitution": {
+          "$ref": "#/$defs/approval"
+        },
+        "spec": {
+          "$ref": "#/$defs/approval"
+        },
+        "plan": {
+          "$ref": "#/$defs/approval"
+        },
+        "tasks": {
+          "$ref": "#/$defs/approval"
+        },
+        "final": {
+          "$ref": "#/$defs/approval"
+        }
+      },
+      "additionalProperties": true
+    },
+    "stale": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "blockingIssue": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "nextAction": {
+      "type": "string",
+      "minLength": 1
+    },
+    "updatedAt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  },
+  "$defs": {
+    "artifact": {
+      "type": "object",
+      "required": [
+        "path",
+        "revision",
+        "status"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "enum": [
+            "CURRENT",
+            "MISSING",
+            "STALE",
+            "NOT_CREATED"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "approval": {
+      "type": "object",
+      "required": [
+        "revision",
+        "status",
+        "approvedAt"
+      ],
+      "properties": {
+        "revision": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "enum": [
+            "NOT_REQUIRED",
+            "PENDING",
+            "APPROVED",
+            "STALE",
+            "REJECTED"
+          ]
+        },
+        "approvedAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "decision": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "evidence": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

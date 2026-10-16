@@ -151,12 +151,13 @@ npx dev-ai-agents
 
 This installs:
 - `.github/agents/dev-ai-sdd.agent.md`
-- `.specify/memory/constitution.md`
+- `.specify/memory/constitution.md` (starts as DRAFT; human approval is required before feature work)
+- `.specify/schemas/sdd-state.schema.json` (canonical machine-readable state contract)
 - `specs/_template/spec.md`
 - `specs/_template/plan.md`
 - `specs/_template/tasks.md`
-- `specs/_template/sdd-state.md`
-- `specs/_template/decisions.md`
+
+The agent creates exactly one `sdd-state.json` inside each feature folder. It does not install a competing Markdown state file or a default decisions log. The constitution starts at revision `C1` in DRAFT status; ratification and review date must be recorded before feature work. Feature templates use `SDD Revision: R1` consistently. The installed kit includes `scripts/validate-sdd-state.mjs`, which checks state shape, artifact revisions, approval bindings, and feature-path boundaries. In this source repository, run `npm test` for registry/kit checks and `npm run validate:sdd-state -- specs/001-feature-name` to validate a feature state.
 
 Then open VS Code Chat → **Agents** → **Dev-AI SDD** and run:
 

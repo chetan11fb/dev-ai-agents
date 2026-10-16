@@ -1,8 +1,8 @@
 # SDD Constitution
 
-## Status
-
-DRAFT — review before use.
+Constitution Revision: C1
+Status: DRAFT — review before use.
+Last Reviewed: NOT YET RATIFIED
 
 ## Principles
 

@@ -1,45 +1,42 @@
 # Implementation Plan
 
-Revision: R1
+SDD Revision: R1
 Status: DRAFT
 
 ## Approved Specification
 
-Reference spec.md revision.
+Reference the exact approved spec revision. Do not plan from a draft or stale spec.
 
 ## Existing Architecture
 
-Document evidence from the actual repository.
+Document evidence from the actual repository and patterns to reuse.
 
 ## Architecture Decision
 
-Explain the chosen approach and rejected alternatives where material.
+## Change Set
 
-## Affected Projects
+Only the files/projects approved to add or modify.
 
-| Project | Evidence | Impact |
-|---|---|---|
+## Verification Set
 
-## Existing Files to Modify
+Dependencies, consumers, contracts, and tests to inspect or verify without implied permission to modify.
 
-| Project | File | Symbol | Change | Reason |
-|---|---|---|---|---|
+## Contracts, Data, and Events
 
-## New Files
+Include only the areas relevant to this feature.
 
-| Project | Exact Path | Symbol | Purpose | Evidence |
-|---|---|---|---|---|
+## Security, Accessibility, Performance, and Observability
 
-## Contracts / Data / Events
+Include applicable concerns only; explain why a category is not applicable when material.
 
-Document only verified impact.
+## Testing and Validation
 
-## Security / Accessibility / Observability / Performance
+Map acceptance criteria to checks and evidence.
 
-## Testing Strategy
+## Risks, Rollback, Configuration, and Deployment
 
-## Deployment / Configuration
-
-## Risks and Rollback
+Include only where relevant.
 
 ## Implementation Sequence
+
+## Alternatives and Decisions Needed
