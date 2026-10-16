@@ -155,8 +155,8 @@ This installs:
 - `specs/_template/spec.md`
 - `specs/_template/plan.md`
 - `specs/_template/tasks.md`
-- `specs/_template/sdd-state.md`
-- `specs/_template/decisions.md`
+- `specs/_template/sdd-state.json`
+- `.dev-ai/sdd/validate-state.mjs` (dependency-free state/revision gate)
 
 Then open VS Code Chat → **Agents** → **Dev-AI SDD** and run:
 
@@ -165,7 +165,7 @@ Then open VS Code Chat → **Agents** → **Dev-AI SDD** and run:
 @Dev-AI SDD run story #126433
 ```
 
-The workflow pauses for human review at Specification, Plan and Tasks, then continues through Analyze → Implement → Validate → Converge → Final Review.
+The workflow pauses for human review at Specification, Plan and Tasks, then continues through Analyze → Implement → Validate → Converge → Final Review. The installed `node .dev-ai/sdd/validate-state.mjs specs/<feature-folder>` helper checks persisted state, artifact revisions, approval timestamps and upstream revision dependencies; it does not replace code tests or prove runtime behavior.
 
 **Important:** SDD does **not** require a new ADO MCP. If the consuming VS Code workspace already has Azure DevOps MCP configured in `.vscode/mcp.json`, Dev-AI SDD uses that existing MCP connection to read and analyze the story. The installer does not overwrite or duplicate MCP configuration.
 
