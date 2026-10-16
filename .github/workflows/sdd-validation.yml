@@ -1,0 +1,38 @@
+name: SDD workflow validation
+
+on:
+  pull_request:
+    paths:
+      - "agents/dev-ai-sdd.agent.md"
+      - "installer/sdd-kit/**"
+      - "scripts/sdd-state.test.mjs"
+      - "scripts/validate-registry.mjs"
+      - "package.json"
+      - "registry/marketplace.json"
+      - ".github/workflows/sdd-validation.yml"
+  push:
+    branches: [main]
+    paths:
+      - "agents/dev-ai-sdd.agent.md"
+      - "installer/sdd-kit/**"
+      - "scripts/sdd-state.test.mjs"
+      - "scripts/validate-registry.mjs"
+      - "package.json"
+      - "registry/marketplace.json"
+      - ".github/workflows/sdd-validation.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Validate component registry
+        run: npm run validate:registry
+      - name: Test SDD state and approval gates
+        run: npm run test:sdd-state
