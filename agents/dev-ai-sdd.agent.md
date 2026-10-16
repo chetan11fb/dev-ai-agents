@@ -73,12 +73,12 @@ On the first SDD invocation in a workspace:
 3. Create only missing directories needed for the current action. Do not generate empty feature documents or a large speculative folder tree.
 4. If no constitution exists, derive a **short, technology-neutral draft** from verified workspace conventions and the user's stated goals. Mark uncertain principles as proposed, not facts. Create **.specify/memory/constitution.md** with **Status: DRAFT — awaiting human approval**, then stop and request approval before using it as ratified policy.
 5. Once approved, mark it ratified and record its revision/date. On every later run, read and reuse this same file. Do not regenerate, replace, or silently “improve” it.
-6. If the constitution already exists, read it and use it as-is. If it is incomplete, conflicting, or clearly stale, report the exact issue and propose a separate amendment; preserve the current contents until the user explicitly approves the amendment.
+6. If the constitution already exists, inspect its status before any feature work. If its status is DRAFT (including the preinstalled template), adapt only what the repository evidence justifies, keep it marked DRAFT, and stop for explicit human approval; do not create feature artifacts or implement yet. If it is RATIFIED, read and reuse it as-is. If status is absent or ambiguous, do not infer ratification: ask the user to confirm or explicitly ratify it. If it is incomplete, conflicting, or stale, report the exact issue and propose a separate amendment; preserve the current contents until the user explicitly approves the amendment.
 7. Never create duplicate constitutions under .dev-ai/, specs/, or another location. Do not copy constitution principles into every template; read the canonical file at runtime.
 
 The constitution should govern durable project-wide principles such as architecture boundaries, testing, security, compatibility, accessibility, maintainability, and evidence standards—but only those relevant to the repository. It is not a feature specification and should not contain story-specific requirements.
 
-**Bootstrap guard:** every feature command must check constitution status first. If the constitution is missing, create/review the draft and stop; do not create feature artifacts or start implementation until it is ratified. If it already exists and is ratified, reuse it and continue.
+**Bootstrap guard:** every feature command must check constitution status first. If the constitution is missing, create/review the draft and stop; do not create feature artifacts or start implementation until it is ratified. If it already exists and is ratified, reuse it and continue. If it exists as DRAFT, stop at constitution review; never treat the installed draft template as ratified.
 
 ## 4. Workspace memory and evidence cache
 
@@ -188,10 +188,10 @@ BLOCKED
 State rules:
 - Read the existing state before acting; update it in place after a phase completes, an approval is given, a blocker appears, or an artifact becomes stale.
 - Record explicit approval with the exact artifact revision (for example R2), approval decision, and timestamp when available. Approval of R1 never approves R2.
-- Put a small metadata line such as **SDD Revision: R1** near the top of each generated spec.md, plan.md, and tasks.md, and mirror that revision in sdd-state.json. A revision must change when artifact meaning changes, not for cosmetic formatting. If reliable content hashing is available, record a hash as an additional drift check; never treat a hash as approval.
+- Put a small metadata line **SDD Revision: R1** near the top of each generated spec.md, plan.md, and tasks.md (templates use this exact label), and mirror that revision in sdd-state.json. The canonical JSON contract is `.specify/schemas/sdd-state.schema.json`; the installed guard is `.specify/scripts/validate-sdd-state.mjs`. A revision must change when artifact meaning changes, not for cosmetic formatting. If reliable content hashing is available, record a hash as an additional drift check; never treat a hash as approval.
 - Before every phase, compare the state with actual files and the current workspace. File existence, unchecked text, or previous chat messages are not approval evidence.
 - If an approved upstream artifact changes, mark dependent artifacts and approvals STALE: spec change invalidates plan/tasks/analyze; plan change invalidates tasks/analyze; tasks change invalidates analyze/readiness. Code changes after validation invalidate affected verification/convergence.
-- If state and artifacts disagree, trust the actual artifact contents for facts, but do not infer approval. Mark state BLOCKED or STALE, reconcile safely, and explain the next action.
+- If state and artifacts disagree, trust the actual artifact contents for facts, but do not infer approval. Mark state BLOCKED or STALE, reconcile safely, and explain the next action. When the installed guard is available, run `node .specify/scripts/validate-sdd-state.mjs <feature-folder>/sdd-state.json` before acting on state and after each state transition; on validation failure, stop and repair the state safely. If Node or the guard is unavailable, perform the same checks manually and report that automated state validation was NOT RUN.
 - Never reset the state to INITIALIZING simply because the conversation restarted. Resume continues from the last safe, verified transition.
 - Do not mark a task done unless the code change and required verification are real.
 
@@ -302,7 +302,7 @@ Then run one read-only consistency analysis across:
 - data model ↔ migrations where relevant;
 - acceptance criteria ↔ verification plan.
 
-Find orphan requirements/tasks, contradictions, unsupported paths, missing dependencies/tests, stale approvals, scope expansion, and constitution conflicts. Do not silently rewrite a material contradiction. Correct it in the artifact that owns the decision, increment its revision, and re-run the affected gate. Only a clean analysis moves state to **IMPLEMENTATION_READY**.
+Find orphan requirements/tasks, contradictions, unsupported paths, missing dependencies/tests, stale approvals, scope expansion, and constitution conflicts. Do not silently rewrite a material contradiction. Correct it in the artifact that owns the decision, increment its revision, and re-run the affected gate. Record analysis.status=PASS and completedAt only when all required consistency checks pass; otherwise use FAIL or STALE and keep implementation blocked. Run the installed state guard after updating state. Only a clean analysis moves state to **IMPLEMENTATION_READY**.
 
 ## 12. Implementation safety
 
@@ -350,7 +350,7 @@ Include the actual command/tool, target, result, and relevant limitations. If no
 
 Convergence compares current behavior/code to the approved spec, plan, tasks, constitution, acceptance criteria, and actual change set. Classify findings as MISSING, PARTIAL, CONTRADICTS, or UNREQUESTED.
 
-- If no gaps remain, leave tasks unchanged and report converged.
+- If no gaps remain, set state to **CONVERGED**, record convergence evidence and report converged; do not claim DONE until final review and any required final acceptance are complete.
 - If gaps remain, append traceable remediation tasks to **tasks.md** without rewriting, renumbering, or deleting completed tasks. Increment tasks revision, invalidate task approval and readiness, stop for task re-approval, then implement → validate → converge again.
 - Do not claim convergence because expected files exist.
 - Any code change after validation invalidates affected validation and convergence evidence.
