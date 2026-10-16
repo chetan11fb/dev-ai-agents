@@ -59,8 +59,14 @@ if (!isObject(state)) {
     }
   }
   const analysis = objectAt(state, "analysis");
+  const verification = objectAt(state, "verification");
+  const convergence = objectAt(state, "convergence");
   if (!["NOT_RUN","PASS","FAIL","STALE"].includes(analysis.status)) errors.push("analysis.status is invalid");
+  if (!["NOT_RUN","RUNNING","PASS","PARTIAL","FAIL","STALE"].includes(verification.status)) errors.push("verification.status is invalid");
+  if (!["NOT_RUN","RUNNING","PASS","FAIL","STALE"].includes(convergence.status)) errors.push("convergence.status is invalid");
   stringAt(analysis.completedAt, "analysis.completedAt", true);
+  stringAt(verification.completedAt, "verification.completedAt", true);
+  stringAt(convergence.completedAt, "convergence.completedAt", true);
   if (!Array.isArray(state.stale) || state.stale.some(item => typeof item !== "string")) errors.push("stale must be an array of strings");
   if (!(state.blockingIssue === null || typeof state.blockingIssue === "string")) errors.push("blockingIssue must be a string or null");
   const rank = new Map([["SPEC_APPROVED",1],["PLANNING",1],["PLAN_REVIEW_REQUIRED",1],["PLAN_APPROVED",2],["TASKING",2],["TASK_REVIEW_REQUIRED",2],["TASKS_APPROVED",3],["ANALYZING",3],["IMPLEMENTATION_READY",4],["IMPLEMENTING",4],["VALIDATING",4],["CONVERGING",4],["CONVERGED",4],["FINAL_REVIEW_REQUIRED",4],["DONE",4]]);
@@ -68,11 +74,15 @@ if (!isObject(state)) {
   if (required >= 1 && !(approvals.spec?.status === "APPROVED" && approvals.spec?.revision === artifacts.spec?.revision)) errors.push(`${state.status} requires approval of the current spec revision`);
   if (required >= 2 && !(approvals.plan?.status === "APPROVED" && approvals.plan?.revision === artifacts.plan?.revision)) errors.push(`${state.status} requires approval of the current plan revision`);
   if (required >= 3 && !(approvals.tasks?.status === "APPROVED" && approvals.tasks?.revision === artifacts.tasks?.revision)) errors.push(`${state.status} requires approval of the current tasks revision`);
-  if (required >= 4 && analysis.status !== "PASS") errors.push(`${state.status} requires a current passing analysis`);
+  if (required >= 4 && analysis.status !== "PASS") errors.push(`${state.status} requires a passing pre-implementation analysis`);
   const featureStates = ["READY_FOR_SPEC","SPECIFYING","SPEC_REVIEW_REQUIRED","SPEC_APPROVED","PLANNING","PLAN_REVIEW_REQUIRED","PLAN_APPROVED","TASKING","TASK_REVIEW_REQUIRED","TASKS_APPROVED","ANALYZING","IMPLEMENTATION_READY","IMPLEMENTING","VALIDATING","CONVERGING","CONVERGED","FINAL_REVIEW_REQUIRED","DONE"];
   if (featureStates.includes(state.status) && constitution.status !== "RATIFIED") errors.push(`${state.status} requires a RATIFIED constitution`);
+  const currentArtifactStates = new Map([["SPEC_REVIEW_REQUIRED",["spec"]],["SPEC_APPROVED",["spec"]],["PLANNING",["spec"]],["PLAN_REVIEW_REQUIRED",["spec","plan"]],["PLAN_APPROVED",["spec","plan"]],["TASKING",["spec","plan"]],["TASK_REVIEW_REQUIRED",["spec","plan","tasks"]],["TASKS_APPROVED",["spec","plan","tasks"]],["ANALYZING",["spec","plan","tasks"]],["IMPLEMENTATION_READY",["spec","plan","tasks"]],["IMPLEMENTING",["spec","plan","tasks"]],["VALIDATING",["spec","plan","tasks"]],["CONVERGING",["spec","plan","tasks"]],["CONVERGED",["spec","plan","tasks"]],["FINAL_REVIEW_REQUIRED",["spec","plan","tasks"]],["DONE",["spec","plan","tasks"]]]);
+  for (const name of currentArtifactStates.get(state.status) ?? []) if (artifacts[name]?.status !== "CURRENT") errors.push(`${state.status} requires artifacts.${name} to be CURRENT`);
   if (["IMPLEMENTING","VALIDATING","CONVERGING","CONVERGED","FINAL_REVIEW_REQUIRED","DONE"].includes(state.status) && state.stale?.length) errors.push(`${state.status} cannot proceed while stale items remain`);
-  if (state.status === "DONE" && approvals.final?.status !== "APPROVED") errors.push("DONE requires final approval to be APPROVED");
+  if (["CONVERGING","CONVERGED","FINAL_REVIEW_REQUIRED","DONE"].includes(state.status) && verification.status !== "PASS") errors.push(`${state.status} requires current passing verification`);
+  if (["CONVERGED","FINAL_REVIEW_REQUIRED","DONE"].includes(state.status) && convergence.status !== "PASS") errors.push(`${state.status} requires passing convergence`);
+  if (state.status === "DONE" && (approvals.final?.status !== "APPROVED" || !state.finalRevision)) errors.push("DONE requires final approval tied to finalRevision");
 }
 if (errors.length) {
   console.error("SDD state validation failed:\n- " + errors.join("\n- "));
