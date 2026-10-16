@@ -1,0 +1,40 @@
+#!/usr/bin/env node
+import { readFile } from "node:fs/promises";
+import { existsSync } from "node:fs";
+import { resolve, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+import assert from "node:assert/strict";
+
+const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const read = path => readFile(resolve(root, path), "utf8");
+const agent = await read("agents/dev-ai-sdd.agent.md");
+const schema = JSON.parse(await read("installer/sdd-kit/.specify/schemas/sdd-state.schema.json"));
+const validator = await read("installer/sdd-kit/.specify/scripts/validate-sdd-state.mjs");
+const registry = JSON.parse(await read("registry/marketplace.json"));
+const constitution = await read("installer/sdd-kit/.specify/memory/constitution.md");
+const specTemplate = await read("installer/sdd-kit/specs/_template/spec.md");
+const planTemplate = await read("installer/sdd-kit/specs/_template/plan.md");
+const taskTemplate = await read("installer/sdd-kit/specs/_template/tasks.md");
+const pkg = JSON.parse(await read("package.json"));
+
+assert.equal(schema.properties.schemaVersion.const, 1);
+assert(schema.properties.status.enum.includes("CONVERGED"));
+assert(schema.properties.status.enum.includes("TASK_REVIEW_REQUIRED"));
+assert(schema.properties.constitution.properties.status.enum.includes("RATIFIED"));
+assert(schema.properties.approvals.properties.spec.$ref === "#/$defs/approval");
+assert(validator.includes("approval revision does not match current artifact revision"));
+assert(validator.includes("requires a RATIFIED constitution"));
+assert(validator.includes("requires a current passing analysis"));
+assert(agent.includes("If its status is DRAFT"));
+assert(agent.includes("validate-sdd-state.mjs"));
+assert(agent.includes("CONVERGED"));
+assert(!existsSync(resolve(root, "installer/sdd-kit/specs/_template/sdd-state.md")));
+assert(!existsSync(resolve(root, "installer/sdd-kit/specs/_template/decisions.md")));
+assert(specTemplate.includes("SDD Revision: R1"));
+assert(planTemplate.includes("SDD Revision: R1"));
+assert(taskTemplate.includes("SDD Revision: R1"));
+assert(pkg.scripts["test:sdd"] === "node scripts/test-sdd-contract.mjs");
+assert(registry.components.some(item => item.id === "dev-ai-sdd-templates" && item.version === "1.2.0"));
+assert(registry.components.some(item => item.id === "dev-ai-sdd" && item.version === "1.3.0"));
+assert(constitution.includes("DRAFT — awaiting explicit human approval"));
+console.log("SDD contract tests passed: schema, state guardrails, workflow alignment, templates and registry.");
