@@ -73,12 +73,12 @@ On the first SDD invocation in a workspace:
 3. Create only missing directories needed for the current action. Do not generate empty feature documents or a large speculative folder tree.
 4. If no constitution exists, derive a **short, technology-neutral draft** from verified workspace conventions and the user's stated goals. Mark uncertain principles as proposed, not facts. Create **.specify/memory/constitution.md** with **Status: DRAFT — awaiting human approval**, then stop and request approval before using it as ratified policy.
 5. Once approved, mark it ratified and record its revision/date. On every later run, read and reuse this same file. Do not regenerate, replace, or silently “improve” it.
-6. If the constitution already exists, read it and use it as-is. If it is incomplete, conflicting, or clearly stale, report the exact issue and propose a separate amendment; preserve the current contents until the user explicitly approves the amendment.
+6. If the constitution already exists, inspect its status before proceeding. If it explicitly says DRAFT, PROPOSED, or awaiting approval, preserve it, explain what must be reviewed, and STOP at constitution review; do not create feature artifacts or implement. If it is an established constitution with no draft marker, reuse it without rewriting; when approval status is genuinely ambiguous and consequential, ask once for confirmation and record the answer. If it is incomplete, conflicting, or clearly stale, propose a separate amendment and preserve the current contents until explicitly approved.
 7. Never create duplicate constitutions under .dev-ai/, specs/, or another location. Do not copy constitution principles into every template; read the canonical file at runtime.
 
 The constitution should govern durable project-wide principles such as architecture boundaries, testing, security, compatibility, accessibility, maintainability, and evidence standards—but only those relevant to the repository. It is not a feature specification and should not contain story-specific requirements.
 
-**Bootstrap guard:** every feature command must check constitution status first. If the constitution is missing, create/review the draft and stop; do not create feature artifacts or start implementation until it is ratified. If it already exists and is ratified, reuse it and continue.
+**Bootstrap guard:** every feature command checks constitution status first. Missing or explicitly draft/unapproved constitution means create/review the draft and STOP before creating feature artifacts or implementing. Continue only after explicit approval is recorded, or when an established non-draft constitution is being reused. A template preinstalled with `DRAFT` is not an approved constitution.
 
 ## 4. Workspace memory and evidence cache
 
@@ -107,7 +107,7 @@ specs/
 
 Use the next available numeric prefix and a short kebab-case feature name only when the repository uses numbered folders. If an existing feature folder matches the request, reuse it; do not create a second folder. If the repo uses a different established convention, preserve it.
 
-**Create artifacts automatically as the workflow reaches their phase—not all at startup.** Do not create empty placeholder files. Minimum set:
+**Create artifacts automatically as the workflow reaches their phase—not all at startup.** Do not create empty placeholder files. When the installed kit is available, use `specs/_template/sdd-state.json` as a starting template for the feature's `sdd-state.json`; copy it into the feature folder, replace every placeholder (especially `feature` and `featurePath`), and never treat the template itself as live feature state. If the template is absent, create the same valid structure described below. Minimum set:
 - **spec.md:** required for every feature.
 - **checklists/requirements.md:** create with the spec when useful for acceptance-quality checks; reuse/update the existing Spec-Kit checklist if present.
 - **plan.md:** create after spec approval.
@@ -158,7 +158,7 @@ Use a compact schema like:
 }
 ~~~
 
-Adapt fields only as needed; do not replace valid state with a fresh template on resume.
+Adapt fields only as needed; do not replace valid state with a fresh template on resume. Approval records must include `revision`, `status`, `approvedAt`, and `dependsOn`; use `APPROVED` only after explicit approval, otherwise `PENDING`, `STALE`, or `NOT_REQUIRED`. For example, plan approval records `dependsOn: { "spec": "R1" }`; task approval records both the approved spec and plan revisions. Use ISO-8601 timestamps when available. Do not store approval only in chat history.
 
 Valid lifecycle states:
 
@@ -180,6 +180,7 @@ IMPLEMENTATION_READY
 IMPLEMENTING
 VALIDATING
 CONVERGING
+CONVERGED
 FINAL_REVIEW_REQUIRED
 DONE
 BLOCKED
@@ -188,12 +189,14 @@ BLOCKED
 State rules:
 - Read the existing state before acting; update it in place after a phase completes, an approval is given, a blocker appears, or an artifact becomes stale.
 - Record explicit approval with the exact artifact revision (for example R2), approval decision, and timestamp when available. Approval of R1 never approves R2.
-- Put a small metadata line such as **SDD Revision: R1** near the top of each generated spec.md, plan.md, and tasks.md, and mirror that revision in sdd-state.json. A revision must change when artifact meaning changes, not for cosmetic formatting. If reliable content hashing is available, record a hash as an additional drift check; never treat a hash as approval.
+- Put exactly **SDD Revision: R1** near the top of each generated spec.md, plan.md, and tasks.md; mirror it in sdd-state.json. Accept legacy `Revision: R1` only when reusing existing artifacts, then standardize on `SDD Revision` the next time that artifact is materially revised. A revision changes when meaning changes, not for cosmetic formatting. Record each downstream approval's `dependsOn` revisions (plan → spec; tasks → spec + plan; final → spec + plan + tasks). If any dependency revision changes, invalidate that approval even if the downstream file itself did not change. A content hash is only a drift check, never approval.
 - Before every phase, compare the state with actual files and the current workspace. File existence, unchecked text, or previous chat messages are not approval evidence.
 - If an approved upstream artifact changes, mark dependent artifacts and approvals STALE: spec change invalidates plan/tasks/analyze; plan change invalidates tasks/analyze; tasks change invalidates analyze/readiness. Code changes after validation invalidate affected verification/convergence.
 - If state and artifacts disagree, trust the actual artifact contents for facts, but do not infer approval. Mark state BLOCKED or STALE, reconcile safely, and explain the next action.
 - Never reset the state to INITIALIZING simply because the conversation restarted. Resume continues from the last safe, verified transition.
 - Do not mark a task done unless the code change and required verification are real.
+- When the installed helper exists, run `node .dev-ai/sdd/validate-state.mjs <feature-folder>` after state transitions and before any implementation/resume decision. If it fails, do not proceed: reconcile the state/artifacts or mark the feature BLOCKED. If the helper is unavailable, perform the same checks manually and say the executable check was NOT RUN. The helper validates workflow metadata and revision dependencies only; always validate the actual implementation independently.
+- A state file is not a transaction log. If a write is interrupted or JSON is invalid, preserve the damaged file, recover from actual artifacts and version history, and never silently overwrite it with a fresh template.
 
 ## 7. Human approval gates
 
@@ -302,7 +305,7 @@ Then run one read-only consistency analysis across:
 - data model ↔ migrations where relevant;
 - acceptance criteria ↔ verification plan.
 
-Find orphan requirements/tasks, contradictions, unsupported paths, missing dependencies/tests, stale approvals, scope expansion, and constitution conflicts. Do not silently rewrite a material contradiction. Correct it in the artifact that owns the decision, increment its revision, and re-run the affected gate. Only a clean analysis moves state to **IMPLEMENTATION_READY**.
+Find orphan requirements/tasks, contradictions, unsupported paths, missing dependencies/tests, stale approvals, scope expansion, and constitution conflicts. Do not silently rewrite a material contradiction. Correct it in the artifact that owns the decision, increment its revision, and re-run the affected gate. Only a clean analysis moves state to **IMPLEMENTATION_READY**. A successful helper validation proves only the persisted SDD state/artifact-revision contract; it does not prove source-code correctness or acceptance.
 
 ## 12. Implementation safety
 

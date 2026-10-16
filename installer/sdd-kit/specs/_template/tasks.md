@@ -1,6 +1,6 @@
 # Implementation Tasks
 
-Revision: R1
+SDD Revision: R1
 Status: DRAFT
 
 Each task must map to a requirement/acceptance criterion and verified file/symbol where applicable.

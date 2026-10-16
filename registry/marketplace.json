@@ -622,7 +622,7 @@
       "type": "agent",
       "path": "agents/dev-ai-sdd.agent.md",
       "target": ".github/agents/dev-ai-sdd.agent.md",
-      "version": "1.2.0",
+      "version": "1.3.0",
       "description": "Global repository-agnostic Spec-Driven Development agent with evidence-first impact analysis, human approval gates, state/resume, validation and convergence.",
       "installCommand": "npx dev-ai-agents --agent dev-ai-sdd",
       "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-sdd",
@@ -966,8 +966,8 @@
       "type": "sdd-kit",
       "path": "installer/sdd-kit",
       "target": ".",
-      "version": "1.1.0",
-      "description": "Project-local SDD templates for constitution, feature spec, plan, tasks, state and decisions."
+      "version": "1.2.0",
+      "description": "Project-local SDD templates plus dependency-free persisted-state validation."
     },
     {
       "id": "dev-ai-defaults",
