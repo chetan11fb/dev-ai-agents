@@ -140,21 +140,29 @@ Use a compact schema like:
   "featurePath": "specs/001-feature-name",
   "status": "SPEC_REVIEW_REQUIRED",
   "risk": "MEDIUM",
+  "constitution": {
+    "path": ".specify/memory/constitution.md",
+    "revision": "C1",
+    "status": "RATIFIED",
+    "approvedAt": "2026-10-17T00:00:00Z"
+  },
   "artifacts": {
     "spec": { "path": "spec.md", "revision": "R1", "status": "CURRENT" },
     "plan": { "path": "plan.md", "revision": null, "status": "MISSING" },
     "tasks": { "path": "tasks.md", "revision": null, "status": "MISSING" }
   },
   "approvals": {
-    "constitution": { "revision": null, "status": "NOT_REQUIRED", "approvedAt": null },
-    "spec": { "revision": null, "status": "PENDING", "approvedAt": null },
-    "plan": { "revision": null, "status": "PENDING", "approvedAt": null },
-    "tasks": { "revision": null, "status": "PENDING", "approvedAt": null },
-    "final": { "revision": null, "status": "PENDING", "approvedAt": null }
+    "constitution": { "revision": "C1", "status": "APPROVED", "decision": "APPROVE", "approvedAt": "2026-10-17T00:00:00Z" },
+    "spec": { "revision": null, "status": "PENDING", "decision": null, "approvedAt": null },
+    "plan": { "revision": null, "status": "PENDING", "decision": null, "approvedAt": null },
+    "tasks": { "revision": null, "status": "PENDING", "decision": null, "approvedAt": null },
+    "final": { "revision": null, "status": "PENDING", "decision": null, "approvedAt": null }
   },
+  "analysis": { "status": "NOT_RUN", "completedAt": null },
   "stale": [],
   "blockingIssue": null,
-  "nextAction": "Review spec and explicitly approve it"
+  "nextAction": "Review spec and explicitly approve it",
+  "finalRevision": null
 }
 ~~~
 
@@ -180,6 +188,7 @@ IMPLEMENTATION_READY
 IMPLEMENTING
 VALIDATING
 CONVERGING
+CONVERGED
 FINAL_REVIEW_REQUIRED
 DONE
 BLOCKED
@@ -191,7 +200,7 @@ State rules:
 - Put a small metadata line **SDD Revision: R1** near the top of each generated spec.md, plan.md, and tasks.md (templates use this exact label), and mirror that revision in sdd-state.json. The canonical JSON contract is `.specify/schemas/sdd-state.schema.json`; the installed guard is `.specify/scripts/validate-sdd-state.mjs`. A revision must change when artifact meaning changes, not for cosmetic formatting. If reliable content hashing is available, record a hash as an additional drift check; never treat a hash as approval.
 - Before every phase, compare the state with actual files and the current workspace. File existence, unchecked text, or previous chat messages are not approval evidence.
 - If an approved upstream artifact changes, mark dependent artifacts and approvals STALE: spec change invalidates plan/tasks/analyze; plan change invalidates tasks/analyze; tasks change invalidates analyze/readiness. Code changes after validation invalidate affected verification/convergence.
-- If state and artifacts disagree, trust the actual artifact contents for facts, but do not infer approval. Mark state BLOCKED or STALE, reconcile safely, and explain the next action. When the installed guard is available, run `node .specify/scripts/validate-sdd-state.mjs <feature-folder>/sdd-state.json` before acting on state and after each state transition; on validation failure, stop and repair the state safely. If Node or the guard is unavailable, perform the same checks manually and report that automated state validation was NOT RUN.
+- If state and artifacts disagree, trust the actual artifact contents for facts, but do not infer approval. Mark state BLOCKED or STALE, reconcile safely, and explain the next action. When the installed guard is available, run `node .specify/scripts/validate-sdd-state.mjs <feature-folder>/sdd-state.json` before acting on state and after each state transition; on validation failure, stop and repair the state safely. If Node or the guard is unavailable, perform the same checks manually and report that automated state validation was NOT RUN. When the installed guard is available, run `node .specify/scripts/validate-sdd-state.mjs <feature-folder>/sdd-state.json` before acting on state and after each state transition; on validation failure, stop and repair the state safely. If Node or the guard is unavailable, perform the same checks manually and report that automated state validation was NOT RUN.
 - Never reset the state to INITIALIZING simply because the conversation restarted. Resume continues from the last safe, verified transition.
 - Do not mark a task done unless the code change and required verification are real.
 
@@ -358,7 +367,7 @@ Convergence compares current behavior/code to the approved spec, plan, tasks, co
 ## 15. Resume, completion, and output
 
 On status or resume:
-1. Read the feature's **sdd-state.json** first.
+1. Read the feature's **sdd-state.json** first. If available, run `node .specify/scripts/validate-sdd-state.mjs <feature-folder>/sdd-state.json`; invalid state is a blocker, not permission to guess.
 2. Load only the artifacts needed for the recorded phase.
 3. Verify artifact revisions/approval records and relevant current workspace changes.
 4. Mark stale items and approvals; resume from the last safe state, not from memory of the chat.
