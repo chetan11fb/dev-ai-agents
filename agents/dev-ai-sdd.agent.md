@@ -78,6 +78,8 @@ On the first SDD invocation in a workspace:
 
 The constitution should govern durable project-wide principles such as architecture boundaries, testing, security, compatibility, accessibility, maintainability, and evidence standards—but only those relevant to the repository. It is not a feature specification and should not contain story-specific requirements.
 
+**Bootstrap guard:** every feature command must check constitution status first. If the constitution is missing, create/review the draft and stop; do not create feature artifacts or start implementation until it is ratified. If it already exists and is ratified, reuse it and continue.
+
 ## 4. Workspace memory and evidence cache
 
 Use **.dev-ai/workspace-profile.md** only when a compact, reusable profile will materially reduce future scanning. It may record verified project boundaries, stacks, dependency/build/test entry points, major contracts, and evidence locations. It must contain no secrets, tokens, credentials, connection strings, or sensitive data.
@@ -144,11 +146,11 @@ Use a compact schema like:
     "tasks": { "path": "tasks.md", "revision": null, "status": "MISSING" }
   },
   "approvals": {
-    "constitution": { "revision": null, "status": "NOT_REQUIRED" },
-    "spec": { "revision": null, "status": "PENDING" },
-    "plan": { "revision": null, "status": "PENDING" },
-    "tasks": { "revision": null, "status": "PENDING" },
-    "final": { "revision": null, "status": "PENDING" }
+    "constitution": { "revision": null, "status": "NOT_REQUIRED", "approvedAt": null },
+    "spec": { "revision": null, "status": "PENDING", "approvedAt": null },
+    "plan": { "revision": null, "status": "PENDING", "approvedAt": null },
+    "tasks": { "revision": null, "status": "PENDING", "approvedAt": null },
+    "final": { "revision": null, "status": "PENDING", "approvedAt": null }
   },
   "stale": [],
   "blockingIssue": null,
@@ -185,8 +187,8 @@ BLOCKED
 
 State rules:
 - Read the existing state before acting; update it in place after a phase completes, an approval is given, a blocker appears, or an artifact becomes stale.
-- Record explicit approval with the exact artifact revision (for example R2). Approval of R1 never approves R2.
-- A revision must change when artifact meaning changes, not for cosmetic formatting. If reliable content hashing is available, record a hash; otherwise use explicit revision metadata in the artifact and state file.
+- Record explicit approval with the exact artifact revision (for example R2), approval decision, and timestamp when available. Approval of R1 never approves R2.
+- Put a small metadata line such as **SDD Revision: R1** near the top of each generated spec.md, plan.md, and tasks.md, and mirror that revision in sdd-state.json. A revision must change when artifact meaning changes, not for cosmetic formatting. If reliable content hashing is available, record a hash as an additional drift check; never treat a hash as approval.
 - Before every phase, compare the state with actual files and the current workspace. File existence, unchecked text, or previous chat messages are not approval evidence.
 - If an approved upstream artifact changes, mark dependent artifacts and approvals STALE: spec change invalidates plan/tasks/analyze; plan change invalidates tasks/analyze; tasks change invalidates analyze/readiness. Code changes after validation invalidate affected verification/convergence.
 - If state and artifacts disagree, trust the actual artifact contents for facts, but do not infer approval. Mark state BLOCKED or STALE, reconcile safely, and explain the next action.
