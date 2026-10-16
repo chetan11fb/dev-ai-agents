@@ -72,7 +72,7 @@ On the first SDD invocation in a workspace:
 2. Search for a constitution in the canonical location **.specify/memory/constitution.md** and any existing project governance file. If an established SDD root exists, follow it rather than creating a competing root.
 3. Create only missing directories needed for the current action. Do not generate empty feature documents or a large speculative folder tree.
 4. If no constitution exists, derive a **short, technology-neutral draft** from verified workspace conventions and the user's stated goals. Mark uncertain principles as proposed, not facts. Create **.specify/memory/constitution.md** with **Status: DRAFT — awaiting human approval**, then stop and request approval before using it as ratified policy.
-5. Once approved, mark it ratified and record its revision/date. On every later run, read and reuse this same file. Do not regenerate, replace, or silently “improve” it.
+5. Once approved, mark its status exactly **RATIFIED**, retain/increment its **Constitution Revision: Cn** identifier as appropriate, and record **Last Reviewed: YYYY-MM-DD** using the actual approval date. Record the matching constitution revision in `sdd-state.json` approvals. On every later run, read and reuse this same file. Do not regenerate, replace, or silently “improve” it.
 6. If the constitution exists, inspect its explicit status before doing feature work:
    - **DRAFT / REVIEW REQUIRED / status missing or ambiguous:** treat it as unratified. Review/adapt the existing draft in place only when needed, preserve the user's content, then stop at **CONSTITUTION_REVIEW_REQUIRED**. Do not create feature artifacts or proceed until the user explicitly approves it.
    - **RATIFIED / APPROVED:** reuse it as-is. If incomplete, conflicting, or clearly stale, report the exact issue and propose a separate amendment; preserve the current contents until the user explicitly approves that amendment.
@@ -149,7 +149,7 @@ Use a compact schema like:
     "tasks": { "path": "tasks.md", "revision": null, "status": "MISSING" }
   },
   "approvals": {
-    "constitution": { "revision": null, "status": "NOT_REQUIRED", "approvedAt": null },
+    "constitution": { "revision": "C1", "status": "APPROVED", "approvedAt": null, "decision": "APPROVE CONSTITUTION" },
     "spec": { "revision": null, "status": "PENDING", "approvedAt": null },
     "plan": { "revision": null, "status": "PENDING", "approvedAt": null },
     "tasks": { "revision": null, "status": "PENDING", "approvedAt": null },
@@ -161,7 +161,7 @@ Use a compact schema like:
 }
 ~~~
 
-Adapt fields only when the repository has a documented compatible convention; do not casually rename canonical fields. Keep the feature folder's **sdd-state.json** as the only per-feature state source. A project-level schema may live at **.specify/schemas/sdd-state.schema.json**. If that schema exists, validate new/updated state against it using an available runtime; do not install dependencies just for validation. On resume, parse and validate state before acting. If JSON is malformed, schema-invalid, or its artifact paths escape the feature folder, do not overwrite/reset it: report the exact issue and recover only after preserving the existing contents.
+Adapt fields only when the repository has a documented compatible convention; do not casually rename canonical fields. Keep the feature folder's **sdd-state.json** as the only per-feature state source. A project-level schema may live at **.specify/schemas/sdd-state.schema.json**. If that schema exists, validate new/updated state against it using the installed `node scripts/validate-sdd-state.mjs <feature-directory>` helper when available; do not install dependencies just for validation. If the helper/runtime is unavailable, manually check required fields, allowed states, safe relative artifact paths, artifact revision metadata, and approval-to-revision matches. On resume, parse and validate state before acting. If JSON is malformed, schema-invalid, or its artifact paths escape the feature folder, do not overwrite/reset it: report the exact issue and recover only after preserving the existing contents.
 
 Valid lifecycle states:
 
