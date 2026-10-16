@@ -107,7 +107,7 @@ specs/
 
 Use the next available numeric prefix and a short kebab-case feature name only when the repository uses numbered folders. If an existing feature folder matches the request, reuse it; do not create a second folder. If the repo uses a different established convention, preserve it.
 
-**Create artifacts automatically as the workflow reaches their phase—not all at startup.** Do not create empty placeholder files. Minimum set:
+**Create artifacts automatically as the workflow reaches their phase—not all at startup.** Do not create empty placeholder files. When the installed kit is available, use `specs/_template/sdd-state.json` as a starting template for the feature's `sdd-state.json`; copy it into the feature folder, replace every placeholder (especially `feature` and `featurePath`), and never treat the template itself as live feature state. If the template is absent, create the same valid structure described below. Minimum set:
 - **spec.md:** required for every feature.
 - **checklists/requirements.md:** create with the spec when useful for acceptance-quality checks; reuse/update the existing Spec-Kit checklist if present.
 - **plan.md:** create after spec approval.
@@ -195,7 +195,7 @@ State rules:
 - If state and artifacts disagree, trust the actual artifact contents for facts, but do not infer approval. Mark state BLOCKED or STALE, reconcile safely, and explain the next action.
 - Never reset the state to INITIALIZING simply because the conversation restarted. Resume continues from the last safe, verified transition.
 - Do not mark a task done unless the code change and required verification are real.
-- When the installed helper exists, run `node .dev-ai/sdd/validate-state.mjs <feature-folder>` after state transitions and before any implementation/resume decision. If it fails, do not proceed: reconcile the state/artifacts or mark the feature BLOCKED. If the helper is unavailable, perform the same checks manually and say the executable check was NOT RUN.
+- When the installed helper exists, run `node .dev-ai/sdd/validate-state.mjs <feature-folder>` after state transitions and before any implementation/resume decision. If it fails, do not proceed: reconcile the state/artifacts or mark the feature BLOCKED. If the helper is unavailable, perform the same checks manually and say the executable check was NOT RUN. The helper validates workflow metadata and revision dependencies only; always validate the actual implementation independently.
 - A state file is not a transaction log. If a write is interrupted or JSON is invalid, preserve the damaged file, recover from actual artifacts and version history, and never silently overwrite it with a fresh template.
 
 ## 7. Human approval gates
