@@ -266,3 +266,16 @@ test("rejects a risk approval when any approved artifact revision changes", asyn
     assert.match(result.stderr, /risk approval is stale: dependsOn\.spec/);
   } finally { await rm(f.root, { recursive: true, force: true }); }
 });
+
+test("blocks implementation readiness while risk remains unknown", async () => {
+  const f = await fixture();
+  try {
+    await prepareImplementationReady(f);
+    f.state.risk = "UNKNOWN";
+    f.state.gates = allCurrentGates();
+    await writeFile(f.statePath, JSON.stringify(f.state, null, 2));
+    const result = run(f.featureDir);
+    assert.equal(result.status, 1);
+    assert.match(result.stderr, /risk to be assessed; UNKNOWN risk blocks implementation readiness/);
+  } finally { await rm(f.root, { recursive: true, force: true }); }
+});
