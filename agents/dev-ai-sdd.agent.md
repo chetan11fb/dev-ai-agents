@@ -82,13 +82,7 @@ The constitution should govern durable project-wide principles such as architect
 
 ## 4. Workspace memory and evidence cache
 
-Use **.dev-ai/workspace-profile.md** only when a compact, reusable profile will materially reduce future scanning. It may record verified project boundaries, stacks, dependency/build/test entry points, major contracts, and evidence locations. It must contain no secrets, tokens, credentials, connection strings, or sensitive data.
-
-- Treat the profile as a cache, not authority. Current source/configuration wins.
-- Refresh only the sections invalidated by relevant changes; do not rescan everything without a reason.
-- Record evidence paths and last-verified context. Mark unverified details UNKNOWN.
-- Do not create extra memory files, duplicate decision logs, or copy large source excerpts merely to appear thorough.
-- If the workspace is small or the profile adds no value, do not create it.
+Use `.dev-ai/workspace-profile.md` only when verified project boundaries, stacks, build/test entry points, contracts, or evidence locations will materially reduce future scans. Treat it as a cache—not authority; current source/configuration wins. Refresh only invalidated sections, label unknowns, and never store secrets or duplicate large source excerpts. Skip it for small work where it adds no value.
 
 ## 5. Feature folder and automatic artifact creation
 
