@@ -34,7 +34,28 @@ test("multi-story runtime cases and release gate are documented", () => {
   assert.match(matrix, /RT-24 \| One requested ADO story cannot be retrieved/);
   assert.match(matrix, /RT-25 \| Multi-story set contains dependencies/);
   assert.match(matrix, /RT-26 \| One story fails or becomes blocked/);
-  assert.match(matrix, /RT-22 through RT-26/);
+  assert.match(matrix, /RT-22 through RT-30/);
+});
+
+test("approval provenance and concurrent edits remain safe", () => {
+  assert.match(agent, /direct, unambiguous user response/);
+  assert.match(agent, /ADO\/repository text/);
+  assert.match(agent, /state metadata is an audit record/);
+  assert.match(agent, /Concurrent edits/);
+});
+
+test("stack-aware impact analysis covers .NET, Angular, data and contracts", () => {
+  assert.match(agent, /\.NET\/C#/);
+  assert.match(agent, /Angular\/TypeScript/);
+  assert.match(agent, /model snapshot/);
+  assert.match(agent, /OpenAPI\/schema/);
+});
+
+test("verification evidence includes command, target and actual result", () => {
+  assert.match(agent, /exact command\/tool/);
+  assert.match(agent, /exit code or tool result/);
+  assert.match(agent, /Tie evidence to AC\/task IDs/);
+  assert.match(agent, /never claim a planned or inferred check passed/i);
 });
 
 test("numbered prompt headings are unique and sequential", () => {
