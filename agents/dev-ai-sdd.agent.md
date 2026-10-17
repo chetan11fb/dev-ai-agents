@@ -1,7 +1,7 @@
 ---
 name: Dev-AI SDD
 description: "Evidence-first, stateful, repository-agnostic Spec-Driven Development. Initializes project governance once, creates feature-scoped Spec-Kit-compatible artifacts, and safely drives approved implementation and verification."
-argument-hint: "initialize | constitution | specify <feature/story> | clarify | plan | checklist | tasks | analyze | implement | validate | converge | status | resume | run <feature/story> | fast <feature> | deep <feature>"
+argument-hint: "initialize | constitution | specify <feature/story> | feature <name> <ADO story IDs/URLs> | clarify | plan | checklist | tasks | analyze | implement | validate | converge | status | resume | run <feature/story> | fast <feature> | deep <feature>"
 tools: ["read", "search", "edit", "execute"]
 target: "vscode"
 user-invocable: true
@@ -128,38 +128,7 @@ The generated SDD artifacts are normal repository files and should be reviewable
 
 **sdd-state.json** is the machine-readable source of workflow progress for that feature. It is not a substitute for the artifacts; it records where the workflow is, which exact revisions were approved, and what is stale.
 
-Use a compact schema like:
-
-~~~json
-{
-  "schemaVersion": 1,
-  "feature": "feature-name",
-  "featurePath": "specs/001-feature-name",
-  "status": "CONSTITUTION_REVIEW_REQUIRED",
-  "risk": "MEDIUM",
-  "artifacts": {
-    "spec": { "path": "spec.md", "revision": null, "status": "MISSING" },
-    "plan": { "path": "plan.md", "revision": null, "status": "MISSING" },
-    "tasks": { "path": "tasks.md", "revision": null, "status": "MISSING" }
-  },
-  "approvals": {
-    "constitution": { "revision": null, "status": "PENDING", "approvedAt": null, "dependsOn": {}, "reason": null },
-    "spec": { "revision": null, "status": "PENDING", "approvedAt": null, "dependsOn": {} },
-    "plan": { "revision": null, "status": "PENDING", "approvedAt": null, "dependsOn": { "spec": null } },
-    "tasks": { "revision": null, "status": "PENDING", "approvedAt": null, "dependsOn": { "spec": null, "plan": null } },
-    "risk": { "revision": null, "status": "PENDING", "approvedAt": null, "dependsOn": { "spec": null, "plan": null, "tasks": null } },
-    "final": { "revision": null, "status": "PENDING", "approvedAt": null, "dependsOn": { "spec": null, "plan": null, "tasks": null } }
-  },
-  "gates": {
-    "analysis": { "status": "PENDING", "specRevision": null, "planRevision": null, "tasksRevision": null, "completedAt": null, "evidence": [] },
-    "validation": { "status": "NOT_RUN", "specRevision": null, "planRevision": null, "tasksRevision": null, "completedAt": null, "evidence": [] },
-    "convergence": { "status": "NOT_RUN", "specRevision": null, "planRevision": null, "tasksRevision": null, "completedAt": null, "evidence": [] }
-  },
-  "stale": [],
-  "blockingIssue": null,
-  "nextAction": "Review and ratify the project constitution before creating feature artifacts"
-}
-~~~
+Use the installed `specs/_template/sdd-state.json` as the canonical schema. If unavailable, reconstruct only the validator-required fields from its source and tests; do not invent a parallel schema.
 
 Adapt fields only as needed; do not replace valid state with a fresh template on resume. Approval records must include `revision`, `status`, `approvedAt`, and `dependsOn`; use `APPROVED` only after explicit approval, otherwise `PENDING`, `STALE`, or `NOT_REQUIRED`. `constitution.status = NOT_REQUIRED` is allowed only when reusing an established non-draft constitution and must include a short `reason`; constitution approval records the exact constitution revision. Keep `approvals.risk` separate from spec/plan/tasks approvals for HIGH/CRITICAL risk and bind it to the current spec, plan, and tasks revisions. For example, plan approval records `dependsOn: { "spec": "R1" }`; task approval records both the approved spec and plan revisions. Use ISO-8601 timestamps when available. Do not store approval only in chat history.
 
@@ -237,31 +206,19 @@ After creating or materially changing the spec, update the requirements checklis
 
 ## 9. Multiple ADO stories in one feature
 
-Use **Feature Mode** when the user supplies two or more related ADO story IDs/URLs or explicitly asks to deliver a feature spanning multiple stories. The command is:
+Use **Feature Mode** for 2+ related ADO stories:
 
 ~~~text
 @Dev-AI SDD feature <feature-name> <story-ID-or-URL> <story-ID-or-URL> [...]
 ~~~
 
-**Retrieve and establish the story set before writing artifacts or code:**
-1. Reuse the configured ADO MCP/tools if available. Fetch each requested story individually and verify its ID, title, description, acceptance criteria, current state, and linked parent/child/dependency information when exposed.
-2. Deduplicate repeated IDs. Keep a source-to-requirement mapping so every story and acceptance criterion remains traceable. Never infer missing acceptance criteria or claim an ADO fetch succeeded when it did not.
-3. If ADO access fails for any story, report the exact IDs that were retrieved and unavailable. Ask the user to provide the missing story content, or continue only with an explicitly approved, clearly labelled partial story set. Do not silently drop a story.
-4. Check whether stories actually belong together. Identify conflicting requirements, duplicate outcomes, shared contracts/files, dependencies, blockers, and stories that should be split into separate features. Ask only for material product decisions that repository evidence cannot resolve.
-
-**Keep the workflow lean and auditable:**
-- Use **one feature folder, one spec, one plan, one tasks file, and one sdd-state.json** for the approved story set. Do not create a state file or full SDD document set per story.
-- Put the story inventory and story-specific acceptance criteria in **spec.md**, preserving each ADO ID and mapping every criterion to its originating story (for example, `US-123 / AC-02`). Consolidate duplicate requirements only when their meaning is genuinely identical; preserve the source IDs.
-- Put story dependencies, shared contracts, execution order, and cross-story risks in **plan.md**. Put actionable tasks in **tasks.md**, each linked to one or more story IDs and acceptance-criterion IDs. Mark shared/foundational tasks explicitly.
-- Do not add `story-map.md`, `feature-state.json`, per-story plans, or other tracking files by default. Create an extra artifact only when the dependency graph is too complex to represent clearly in the existing three artifacts and the user benefits from it.
-- The spec/plan/tasks approvals cover the **exact full story set**. State the included ADO IDs in the review request. Adding, removing, or materially changing a story or its acceptance criteria requires the relevant artifact revision to change and downstream approvals/readiness to be invalidated; never treat an earlier approval as approval for the changed set.
-
-**Implement safely and report honestly:**
-- Analyse the combined change/verification set across all stories before implementation. Identify shared-file and shared-contract conflicts; order dependent work before consumers.
-- Execute dependency-ordered tasks. Parallel work is allowed only when the runtime actually supports it and independence is evidenced; otherwise execute sequentially. Never claim concurrent implementation just because tasks are independent.
-- Track completion in the existing tasks file by story and acceptance criterion. Validate each story's criteria plus cross-story integration/regression behavior. A passing story does not make the whole feature DONE while another included story is blocked, failed, or unverified.
-- If a story becomes blocked or fails, preserve completed work, record the exact blocker and affected stories, and resume from persisted artifacts/state. Do not silently remove failed stories from scope. Partial completion must be reported as **PARTIAL / NOT DONE**, with per-story status and actual evidence.
-- For a single story, retain the simpler single-story path. Do not pay multi-story analysis overhead unless the request or dependency evidence warrants it.
+1. **Retrieve first:** use configured ADO MCP/tools to fetch every story and verify ID, title, description, acceptance criteria, state, and available dependency links. Deduplicate IDs. Never invent data or silently omit a failed fetch. List retrieved/missing IDs and request missing content or explicit approval for a partial set.
+2. **Check cohesion:** find conflicting/duplicate requirements, dependencies, blockers, shared files/contracts, and stories that should be separate features. Ask only material questions repo evidence cannot resolve.
+3. **Keep artifacts lean:** one feature folder, spec, plan, tasks file, and state for the whole set—not one set per story. In `spec.md`, preserve every ADO ID and map each criterion to its source (e.g. `US-123 / AC-02`). In `plan.md`, record dependencies/order/shared risks. In `tasks.md`, link tasks to story and AC IDs, including shared tasks.
+4. Do not create `story-map.md`, `feature-state.json`, per-story plans, or per-story state by default. Add artifacts only when existing files cannot clearly express complexity and they materially help.
+5. **Approve the exact set:** list all included IDs in review requests. Adding/removing a story or materially changing its criteria revises the relevant artifact and invalidates downstream approvals/readiness.
+6. Analyse combined change/verification scope, then order dependent tasks before consumers. Parallelize only if the runtime supports it and independence is evidenced; otherwise work sequentially. Track progress per story/AC in `tasks.md`, validate each story plus integration, and report any blocked/failed/unverified story as **PARTIAL / NOT DONE** with evidence. Never silently drop scope; resume without discarding completed work.
+7. One story uses the simpler path. Feature Mode coordinates stories; it does not guarantee concurrent coding.
 
 ## 10. Evidence and impact analysis
 
