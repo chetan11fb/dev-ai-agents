@@ -7,6 +7,7 @@ on:
       - "agents/dev-ai-sdd.agent.md"
       - "installer/sdd-kit/**"
       - "scripts/sdd-state.test.mjs"
+      - "scripts/sdd-prompt.test.mjs"
       - "scripts/validate-registry.mjs"
       - "package.json"
       - "registry/marketplace.json"
@@ -41,6 +42,8 @@ jobs:
         run: npm run validate:registry
       - name: Test SDD state and approval gates
         run: npm run test:sdd-state
+      - name: Test SDD prompt contract and multi-story behavior
+        run: npm run test:sdd-prompt
       - name: Validate CLI installer syntax
         run: npm run test:cli
       - name: Smoke-test default SDD install and safe rerun
