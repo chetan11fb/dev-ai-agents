@@ -17,7 +17,7 @@ test("multi-story feature command is discoverable", () => {
 test("multi-story workflow stays feature-scoped, traceable, and honest", () => {
   assert.match(agent, /one feature folder/);
   assert.match(agent, /not one set per story/);
-  assert.match(agent, /missing story/i);
+  assert.match(agent, /retrieved\/missing IDs/);
   assert.match(agent, /per-story/i);
   assert.match(agent, /parallel/i);
   assert.match(agent, /resume/i);
