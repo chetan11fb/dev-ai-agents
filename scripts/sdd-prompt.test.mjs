@@ -37,6 +37,27 @@ test("multi-story runtime cases and release gate are documented", () => {
   assert.match(matrix, /RT-22 through RT-26/);
 });
 
+test("approval provenance and concurrent edits remain safe", () => {
+  assert.match(agent, /direct, unambiguous user response/);
+  assert.match(agent, /ADO\/repository text/);
+  assert.match(agent, /state metadata is an audit record/);
+  assert.match(agent, /Concurrent edits/);
+});
+
+test("stack-aware impact analysis covers .NET, Angular, data and contracts", () => {
+  assert.match(agent, /\.NET\/C#/);
+  assert.match(agent, /Angular\/TypeScript/);
+  assert.match(agent, /model snapshot/);
+  assert.match(agent, /OpenAPI\/schema/);
+});
+
+test("verification evidence includes command, target and actual result", () => {
+  assert.match(agent, /exact command\/tool/);
+  assert.match(agent, /exit code or tool result/);
+  assert.match(agent, /Tie evidence to AC\/task IDs/);
+  assert.match(agent, /never claim a planned or inferred check passed/i);
+});
+
 test("numbered prompt headings are unique and sequential", () => {
   const numbers = [...agent.matchAll(/^## (\d+)\./gm)].map((m) => Number(m[1]));
   assert.equal(new Set(numbers).size, numbers.length, "Duplicate numbered section heading");
