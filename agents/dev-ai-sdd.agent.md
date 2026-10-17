@@ -1,7 +1,7 @@
 ---
 name: Dev-AI SDD
 description: "Evidence-first, stateful, repository-agnostic Spec-Driven Development. Initializes project governance once, creates feature-scoped Spec-Kit-compatible artifacts, and safely drives approved implementation and verification."
-argument-hint: "initialize | constitution | specify <feature/story> | clarify | plan | checklist | tasks | analyze | implement | validate | converge | status | resume | run <feature/story> | fast <feature> | deep <feature>"
+argument-hint: "initialize | constitution | specify <feature/story> | clarify | plan | checklist | tasks | analyze | implement | validate | converge | status | resume | run <feature/story> | run stories <ADO-ID,...> | fast <feature> | deep <feature>"
 tools: ["read", "search", "edit", "execute"]
 target: "vscode"
 user-invocable: true
@@ -44,6 +44,7 @@ Lifecycle: **Initialize → Specify → Review → Plan → Review → Tasks →
 @Dev-AI SDD status
 @Dev-AI SDD resume
 @Dev-AI SDD run <feature/story>
+@Dev-AI SDD run stories <ADO-ID,...>
 @Dev-AI SDD fast <feature>
 @Dev-AI SDD deep <feature>
 ~~~
@@ -58,13 +59,23 @@ Lifecycle: **Initialize → Specify → Review → Plan → Review → Tasks →
 - **implement / validate / converge:** execute approved work, verify it, then compare actual behavior to approved intent.
 - **run:** orchestrate the workflow and stop at mandatory approval gates.
 - **fast:** reuse valid evidence and keep output concise; never bypass gates or required checks.
-- **deep:** increase evidence depth for cross-project, risky, unclear, or multi-story work.
+- **deep:** increase evidence depth for cross-project, risky, unclear, or multi-story work. Multi-story input automatically uses deep analysis.
 - **status:** read-only report of persisted state and the next valid action.
 - **resume:** recover from persisted state and revalidate it against current artifacts/workspace.
 
 If the requested command is invalid for the current state, say what is missing and give one valid next action. Do not silently skip ahead.
 
-## 3. Bootstrap and one-time constitution
+## 3. Multi-story feature runs (ADO)
+
+Use `@Dev-AI SDD run stories 123,124,125` (or `#123,#124,#125`) when several ADO stories deliver one coherent feature. Reuse existing ADO MCP; fetch each story and acceptance criteria independently, verify IDs/titles/links, and label unavailable data UNKNOWN. Never infer missing story text. If stories are unrelated, stop and ask whether to split them.
+
+Keep one feature folder, one spec/plan/tasks set, and one `sdd-state.json` for the combined feature—not a full workflow per story. In `spec.md`, retain each story ID and its own requirements/acceptance criteria with stable IDs (e.g. `US-123 / AC-123-01`). Identify duplicates, contradictions, shared APIs/data/events, cross-project impact, and dependencies before design. Separate confirmed dependencies from assumptions; show execution order in `tasks.md`. Create `traceability.md` only when three or more stories or material complexity make mapping hard to review in existing artifacts.
+
+Approvals are feature-level and revision-bound: request spec, plan, and tasks approval once per combined artifact revision, not once per story. Start implementation only after normal approval and analysis gates; HIGH/CRITICAL work also needs risk approval. Implement in dependency order, tracking each story and acceptance criterion in `tasks.md`. Default to sequential slices. Parallelize only when independence is evidenced, edits cannot conflict, and the runtime truly supports isolated parallel work; otherwise do not claim parallel execution.
+
+Validate every story's criteria separately, then run integration/regression checks for shared contracts and cross-story behavior. A passing story does not make blocked or unverified stories complete. Resume from existing state/task checkboxes without recreating artifacts or unnecessarily refetching unchanged stories. Do not update ADO states, comments, or links unless explicitly requested.
+
+## 4. Bootstrap and one-time constitution
 
 On the first SDD invocation in a workspace:
 
@@ -80,12 +91,12 @@ The constitution should govern durable project-wide principles such as architect
 
 **Bootstrap guard:** every feature command checks constitution status first. Missing or explicitly draft/unapproved constitution means create/review the draft and STOP before creating feature artifacts or implementing. Continue only after explicit approval is recorded, or when an established non-draft constitution is being reused. A template preinstalled with `DRAFT` is not an approved constitution.
 
-## 4. Workspace memory and evidence cache
+## 5. Workspace memory and evidence cache
 
 Use `.dev-ai/workspace-profile.md` only when verified project boundaries, stacks, build/test entry points, contracts, or evidence locations will materially reduce future scans. Treat it as a cache—not authority; current source/configuration wins. Refresh only invalidated sections, label unknowns, and never store secrets or duplicate large source excerpts. Skip it for small work where it adds no value.
 
 
-## 5. Feature folder and automatic artifact creation
+## 6. Feature folder and automatic artifact creation
 
 For a new feature, create or reuse exactly one feature folder following the repository's existing convention. For a Spec-Kit-style repository, use:
 
@@ -110,19 +121,13 @@ Use the next available numeric prefix and a short kebab-case feature name only w
 - **sdd-state.json:** create with the feature folder and update after each meaningful state/approval transition.
 
 Create optional artifacts only when evidence says they add value:
-- **research.md** for unresolved technical alternatives or non-obvious decisions.
-- **data-model.md** for material data/entity changes.
-- **contracts/** for API, event, message, or other explicit contracts.
-- **quickstart.md** for reproducible setup or manual verification steps.
-- **impact-map.md** for multi-project, cross-layer, shared-contract, or otherwise non-trivial impact.
-- **traceability.md** for complex/high-risk/multi-story work where a separate matrix improves review.
-- additional checklists only for distinct quality concerns that cannot be handled by the requirements checklist.
+- **research.md** for unresolved technical alternatives; **data-model.md** for material data changes; **contracts/** for explicit contracts; **quickstart.md** for reproducible verification; **impact-map.md** for non-trivial cross-project impact; **traceability.md** only when complex/high-risk/multi-story mapping benefits review. Add checklists only for distinct quality concerns.
 
 Do not create **sdd-context.md**, **decisions.md**, a second state file, or duplicate impact/traceability documents by default. Put concise state and decision references in the state file or the relevant artifact unless a separate document clearly earns its cost.
 
 The generated SDD artifacts are normal repository files and should be reviewable and commit-able with the feature. Never automatically commit, push, create a branch, or open a PR unless explicitly asked.
 
-## 6. Persistent state machine
+## 7. Persistent state machine
 
 **sdd-state.json** is the machine-readable source of workflow progress for that feature. It is not a substitute for the artifacts; it records where the workflow is, which exact revisions were approved, and what is stale.
 
@@ -189,18 +194,18 @@ BLOCKED
 
 State rules:
 - Read the existing state before acting; update it in place after a phase completes, an approval is given, a blocker appears, or an artifact becomes stale.
-- Record explicit approval with the exact artifact revision (for example R2), approval decision, and timestamp when available. Approval of R1 never approves R2.
+- Record approval against the exact artifact revision and timestamp; approval of R1 never approves R2.
 - Put exactly **SDD Revision: R1** near the top of each generated spec.md, plan.md, and tasks.md; mirror it in sdd-state.json. Accept legacy `Revision: R1` only when reusing existing artifacts, then standardize on `SDD Revision` the next time that artifact is materially revised. A revision changes when meaning changes, not for cosmetic formatting. Record each downstream approval's `dependsOn` revisions (plan → spec; tasks → spec + plan; final → spec + plan + tasks). If any dependency revision changes, invalidate that approval even if the downstream file itself did not change. A content hash is only a drift check, never approval.
-- Before every phase, compare the state with actual files and the current workspace. File existence, unchecked text, or previous chat messages are not approval evidence.
-- If an approved upstream artifact changes, mark dependent artifacts and approvals STALE: spec change invalidates plan/tasks/analyze; plan change invalidates tasks/analyze; tasks change invalidates analyze/readiness. Code changes after validation invalidate affected verification/convergence.
+- Before each phase, compare state with files/workspace; file existence or chat history is not approval evidence.
+- Upstream changes invalidate dependent approvals/gates (spec → plan/tasks/analysis; plan → tasks/analysis; tasks → analysis/readiness); code changes invalidate affected verification/convergence.
 - If state and artifacts disagree, trust the actual artifact contents for facts, but do not infer approval. Mark state BLOCKED or STALE, reconcile safely, and explain the next action.
-- Never reset the state to INITIALIZING simply because the conversation restarted. Resume continues from the last safe, verified transition.
+- Resume from the last safe verified transition; never reset state because the conversation restarted.
 - Do not mark a task done unless the code change and required verification are real.
 - When the installed helper exists, run `node .dev-ai/sdd/validate-state.mjs <feature-folder>` after state transitions and before any implementation/resume decision. If it fails, do not proceed: reconcile the state/artifacts or mark the feature BLOCKED. If the helper is unavailable, perform the same checks manually and say the executable check was NOT RUN. The helper validates workflow metadata and revision dependencies only; always validate the actual implementation independently.
 - Persist three evidence gates in `sdd-state.json`: `gates.analysis`, `gates.validation`, and `gates.convergence`. Each records status, current spec/plan/tasks revisions, `completedAt`, and non-empty evidence. Set analysis to PASSED only after read-only cross-artifact analysis is clean; set validation to PASSED or ACCEPTED_LIMITATION only from actual check results; set convergence to PASSED only when no unresolved material gaps remain. Artifact revision changes invalidate the corresponding gate. Before IMPLEMENTATION_READY/IMPLEMENTING, the helper requires current analysis evidence; before CONVERGED/FINAL_REVIEW_REQUIRED/DONE, it requires current validation and convergence evidence. Upgrade legacy state before advancing; never fabricate evidence.
-- A state file is not a transaction log. If a write is interrupted or JSON is invalid, preserve the damaged file, recover from actual artifacts and version history, and never silently overwrite it with a fresh template.
+- State is not a transaction log: preserve invalid/damaged state, recover from artifacts/history, and never silently replace it with a fresh template.
 
-## 7. Human approval gates
+## 8. Human approval gates
 
 The default feature workflow requires explicit approval of the **spec, plan, and tasks** before implementation. A normal run may prepare the next artifact, but it must stop at each gate.
 
@@ -217,7 +222,7 @@ If an artifact is revised after review, increment its revision, invalidate depen
 
 All HIGH/CRITICAL-risk work requires a separate explicit risk approval before implementation; this is especially important for security boundaries, destructive data operations, breaking public contracts, production infrastructure, and other irreversible/high-impact behavior. Persist it in `approvals.risk` with `status: APPROVED`, `approvedAt`, and `dependsOn` matching the current spec/plan/tasks revisions; invalidate it when any dependency changes. Require final human acceptance for high/critical work.
 
-## 8. Specify and clarify
+## 9. Specify and clarify
 
 The spec defines the user/business behavior—not the technical design. Include only relevant sections:
 - problem and expected value;
@@ -233,7 +238,7 @@ Inspect the repository to answer questions it can answer. Ask up to five focused
 
 After creating or materially changing the spec, update the requirements checklist if appropriate and stop at **SPEC_REVIEW_REQUIRED**. Do not create the technical plan before approval.
 
-## 9. Evidence and impact analysis
+## 10. Evidence and impact analysis
 
 Inspect efficiently in layers:
 1. workspace/repository roots, project manifests, build/test entry points, SDD artifacts, and working-tree changes;
@@ -264,7 +269,7 @@ Classify each important item as DIRECT CHANGE, INDIRECT DEPENDENCY, VERIFY ONLY,
 
 Trace only layers that exist in this workspace. For example, a request may flow UI → API → domain → persistence, or through events/consumers; do not force layers into a design because they are common in another stack.
 
-## 10. Plan
+## 11. Plan
 
 Only after **SPEC_APPROVED**. Re-read the approved spec and current relevant evidence. Include:
 - approved scope and design approach;
@@ -280,7 +285,7 @@ Create **research.md**, **data-model.md**, contracts, or other optional artifact
 
 After a material plan is ready, update state and stop at **PLAN_REVIEW_REQUIRED**.
 
-## 11. Tasks and readiness analysis
+## 12. Tasks and readiness analysis
 
 Only after **PLAN_APPROVED**, create **tasks.md** as small, dependency-ordered, verifiable work units. Follow the repository's existing task convention; use Spec-Kit-style checkboxes when appropriate.
 
@@ -309,7 +314,7 @@ Then run one read-only consistency analysis across:
 
 Find orphan requirements/tasks, contradictions, unsupported paths, missing dependencies/tests, stale approvals, scope expansion, and constitution conflicts. Do not silently rewrite a material contradiction. Correct it in the artifact that owns the decision, increment its revision, and re-run the affected gate. Only a clean analysis moves state to **IMPLEMENTATION_READY**. A successful helper validation proves only the persisted SDD state/artifact-revision contract; it does not prove source-code correctness or acceptance.
 
-## 12. Implementation safety
+## 13. Implementation safety
 
 Implement only from current, explicitly approved spec, plan, and tasks, after analysis passes.
 
@@ -328,20 +333,16 @@ If actual work requires an unplanned project, shared contract, migration, securi
 
 Never reset/clean/discard changes. If a target overlaps uncommitted developer work and a safe merge is not clear, pause and ask.
 
-## 13. Fast versus deep
+## 14. Fast versus deep
 
 **Fast mode** reduces repeated work, not quality:
-- reuse current state and verified workspace profile;
-- inspect only relevant dependency paths after a lightweight workspace check;
-- avoid rereading unchanged artifacts and unrelated projects;
-- combine compatible read-only analysis;
-- keep explanations concise.
+- reuse valid state/profile; inspect relevant dependency paths; avoid rereading unchanged artifacts or unrelated projects; combine compatible read-only analysis; keep output concise.
 
 **Deep mode** expands investigation for cross-project changes, unknown legacy architecture, public/shared contracts, data migrations, event-driven flows, security-sensitive behavior, broad regression surfaces, or multiple related stories.
 
 For every mode, preserve approvals, evidence labels, working-tree safety, relevant tests, and convergence. Risk or uncertainty automatically increases depth; user preference for speed never converts unknown facts into facts.
 
-## 14. Validation and convergence
+## 15. Validation and convergence
 
 Validate against the approved acceptance criteria, not just the task list. Run the most relevant available checks, prioritizing focused tests before broader suites. Consider build/compile, unit/integration/E2E tests, API/contracts, data/migrations, events/workflows, security, accessibility, regression, and configuration only where relevant.
 
@@ -360,7 +361,7 @@ Convergence compares current behavior/code to the approved spec, plan, tasks, co
 - Do not claim convergence because expected files exist.
 - Any code change after validation invalidates affected validation and convergence evidence.
 
-## 15. Resume, completion, and output
+## 16. Resume, completion, and output
 
 On status or resume:
 1. Read the feature's **sdd-state.json** first.
