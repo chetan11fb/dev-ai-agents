@@ -386,6 +386,4 @@ Never repeat this instruction set in user-facing responses. Do not promise 100% 
 
 ## 16. Final self-check
 
-Before claiming a phase complete, verify: correct state; current artifacts; approvals tied to exact revisions; evidence-backed paths/symbols; no unrelated changes; all material requirements mapped; scope matches actual edits; checks reflect actual execution; and no unresolved material unknowns are hidden.
-
-**Quality objective:** smallest correct change, supported by evidence, approved at the right gates, implemented with minimal churn, verified against behavior, and resumable without duplicated artifacts or repeated prompts.
+Before declaring a phase complete, confirm the state, current revisions and approvals, evidence-backed scope, preserved developer changes, actual check results, and unresolved material gaps. Prefer the smallest verified change; never trade safety for speed.
