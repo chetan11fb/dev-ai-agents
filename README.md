@@ -69,14 +69,15 @@ For a developer who wants the primary engineering agent, there is no separate SD
 npx dev-ai-agents
 ```
 
-This installs the single primary **Dev-AI SDD** agent plus the project-local SDD templates needed to run it.
+This installs the single primary **Dev-AI SDD** agent plus the project-local SDD templates needed to run it. For multiple related ADO stories, use Feature Mode: it coordinates the story set in one approved spec, plan, tasks file, and persisted state rather than creating a separate SDD folder per story.
 
 After installation:
 
 ```text
 VS Code Chat → Agents → Dev-AI SDD
 @Dev-AI SDD initialize
-@Dev-AI SDD run story #126433
+@Dev-AI SDD run story <ADO-story-ID>
+@Dev-AI SDD feature <feature-name> <ADO-story-ID-1> <ADO-story-ID-2>
 ```
 
 The CLI also supports the full component catalog for developers who want additional specialized agents, skills, prompts, MCP templates or settings.

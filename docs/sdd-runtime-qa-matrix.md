@@ -37,6 +37,10 @@ This matrix is for manual evaluation of the VS Code/GitHub Copilot custom agent.
 | RT-20 | Angular/.NET or other stack with tests and source projects | Identifies real project boundaries, relevant tests and consumer impact; does not force irrelevant layers | NOT RUN |
 | RT-21 | Run the default `npx dev-ai-agents` installer from a clean disposable repo | Installs exactly one `.github/agents/dev-ai-sdd.agent.md` plus the kit; a repeat install without `--force` aborts before writing | AUTOMATED INSTALL SMOKE IN CI; REAL VS CODE/COPILOT RUNTIME NOT RUN |
 | RT-22 | Run an actual Azure DevOps user story through the installed agent with live ADO MCP and the real multi-project workspace | Retrieves the real story/acceptance criteria, creates revision-bound spec/plan/tasks approvals, implements only approved scope, runs actual checks, converges against acceptance criteria, and records source diff/test evidence | NOT RUN — requires the user's VS Code/Copilot session, connected ADO MCP, and actual workspace; no verified story payload was available in this session |
+| RT-23 | Submit 2–4 related ADO stories in Feature Mode | Retrieves all stories, preserves each story/AC ID in one feature spec, creates one shared plan/tasks/state, requests approval for the exact story set, and creates no per-story document/state sprawl | NOT RUN |
+| RT-24 | One requested ADO story cannot be retrieved | Names retrieved and missing IDs, asks for missing story content or explicit partial-scope approval, and never silently drops the story or fabricates criteria | NOT RUN |
+| RT-25 | Multi-story set contains dependencies and a shared API/file contract | Orders foundational work before consumers, identifies shared change/verification scope, and claims parallel work only if runtime support and independence are evidenced | NOT RUN |
+| RT-26 | One story fails or becomes blocked after another story is implemented; then resume | Preserves completed work, reports per-story evidence and blocker, keeps feature PARTIAL/NOT DONE, and resumes without discarding work or removing failed scope | NOT RUN |
 
 ## Execution protocol
 
@@ -49,4 +53,4 @@ This matrix is for manual evaluation of the VS Code/GitHub Copilot custom agent.
 
 ## Release gate
 
-Do not claim end-to-end production readiness until all critical tests (RT-01 through RT-18 and RT-22) have recorded evidence in a real supported VS Code/Copilot environment. Automated state tests validate metadata rules; they do not prove that the agent followed its instructions or that application behavior is correct.
+Do not claim end-to-end production readiness until all critical tests (RT-01 through RT-18 and RT-22 through RT-26) have recorded evidence in a real supported VS Code/Copilot environment. Automated state tests validate metadata rules; they do not prove that the agent followed its instructions or that application behavior is correct.

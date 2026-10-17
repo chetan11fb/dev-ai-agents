@@ -20,6 +20,13 @@ for (const item of registry.components ?? []) {
     if (item.target !== `.github/agents/${item.path.split("/").pop()}`) errors.push(`Unexpected agent install target for ${key}: ${item.target}`);
   }
 }
+const sddAgentPath = resolve("agents/dev-ai-sdd.agent.md");
+if (existsSync(sddAgentPath)) {
+  const sddAgent = await readFile(sddAgentPath, "utf8");
+  if (sddAgent.length >= 30000) {
+    errors.push(`Dev-AI SDD agent exceeds the 30,000-character safety limit: ${sddAgent.length}`);
+  }
+}
 const agentFiles = [];
 async function walk(dir) {
   for (const entry of await (await import("node:fs/promises")).readdir(dir, { withFileTypes: true })) {
