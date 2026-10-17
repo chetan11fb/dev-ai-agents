@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { mkdtemp, mkdir, writeFile, rm } from "node:fs/promises";
+import { mkdtemp, mkdir, writeFile, rm, symlink } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
@@ -116,5 +116,88 @@ test("rejects artifact paths that escape the feature folder", async () => {
     const result = run(f.featureDir);
     assert.equal(result.status, 1);
     assert.match(result.stderr, /escapes feature folder/);
+  } finally { await rm(f.root, { recursive: true, force: true }); }
+});
+
+
+async function prepareImplementationReady(f) {
+  await writeFile(join(f.featureDir, "plan.md"), "# Plan\n\nSDD Revision: R1\n");
+  await writeFile(join(f.featureDir, "tasks.md"), "# Tasks\n\nSDD Revision: R1\n");
+  f.state.status = "IMPLEMENTATION_READY";
+  f.state.artifacts.plan = { path: "plan.md", revision: "R1", status: "CURRENT" };
+  f.state.artifacts.tasks = { path: "tasks.md", revision: "R1", status: "CURRENT" };
+  f.state.approvals.spec = { revision: "R1", status: "APPROVED", approvedAt: "2026-10-16T10:00:00.000Z", dependsOn: {} };
+  f.state.approvals.plan = { revision: "R1", status: "APPROVED", approvedAt: "2026-10-16T10:10:00.000Z", dependsOn: { spec: "R1" } };
+  f.state.approvals.tasks = { revision: "R1", status: "APPROVED", approvedAt: "2026-10-16T10:20:00.000Z", dependsOn: { spec: "R1", plan: "R1" } };
+  f.state.approvals.final = { revision: null, status: "PENDING", approvedAt: null, dependsOn: { spec: "R1", plan: "R1", tasks: "R1" } };
+  await writeFile(f.statePath, JSON.stringify(f.state, null, 2));
+}
+
+const allCurrentGates = () => ({
+  analysis: { status: "PASSED", specRevision: "R1", planRevision: "R1", tasksRevision: "R1", completedAt: "2026-10-16T10:30:00.000Z", evidence: ["Cross-artifact analysis: no unresolved conflicts"] },
+  validation: { status: "PASSED", specRevision: "R1", planRevision: "R1", tasksRevision: "R1", completedAt: "2026-10-16T11:30:00.000Z", evidence: ["npm test: passed", "Acceptance criteria AC-001 verified"] },
+  convergence: { status: "PASSED", specRevision: "R1", planRevision: "R1", tasksRevision: "R1", completedAt: "2026-10-16T11:45:00.000Z", evidence: ["No material gaps remain against approved acceptance criteria"] }
+});
+
+test("blocks implementation readiness when persisted analysis evidence is missing", async () => {
+  const f = await fixture();
+  try {
+    await prepareImplementationReady(f);
+    const result = run(f.featureDir);
+    assert.equal(result.status, 1);
+    assert.match(result.stderr, /Gate analysis must have status PASSED/);
+  } finally { await rm(f.root, { recursive: true, force: true }); }
+});
+
+test("accepts implementation readiness only when analysis is tied to current revisions", async () => {
+  const f = await fixture();
+  try {
+    await prepareImplementationReady(f);
+    f.state.gates = allCurrentGates();
+    await writeFile(f.statePath, JSON.stringify(f.state, null, 2));
+    const result = run(f.featureDir);
+    assert.equal(result.status, 0, result.stderr);
+    assert.match(result.stdout, /PASSED/);
+  } finally { await rm(f.root, { recursive: true, force: true }); }
+});
+
+test("blocks convergence when validation evidence is missing", async () => {
+  const f = await fixture();
+  try {
+    await prepareImplementationReady(f);
+    f.state.status = "CONVERGED";
+    f.state.gates = allCurrentGates();
+    delete f.state.gates.validation;
+    await writeFile(f.statePath, JSON.stringify(f.state, null, 2));
+    const result = run(f.featureDir);
+    assert.equal(result.status, 1);
+    assert.match(result.stderr, /Gate validation must have status PASSED or ACCEPTED_LIMITATION/);
+  } finally { await rm(f.root, { recursive: true, force: true }); }
+});
+
+test("rejects gate evidence tied to stale artifact revisions", async () => {
+  const f = await fixture();
+  try {
+    await prepareImplementationReady(f);
+    f.state.gates = allCurrentGates();
+    f.state.gates.analysis.specRevision = "R0";
+    await writeFile(f.statePath, JSON.stringify(f.state, null, 2));
+    const result = run(f.featureDir);
+    assert.equal(result.status, 1);
+    assert.match(result.stderr, /Gate analysis revisions do not match/);
+  } finally { await rm(f.root, { recursive: true, force: true }); }
+});
+
+test("rejects artifact symlinks that escape the feature folder", async () => {
+  const f = await fixture();
+  try {
+    const outside = join(f.root, "outside.md");
+    await writeFile(outside, "# Outside\n\nSDD Revision: R1\n");
+    await symlink(outside, join(f.featureDir, "linked-spec.md"));
+    f.state.artifacts.spec.path = "linked-spec.md";
+    await writeFile(f.statePath, JSON.stringify(f.state, null, 2));
+    const result = run(f.featureDir);
+    assert.equal(result.status, 1);
+    assert.match(result.stderr, /Artifact symlink escapes feature folder/);
   } finally { await rm(f.root, { recursive: true, force: true }); }
 });

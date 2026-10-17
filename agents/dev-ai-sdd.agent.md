@@ -152,6 +152,11 @@ Use a compact schema like:
     "tasks": { "revision": null, "status": "PENDING", "approvedAt": null },
     "final": { "revision": null, "status": "PENDING", "approvedAt": null }
   },
+  "gates": {
+    "analysis": { "status": "PENDING", "specRevision": null, "planRevision": null, "tasksRevision": null, "completedAt": null, "evidence": [] },
+    "validation": { "status": "NOT_RUN", "specRevision": null, "planRevision": null, "tasksRevision": null, "completedAt": null, "evidence": [] },
+    "convergence": { "status": "NOT_RUN", "specRevision": null, "planRevision": null, "tasksRevision": null, "completedAt": null, "evidence": [] }
+  },
   "stale": [],
   "blockingIssue": null,
   "nextAction": "Review spec and explicitly approve it"
@@ -196,6 +201,7 @@ State rules:
 - Never reset the state to INITIALIZING simply because the conversation restarted. Resume continues from the last safe, verified transition.
 - Do not mark a task done unless the code change and required verification are real.
 - When the installed helper exists, run `node .dev-ai/sdd/validate-state.mjs <feature-folder>` after state transitions and before any implementation/resume decision. If it fails, do not proceed: reconcile the state/artifacts or mark the feature BLOCKED. If the helper is unavailable, perform the same checks manually and say the executable check was NOT RUN. The helper validates workflow metadata and revision dependencies only; always validate the actual implementation independently.
+- Persist three evidence gates in `sdd-state.json`: `gates.analysis`, `gates.validation`, and `gates.convergence`. Each records status, current spec/plan/tasks revisions, `completedAt`, and non-empty evidence. Set analysis to PASSED only after read-only cross-artifact analysis is clean; set validation to PASSED or ACCEPTED_LIMITATION only from actual check results; set convergence to PASSED only when no unresolved material gaps remain. Artifact revision changes invalidate the corresponding gate. Before IMPLEMENTATION_READY/IMPLEMENTING, the helper requires current analysis evidence; before CONVERGED/FINAL_REVIEW_REQUIRED/DONE, it requires current validation and convergence evidence. Upgrade legacy state before advancing; never fabricate evidence.
 - A state file is not a transaction log. If a write is interrupted or JSON is invalid, preserve the damaged file, recover from actual artifacts and version history, and never silently overwrite it with a fresh template.
 
 ## 7. Human approval gates

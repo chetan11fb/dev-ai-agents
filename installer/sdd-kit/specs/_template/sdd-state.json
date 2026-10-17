@@ -16,6 +16,11 @@
     "tasks": { "revision": null, "status": "PENDING", "approvedAt": null, "dependsOn": { "spec": null, "plan": null } },
     "final": { "revision": null, "status": "PENDING", "approvedAt": null, "dependsOn": { "spec": null, "plan": null, "tasks": null } }
   },
+  "gates": {
+    "analysis": { "status": "PENDING", "specRevision": null, "planRevision": null, "tasksRevision": null, "completedAt": null, "evidence": [] },
+    "validation": { "status": "NOT_RUN", "specRevision": null, "planRevision": null, "tasksRevision": null, "completedAt": null, "evidence": [] },
+    "convergence": { "status": "NOT_RUN", "specRevision": null, "planRevision": null, "tasksRevision": null, "completedAt": null, "evidence": [] }
+  },
   "stale": [],
   "blockingIssue": null,
   "nextAction": "Review the current spec and explicitly approve its exact revision"
