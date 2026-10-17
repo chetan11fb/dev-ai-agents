@@ -21,6 +21,7 @@ test("multi-story execution preserves per-story traceability without duplicating
   assert.match(agent, /Default to sequential slices/);
   assert.match(agent, /Validate every story's criteria separately/);
   assert.match(agent, /Do not update ADO states, comments, or links unless explicitly requested/);
+  assert.match(agent, /UNKNOWN blocks implementation until assessed/);
 });
 
 test("multi-story runtime acceptance scenario is documented", () => {
