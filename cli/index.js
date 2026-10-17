@@ -101,7 +101,7 @@ async function planInstall(components,root,force){
   for(const component of components){
     if(component.type==="plugin" || component.type==="sdd-kit"){
       const tree=await fetchJson(`https://api.github.com/repos/${REPO}/git/trees/${BRANCH}?recursive=1`);
-      const prefix=component.path.replace(/\\/$/,"")+"/";
+      const prefix=component.path.replace(/\/$/,"")+"/";
       const entries=tree.tree.filter(x=>x.type==="blob" && x.path.startsWith(prefix));
       if(!entries.length) throw new Error(`No files found for ${component.id}`);
       for(const entry of entries){
