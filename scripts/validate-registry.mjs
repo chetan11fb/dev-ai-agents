@@ -32,6 +32,34 @@ await walk(resolve("agents"));
 const registeredAgentPaths = new Set(registry.components.filter(x => x.type === "agent").map(x => x.path));
 for (const path of agentFiles) if (!registeredAgentPaths.has(path)) errors.push(`Agent file missing from registry: ${path}`);
 for (const path of registeredAgentPaths) if (!agentFiles.includes(path)) errors.push(`Registry agent has no source file: ${path}`);
+
+const sddKit = registry.components.find(x => x.type === "sdd-kit" && x.id === "dev-ai-sdd-templates");
+if (sddKit) {
+  const kitRoot = resolve(sddKit.path);
+  const componentTargets = new Map();
+  for (const item of registry.components) {
+    if (item.target) {
+      const target = resolve(item.target);
+      if (!componentTargets.has(target)) componentTargets.set(target, []);
+      componentTargets.get(target).push(`${item.type}:${item.id}`);
+    }
+  }
+  async function inspectKit(dir) {
+    for (const entry of await (await import("node:fs/promises")).readdir(dir, { withFileTypes: true })) {
+      const absolute = resolve(dir, entry.name);
+      if (entry.isDirectory()) await inspectKit(absolute);
+      else if (entry.isFile()) {
+        const relativePath = absolute.slice(kitRoot.length).replace(/^[/\\\\]+/, "");
+        const destination = resolve(sddKit.target, relativePath);
+        const collisions = componentTargets.get(destination);
+        if (collisions?.length) {
+          errors.push(`SDD kit file collides with separately registered target ${relativePath}: ${collisions.join(", ")}`);
+        }
+      }
+    }
+  }
+  await inspectKit(kitRoot);
+}
 if (errors.length) {
   console.error("DEV-AI registry validation failed:\\n- " + errors.join("\\n- "));
   process.exit(1);

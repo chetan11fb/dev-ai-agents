@@ -2,6 +2,7 @@ name: SDD workflow validation
 
 on:
   pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
     paths:
       - "agents/dev-ai-sdd.agent.md"
       - "installer/sdd-kit/**"
@@ -9,6 +10,8 @@ on:
       - "scripts/validate-registry.mjs"
       - "package.json"
       - "registry/marketplace.json"
+      - "cli/index.js"
+      - "docs/sdd-runtime-qa-matrix.md"
       - ".github/workflows/sdd-validation.yml"
   push:
     branches: [main]
@@ -19,6 +22,8 @@ on:
       - "scripts/validate-registry.mjs"
       - "package.json"
       - "registry/marketplace.json"
+      - "cli/index.js"
+      - "docs/sdd-runtime-qa-matrix.md"
       - ".github/workflows/sdd-validation.yml"
 
 permissions:
@@ -36,3 +41,25 @@ jobs:
         run: npm run validate:registry
       - name: Test SDD state and approval gates
         run: npm run test:sdd-state
+      - name: Validate CLI installer syntax
+        run: npm run test:cli
+      - name: Smoke-test default SDD install and safe rerun
+        env:
+          DEV_AI_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          target="$RUNNER_TEMP/dev-ai-sdd-smoke"
+          node cli/index.js --target "$target"
+          test -f "$target/.github/agents/dev-ai-sdd.agent.md"
+          test -f "$target/.dev-ai/sdd/validate-state.mjs"
+          test -f "$target/specs/_template/sdd-state.json"
+          agent_count=$(find "$target/.github/agents" -maxdepth 1 -type f -name 'dev-ai-sdd.agent.md' | wc -l)
+          test "$agent_count" -eq 1
+          before=$(find "$target" -type f | wc -l)
+          if node cli/index.js --target "$target" > "$RUNNER_TEMP/reinstall.log" 2>&1; then
+            echo "Expected repeat install without --force to fail"
+            exit 1
+          fi
+          grep -q "Install aborted before writing any files" "$RUNNER_TEMP/reinstall.log"
+          after=$(find "$target" -type f | wc -l)
+          test "$before" -eq "$after"
+          node --check "$target/.dev-ai/sdd/validate-state.mjs"
