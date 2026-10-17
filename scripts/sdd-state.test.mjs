@@ -24,10 +24,11 @@ async function fixture() {
       tasks: { path: "tasks.md", revision: null, status: "MISSING" }
     },
     approvals: {
-      constitution: { revision: null, status: "NOT_REQUIRED", approvedAt: null, dependsOn: {} },
+      constitution: { revision: null, status: "NOT_REQUIRED", approvedAt: null, dependsOn: {}, reason: "Existing non-draft constitution inspected and reused" },
       spec: { revision: "R1", status: "APPROVED", approvedAt: "2026-10-16T10:00:00.000Z", dependsOn: {} },
       plan: { revision: null, status: "PENDING", approvedAt: null, dependsOn: { spec: null } },
       tasks: { revision: null, status: "PENDING", approvedAt: null, dependsOn: { spec: null, plan: null } },
+      risk: { revision: null, status: "PENDING", approvedAt: null, dependsOn: { spec: null, plan: null, tasks: null } },
       final: { revision: null, status: "PENDING", approvedAt: null, dependsOn: { spec: null, plan: null, tasks: null } }
     },
     stale: [],
@@ -199,5 +200,69 @@ test("rejects artifact symlinks that escape the feature folder", async () => {
     const result = run(f.featureDir);
     assert.equal(result.status, 1);
     assert.match(result.stderr, /Artifact symlink escapes feature folder/);
+  } finally { await rm(f.root, { recursive: true, force: true }); }
+});
+
+
+test("blocks feature work while constitution approval is pending", async () => {
+  const f = await fixture();
+  try {
+    f.state.status = "SPEC_REVIEW_REQUIRED";
+    f.state.approvals.constitution = { revision: null, status: "PENDING", approvedAt: null, dependsOn: {}, reason: null };
+    await writeFile(f.statePath, JSON.stringify(f.state, null, 2));
+    const result = run(f.featureDir);
+    assert.equal(result.status, 1);
+    assert.match(result.stderr, /requires a ratified\/reused constitution/);
+  } finally { await rm(f.root, { recursive: true, force: true }); }
+});
+
+test("requires an auditable reason when a pre-existing constitution is marked NOT_REQUIRED", async () => {
+  const f = await fixture();
+  try {
+    f.state.approvals.constitution.reason = " ";
+    await writeFile(f.statePath, JSON.stringify(f.state, null, 2));
+    const result = run(f.featureDir);
+    assert.equal(result.status, 1);
+    assert.match(result.stderr, /NOT_REQUIRED requires a reason/);
+  } finally { await rm(f.root, { recursive: true, force: true }); }
+});
+
+test("blocks high-risk implementation readiness without a separate risk approval", async () => {
+  const f = await fixture();
+  try {
+    await prepareImplementationReady(f);
+    f.state.risk = "CRITICAL";
+    f.state.gates = allCurrentGates();
+    await writeFile(f.statePath, JSON.stringify(f.state, null, 2));
+    const result = run(f.featureDir);
+    assert.equal(result.status, 1);
+    assert.match(result.stderr, /requires an approved risk approval/);
+  } finally { await rm(f.root, { recursive: true, force: true }); }
+});
+
+test("accepts high-risk implementation readiness only with revision-bound risk approval", async () => {
+  const f = await fixture();
+  try {
+    await prepareImplementationReady(f);
+    f.state.risk = "HIGH";
+    f.state.approvals.risk = { revision: null, status: "APPROVED", approvedAt: "2026-10-16T10:25:00.000Z", dependsOn: { spec: "R1", plan: "R1", tasks: "R1" } };
+    f.state.gates = allCurrentGates();
+    await writeFile(f.statePath, JSON.stringify(f.state, null, 2));
+    const result = run(f.featureDir);
+    assert.equal(result.status, 0, result.stderr);
+  } finally { await rm(f.root, { recursive: true, force: true }); }
+});
+
+test("rejects a risk approval when any approved artifact revision changes", async () => {
+  const f = await fixture();
+  try {
+    await prepareImplementationReady(f);
+    f.state.risk = "CRITICAL";
+    f.state.approvals.risk = { revision: null, status: "APPROVED", approvedAt: "2026-10-16T10:25:00.000Z", dependsOn: { spec: "R0", plan: "R1", tasks: "R1" } };
+    f.state.gates = allCurrentGates();
+    await writeFile(f.statePath, JSON.stringify(f.state, null, 2));
+    const result = run(f.featureDir);
+    assert.equal(result.status, 1);
+    assert.match(result.stderr, /risk approval is stale: dependsOn\.spec/);
   } finally { await rm(f.root, { recursive: true, force: true }); }
 });
