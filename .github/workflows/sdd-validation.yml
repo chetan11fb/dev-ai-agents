@@ -10,6 +10,7 @@ on:
       - "scripts/validate-registry.mjs"
       - "package.json"
       - "registry/marketplace.json"
+      - "cli/index.js"
       - ".github/workflows/sdd-validation.yml"
   push:
     branches: [main]
@@ -20,6 +21,7 @@ on:
       - "scripts/validate-registry.mjs"
       - "package.json"
       - "registry/marketplace.json"
+      - "cli/index.js"
       - ".github/workflows/sdd-validation.yml"
 
 permissions:
