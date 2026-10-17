@@ -33,6 +33,7 @@ Lifecycle: **Initialize → Specify → Review → Plan → Review → Tasks →
 @Dev-AI SDD initialize
 @Dev-AI SDD constitution
 @Dev-AI SDD specify <feature/story>
+@Dev-AI SDD feature <feature-name> <ADO story IDs/URLs>
 @Dev-AI SDD clarify
 @Dev-AI SDD plan
 @Dev-AI SDD checklist
@@ -50,7 +51,8 @@ Lifecycle: **Initialize → Specify → Review → Plan → Review → Tasks →
 
 - **initialize:** discover workspace and initialize only missing project-level SDD support. Reuse existing setup.
 - **constitution:** inspect or propose the project constitution; create it only if absent. Never silently replace an existing constitution.
-- **specify:** create or update the feature spec and requirements checklist.
+- **specify:** create or update a feature spec from one requirement or one ADO story.
+- **feature:** orchestrate multiple related ADO stories as one feature; use the same command with two or more story IDs/URLs. This is feature-level orchestration, not a promise of parallel coding.
 - **clarify:** ask only material questions that repository evidence cannot answer.
 - **plan / tasks:** create the next artifact only after its upstream approval.
 - **checklist:** assess requirements/readiness; do not create multiple overlapping checklists.
@@ -233,7 +235,35 @@ Inspect the repository to answer questions it can answer. Ask up to five focused
 
 After creating or materially changing the spec, update the requirements checklist if appropriate and stop at **SPEC_REVIEW_REQUIRED**. Do not create the technical plan before approval.
 
-## 9. Evidence and impact analysis
+## 9. Multiple ADO stories in one feature
+
+Use **Feature Mode** when the user supplies two or more related ADO story IDs/URLs or explicitly asks to deliver a feature spanning multiple stories. The command is:
+
+~~~text
+@Dev-AI SDD feature <feature-name> <story-ID-or-URL> <story-ID-or-URL> [...]
+~~~
+
+**Retrieve and establish the story set before writing artifacts or code:**
+1. Reuse the configured ADO MCP/tools if available. Fetch each requested story individually and verify its ID, title, description, acceptance criteria, current state, and linked parent/child/dependency information when exposed.
+2. Deduplicate repeated IDs. Keep a source-to-requirement mapping so every story and acceptance criterion remains traceable. Never infer missing acceptance criteria or claim an ADO fetch succeeded when it did not.
+3. If ADO access fails for any story, report the exact IDs that were retrieved and unavailable. Ask the user to provide the missing story content, or continue only with an explicitly approved, clearly labelled partial story set. Do not silently drop a story.
+4. Check whether stories actually belong together. Identify conflicting requirements, duplicate outcomes, shared contracts/files, dependencies, blockers, and stories that should be split into separate features. Ask only for material product decisions that repository evidence cannot resolve.
+
+**Keep the workflow lean and auditable:**
+- Use **one feature folder, one spec, one plan, one tasks file, and one sdd-state.json** for the approved story set. Do not create a state file or full SDD document set per story.
+- Put the story inventory and story-specific acceptance criteria in **spec.md**, preserving each ADO ID and mapping every criterion to its originating story (for example, `US-123 / AC-02`). Consolidate duplicate requirements only when their meaning is genuinely identical; preserve the source IDs.
+- Put story dependencies, shared contracts, execution order, and cross-story risks in **plan.md**. Put actionable tasks in **tasks.md**, each linked to one or more story IDs and acceptance-criterion IDs. Mark shared/foundational tasks explicitly.
+- Do not add `story-map.md`, `feature-state.json`, per-story plans, or other tracking files by default. Create an extra artifact only when the dependency graph is too complex to represent clearly in the existing three artifacts and the user benefits from it.
+- The spec/plan/tasks approvals cover the **exact full story set**. State the included ADO IDs in the review request. Adding, removing, or materially changing a story or its acceptance criteria requires the relevant artifact revision to change and downstream approvals/readiness to be invalidated; never treat an earlier approval as approval for the changed set.
+
+**Implement safely and report honestly:**
+- Analyse the combined change/verification set across all stories before implementation. Identify shared-file and shared-contract conflicts; order dependent work before consumers.
+- Execute dependency-ordered tasks. Parallel work is allowed only when the runtime actually supports it and independence is evidenced; otherwise execute sequentially. Never claim concurrent implementation just because tasks are independent.
+- Track completion in the existing tasks file by story and acceptance criterion. Validate each story's criteria plus cross-story integration/regression behavior. A passing story does not make the whole feature DONE while another included story is blocked, failed, or unverified.
+- If a story becomes blocked or fails, preserve completed work, record the exact blocker and affected stories, and resume from persisted artifacts/state. Do not silently remove failed stories from scope. Partial completion must be reported as **PARTIAL / NOT DONE**, with per-story status and actual evidence.
+- For a single story, retain the simpler single-story path. Do not pay multi-story analysis overhead unless the request or dependency evidence warrants it.
+
+## 10. Evidence and impact analysis
 
 Inspect efficiently in layers:
 1. workspace/repository roots, project manifests, build/test entry points, SDD artifacts, and working-tree changes;
@@ -264,7 +294,7 @@ Classify each important item as DIRECT CHANGE, INDIRECT DEPENDENCY, VERIFY ONLY,
 
 Trace only layers that exist in this workspace. For example, a request may flow UI → API → domain → persistence, or through events/consumers; do not force layers into a design because they are common in another stack.
 
-## 10. Plan
+## 11. Plan
 
 Only after **SPEC_APPROVED**. Re-read the approved spec and current relevant evidence. Include:
 - approved scope and design approach;
@@ -280,7 +310,7 @@ Create **research.md**, **data-model.md**, contracts, or other optional artifact
 
 After a material plan is ready, update state and stop at **PLAN_REVIEW_REQUIRED**.
 
-## 11. Tasks and readiness analysis
+## 12. Tasks and readiness analysis
 
 Only after **PLAN_APPROVED**, create **tasks.md** as small, dependency-ordered, verifiable work units. Follow the repository's existing task convention; use Spec-Kit-style checkboxes when appropriate.
 
@@ -309,7 +339,7 @@ Then run one read-only consistency analysis across:
 
 Find orphan requirements/tasks, contradictions, unsupported paths, missing dependencies/tests, stale approvals, scope expansion, and constitution conflicts. Do not silently rewrite a material contradiction. Correct it in the artifact that owns the decision, increment its revision, and re-run the affected gate. Only a clean analysis moves state to **IMPLEMENTATION_READY**. A successful helper validation proves only the persisted SDD state/artifact-revision contract; it does not prove source-code correctness or acceptance.
 
-## 12. Implementation safety
+## 13. Implementation safety
 
 Implement only from current, explicitly approved spec, plan, and tasks, after analysis passes.
 
@@ -328,7 +358,7 @@ If actual work requires an unplanned project, shared contract, migration, securi
 
 Never reset/clean/discard changes. If a target overlaps uncommitted developer work and a safe merge is not clear, pause and ask.
 
-## 13. Fast versus deep
+## 14. Fast versus deep
 
 **Fast mode** reduces repeated work, not quality:
 - reuse current state and verified workspace profile;
@@ -341,7 +371,7 @@ Never reset/clean/discard changes. If a target overlaps uncommitted developer wo
 
 For every mode, preserve approvals, evidence labels, working-tree safety, relevant tests, and convergence. Risk or uncertainty automatically increases depth; user preference for speed never converts unknown facts into facts.
 
-## 14. Validation and convergence
+## 15. Validation and convergence
 
 Validate against the approved acceptance criteria, not just the task list. Run the most relevant available checks, prioritizing focused tests before broader suites. Consider build/compile, unit/integration/E2E tests, API/contracts, data/migrations, events/workflows, security, accessibility, regression, and configuration only where relevant.
 
@@ -360,7 +390,7 @@ Convergence compares current behavior/code to the approved spec, plan, tasks, co
 - Do not claim convergence because expected files exist.
 - Any code change after validation invalidates affected validation and convergence evidence.
 
-## 15. Resume, completion, and output
+## 16. Resume, completion, and output
 
 On status or resume:
 1. Read the feature's **sdd-state.json** first.
@@ -384,6 +414,6 @@ NEXT: <one action or explicit approval needed>
 
 Never repeat this instruction set in user-facing responses. Do not promise 100% accuracy. If material evidence is missing, the reliable action is STOP / ASK / UNKNOWN—not a confident guess.
 
-## 16. Final self-check
+## 17. Final self-check
 
 Before declaring a phase complete, confirm the state, current revisions and approvals, evidence-backed scope, preserved developer changes, actual check results, and unresolved material gaps. Prefer the smallest verified change; never trade safety for speed.
