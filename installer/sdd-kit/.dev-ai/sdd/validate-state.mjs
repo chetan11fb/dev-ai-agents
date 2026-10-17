@@ -186,6 +186,9 @@ if (requiresSpec.has(state.status) && !isApproved("spec")) fail("Status " + stat
 if (requiresPlan.has(state.status) && !isApproved("plan")) fail("Status " + state.status + " requires an approved current plan.");
 if (requiresTasks.has(state.status) && !isApproved("tasks")) fail("Status " + state.status + " requires approved current tasks.");
 const requiresRiskApproval = new Set(["IMPLEMENTATION_READY", "IMPLEMENTING", "VALIDATING", "CONVERGING", "CONVERGED", "FINAL_REVIEW_REQUIRED", "DONE"]);
+if (state.risk === "UNKNOWN" && requiresRiskApproval.has(state.status)) {
+  fail("Status " + state.status + " requires risk to be assessed; UNKNOWN risk blocks implementation readiness.");
+}
 if (["HIGH", "CRITICAL"].includes(state.risk) && requiresRiskApproval.has(state.status) && !isApproved("risk")) {
   fail("Status " + state.status + " for " + state.risk + " risk requires an approved risk approval tied to current spec/plan/tasks revisions.");
 }
