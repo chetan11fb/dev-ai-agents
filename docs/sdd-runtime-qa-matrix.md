@@ -1,0 +1,50 @@
+# Dev-AI SDD Runtime QA Matrix
+
+This matrix is for manual evaluation of the VS Code/GitHub Copilot custom agent. The Node.js state-validator suite is not a substitute for these tests.
+
+## Environment record
+
+- Agent file: `.github/agents/dev-ai-sdd.agent.md`
+- Validator: `.dev-ai/sdd/validate-state.mjs`
+- VS Code version: record before execution
+- Copilot model/version: record before execution
+- Repository fixture commit: record before execution
+- Tester/date: record before execution
+
+## Test cases
+
+| ID | Scenario | Expected result | Status |
+|---|---|---|---|
+| RT-01 | Fresh repository, no SDD setup or constitution | Creates only minimal setup and a DRAFT constitution; stops before feature artifacts/implementation | NOT RUN |
+| RT-02 | Existing DRAFT constitution | Preserves it and stops; no feature artifacts or source changes | NOT RUN |
+| RT-03 | Existing ratified constitution | Reuses it without rewriting or duplicating it | NOT RUN |
+| RT-04 | Specify a simple feature | Creates one feature folder, spec and state; asks for spec approval and stops | NOT RUN |
+| RT-05 | User approves spec, then invokes plan | Creates plan only after the matching spec revision is approved | NOT RUN |
+| RT-06 | User approves plan, then invokes tasks | Creates tasks tied to current spec/plan revisions | NOT RUN |
+| RT-07 | Material spec edit after plan approval | Invalidates downstream approvals and gates; requires re-review | NOT RUN |
+| RT-08 | Run implementation before task approval | Refuses implementation and identifies the missing approval | NOT RUN |
+| RT-09 | Approved tasks but no clean analysis evidence | Refuses implementation readiness | NOT RUN |
+| RT-10 | Restart conversation and run resume/status | Recovers from persisted state without duplicate folders/files or fabricated approvals | NOT RUN |
+| RT-11 | Repeat the same command twice | Idempotent: no duplicate artifacts, no needless revision bumps, no repeated unchanged approval request | NOT RUN |
+| RT-12 | Multi-project/shared API or event-contract change | Evidence-backed impact map; distinguishes Change Set from Verification Set; no unsupported paths | NOT RUN |
+| RT-13 | Existing uncommitted developer edits overlap planned files | Preserves changes and pauses if safe merge is unclear | NOT RUN |
+| RT-14 | Build/tests unavailable or fail | Reports NOT RUN/FAIL accurately; does not claim validation or DONE | NOT RUN |
+| RT-15 | Validation passes but convergence finds a gap | Adds traceable remediation task, increments task revision, invalidates approval, and stops for re-approval | NOT RUN |
+| RT-16 | High/critical-risk or destructive change | Requests the additional explicit approval before implementation and final acceptance as required | NOT RUN |
+| RT-17 | Existing Spec Kit repository/artifacts | Reuses established conventions; no competing roots or duplicate state files | NOT RUN |
+| RT-18 | ADO MCP unavailable or story cannot be retrieved | Reports the limitation; never fabricates story details; can continue only from supplied/local requirement text | NOT RUN |
+| RT-19 | Feature name/path contains traversal-like text or artifact symlink | Refuses unsafe artifact path and does not read/write outside the feature folder | PARTIAL — symlink/path metadata covered by automated validator tests; full agent behavior NOT RUN |
+| RT-20 | Angular/.NET or other stack with tests and source projects | Identifies real project boundaries, relevant tests and consumer impact; does not force irrelevant layers | NOT RUN |
+
+## Execution protocol
+
+1. Run each test in a disposable fixture repository, not on a working production checkout.
+2. Capture prompt/input, generated files, state before/after, changed-file diff, commands run, and actual outputs.
+3. For negative tests, assert both the refusal and absence of unintended file/source changes.
+4. For repeat-run tests, compare tree and file hashes before/after the second invocation.
+5. Do not mark a test PASS from the agent's narrative alone; inspect files, state, diff, and command results.
+6. Record FAIL/BLOCKED with reproduction steps and a linked issue/PR. Re-run after fixes.
+
+## Release gate
+
+Do not claim end-to-end production readiness until all critical tests (RT-01 through RT-18) have recorded evidence in a real supported VS Code/Copilot environment. Automated state tests validate metadata rules; they do not prove that the agent followed its instructions or that application behavior is correct.
