@@ -34,7 +34,7 @@ test("multi-story runtime cases and release gate are documented", () => {
   assert.match(matrix, /RT-24 \| One requested ADO story cannot be retrieved/);
   assert.match(matrix, /RT-25 \| Multi-story set contains dependencies/);
   assert.match(matrix, /RT-26 \| One story fails or becomes blocked/);
-  assert.match(matrix, /RT-22 through RT-26/);
+  assert.match(matrix, /RT-22 through RT-30/);
 });
 
 test("approval provenance and concurrent edits remain safe", () => {
