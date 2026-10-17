@@ -121,8 +121,8 @@ test("rejects artifact paths that escape the feature folder", async () => {
 
 
 async function prepareImplementationReady(f) {
-  await writeFile(join(f.featureDir, "plan.md"), "# Plan\\n\\nSDD Revision: R1\\n");
-  await writeFile(join(f.featureDir, "tasks.md"), "# Tasks\\n\\nSDD Revision: R1\\n");
+  await writeFile(join(f.featureDir, "plan.md"), "# Plan\n\nSDD Revision: R1\n");
+  await writeFile(join(f.featureDir, "tasks.md"), "# Tasks\n\nSDD Revision: R1\n");
   f.state.status = "IMPLEMENTATION_READY";
   f.state.artifacts.plan = { path: "plan.md", revision: "R1", status: "CURRENT" };
   f.state.artifacts.tasks = { path: "tasks.md", revision: "R1", status: "CURRENT" };
@@ -192,7 +192,7 @@ test("rejects artifact symlinks that escape the feature folder", async () => {
   const f = await fixture();
   try {
     const outside = join(f.root, "outside.md");
-    await writeFile(outside, "# Outside\\n\\nSDD Revision: R1\\n");
+    await writeFile(outside, "# Outside\n\nSDD Revision: R1\n");
     await symlink(outside, join(f.featureDir, "linked-spec.md"));
     f.state.artifacts.spec.path = "linked-spec.md";
     await writeFile(f.statePath, JSON.stringify(f.state, null, 2));
