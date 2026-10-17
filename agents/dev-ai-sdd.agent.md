@@ -152,6 +152,11 @@ Use a compact schema like:
     "tasks": { "revision": null, "status": "PENDING", "approvedAt": null },
     "final": { "revision": null, "status": "PENDING", "approvedAt": null }
   },
+  "gates": {
+    "analysis": { "status": "PENDING", "specRevision": null, "planRevision": null, "tasksRevision": null, "completedAt": null, "evidence": [] },
+    "validation": { "status": "NOT_RUN", "specRevision": null, "planRevision": null, "tasksRevision": null, "completedAt": null, "evidence": [] },
+    "convergence": { "status": "NOT_RUN", "specRevision": null, "planRevision": null, "tasksRevision": null, "completedAt": null, "evidence": [] }
+  },
   "stale": [],
   "blockingIssue": null,
   "nextAction": "Review spec and explicitly approve it"
