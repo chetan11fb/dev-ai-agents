@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { access, mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 
 const REPO = "chetan11fb/dev-ai-agents";
@@ -95,19 +95,36 @@ async function writeRemoteFile(destination,url,force){
   await writeFile(destination,content,"utf8");
   log(`  ✓ ${destination}`,c.green);
 }
-async function install(component,root,force){
-  if(component.type==="plugin" || component.type==="sdd-kit"){
-    const tree=await fetchJson(`https://api.github.com/repos/${REPO}/git/trees/${BRANCH}?recursive=1`);
-    const prefix=component.path.replace(/\\\/$/,"")+"/";
-    const entries=tree.tree.filter(x=>x.type==="blob" && x.path.startsWith(prefix));
-    if(!entries.length) throw new Error(`No files found for ${component.id}`);
-    for(const e of entries){
-      await writeRemoteFile(resolve(root,component.target,e.path.slice(prefix.length)),`${RAW_BASE}/${e.path}`,force);
+async function planInstall(components,root,force){
+  const plan=[];
+  const destinations=new Map();
+  for(const component of components){
+    if(component.type==="plugin" || component.type==="sdd-kit"){
+      const tree=await fetchJson(`https://api.github.com/repos/${REPO}/git/trees/${BRANCH}?recursive=1`);
+      const prefix=component.path.replace(/\\/$/,"")+"/";
+      const entries=tree.tree.filter(x=>x.type==="blob" && x.path.startsWith(prefix));
+      if(!entries.length) throw new Error(`No files found for ${component.id}`);
+      for(const entry of entries){
+        plan.push({component,destination:resolve(root,component.target,entry.path.slice(prefix.length)),url:`${RAW_BASE}/${entry.path}`});
+      }
+    }else{
+      plan.push({component,destination:resolve(root,component.target),url:`${RAW_BASE}/${component.path}`});
     }
-    return entries.length;
   }
-  await writeRemoteFile(resolve(root,component.target),`${RAW_BASE}/${component.path}`,force);
-  return 1;
+  for(const item of plan){
+    const previous=destinations.get(item.destination);
+    if(previous) throw new Error(`Install target collision before writing files: ${item.destination} (${previous} and ${item.component.type}:${item.component.id})`);
+    destinations.set(item.destination,`${item.component.type}:${item.component.id}`);
+  }
+  if(!force){
+    const existing=[];
+    for(const item of plan){
+      try { await access(item.destination); existing.push(item.destination); }
+      catch(error){ if(error.code!=="ENOENT") throw error; }
+    }
+    if(existing.length) throw new Error(`Install aborted before writing any files; existing targets found. Use --force only if you intend to overwrite them:\\n- ${existing.slice(0,20).join("\\n-")}${existing.length>20?"\\n- ... and "+(existing.length-20)+" more":""}`);
+  }
+  return plan;
 }
 function list(registry){
   for(const type of ["agent","super-agent","skill","prompt","plugin","mcp","setting","sdd-kit"]){
@@ -138,10 +155,11 @@ async function main(){
     }
   }
   if(!selected.length) return usage();
-  log(`\\n◆ DEV-AI — installing ${selected.length} component(s)\\n`,c.cyan);
-  let count=0;
-  for(const item of selected){ log(`→ ${item.type}: ${item.id}`,c.cyan); count+=await install(item,o.target,o.force); }
-  log(`\\n✓ Installed ${count} file(s) successfully.`,c.green);
+  const plan=await planInstall(selected,resolve(o.target),o.force);
+  log(`\\n◆ DEV-AI — installing ${selected.length} component(s) / ${plan.length} file(s)\\n`,c.cyan);
+  for(const item of selected) log(`→ ${item.type}: ${item.id}`,c.cyan);
+  for(const file of plan) await writeRemoteFile(file.destination,file.url,o.force);
+  log(`\\n✓ Installed ${plan.length} file(s) successfully.`,c.green);
   if(o.sdd) log(`\\nNext: open VS Code Chat → Agents → Dev-AI SDD, then run: @Dev-AI SDD initialize`,c.yellow);
 }
 main().catch(e=>{ log(`\\n✗ ${e.message}`,c.red); process.exitCode=1; });
