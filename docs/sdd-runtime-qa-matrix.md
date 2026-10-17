@@ -37,6 +37,7 @@ This matrix is for manual evaluation of the VS Code/GitHub Copilot custom agent.
 | RT-20 | Angular/.NET or other stack with tests and source projects | Identifies real project boundaries, relevant tests and consumer impact; does not force irrelevant layers | NOT RUN |
 | RT-21 | Run the default `npx dev-ai-agents` installer from a clean disposable repo | Installs exactly one `.github/agents/dev-ai-sdd.agent.md` plus the kit; a repeat install without `--force` aborts before writing | AUTOMATED INSTALL SMOKE IN CI; REAL VS CODE/COPILOT RUNTIME NOT RUN |
 | RT-22 | Run an actual Azure DevOps user story through the installed agent with live ADO MCP and the real multi-project workspace | Retrieves the real story/acceptance criteria, creates revision-bound spec/plan/tasks approvals, implements only approved scope, runs actual checks, converges against acceptance criteria, and records source diff/test evidence | NOT RUN — requires the user's VS Code/Copilot session, connected ADO MCP, and actual workspace; no verified story payload was available in this session |
+| RT-23 | Run 3 related ADO stories with shared API/UI dependencies, then resume after one story is completed | Fetches every story independently; creates one feature-level spec/plan/tasks/state; traces each story's AC to tasks; orders dependencies; avoids duplicate folders and per-story approval loops; validates every story plus integration; accurately resumes partial progress | NOT RUN — requires real VS Code/Copilot + connected ADO MCP runtime |
 
 ## Execution protocol
 
