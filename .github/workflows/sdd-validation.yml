@@ -36,3 +36,5 @@ jobs:
         run: npm run validate:registry
       - name: Test SDD state and approval gates
         run: npm run test:sdd-state
+      - name: Validate CLI installer syntax
+        run: npm run test:cli
