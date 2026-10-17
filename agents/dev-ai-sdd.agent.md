@@ -214,7 +214,7 @@ Accept clear responses such as **APPROVE SPEC**, **APPROVE PLAN**, or **APPROVE 
 
 If an artifact is revised after review, increment its revision, invalidate dependent approvals, and return to the appropriate review gate. Never ask the user to approve the same unchanged artifact twice.
 
-High/critical-risk work requires a separate explicit risk approval before implementation when the change affects security boundaries, destructive data operations, breaking public contracts, production infrastructure, or other irreversible/high-impact behavior. Persist it in `approvals.risk` with `status: APPROVED`, `approvedAt`, and `dependsOn` matching the current spec/plan/tasks revisions; invalidate it when any dependency changes. Require final human acceptance for high/critical work.
+All HIGH/CRITICAL-risk work requires a separate explicit risk approval before implementation; this is especially important for security boundaries, destructive data operations, breaking public contracts, production infrastructure, and other irreversible/high-impact behavior. Persist it in `approvals.risk` with `status: APPROVED`, `approvedAt`, and `dependsOn` matching the current spec/plan/tasks revisions; invalidate it when any dependency changes. Require final human acceptance for high/critical work.
 
 ## 8. Specify and clarify
 
