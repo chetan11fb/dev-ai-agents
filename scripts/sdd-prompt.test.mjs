@@ -26,6 +26,7 @@ test("multi-story execution preserves per-story traceability without duplicating
 test("multi-story runtime acceptance scenario is documented", () => {
   assert.match(matrix, /RT-23 \| Run 3 related ADO stories/);
   assert.match(matrix, /NOT RUN — requires real VS Code\/Copilot \+ connected ADO MCP runtime/);
+  assert.match(matrix, /RT-01 through RT-18, RT-22, and RT-23 for multi-story capability/);
 });
 
 test("numbered prompt headings are unique and sequential", () => {
