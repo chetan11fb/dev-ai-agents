@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { readFile } from "node:fs/promises";
+import { readFile, realpath } from "node:fs/promises";
 import { resolve, relative, isAbsolute, sep } from "node:path";
 
 const allowedStates = new Set([
@@ -65,7 +65,16 @@ for (const name of artifactNames) {
     continue;
   }
   let content = null;
-  try { content = await readFile(artifactPath, "utf8"); } catch {}
+  try {
+    const realFeatureDir = await realpath(featureDir);
+    const realArtifactPath = await realpath(artifactPath);
+    const realRel = relative(realFeatureDir, realArtifactPath);
+    if (isAbsolute(realRel) || realRel === ".." || realRel.startsWith(".." + sep)) {
+      fail("Artifact symlink escapes feature folder: " + item.path);
+      continue;
+    }
+    content = await readFile(realArtifactPath, "utf8");
+  } catch {}
   if (item.status === "MISSING") {
     if (content !== null) fail(name + " is marked MISSING but file exists: " + item.path);
     if (item.revision !== null && item.revision !== undefined) fail(name + " is MISSING but has revision " + item.revision + ".");
@@ -121,6 +130,24 @@ checkDependency("tasks", "plan");
 checkDependency("final", "spec");
 checkDependency("final", "plan");
 checkDependency("final", "tasks");
+
+const laterThanAnalysis = new Set(["IMPLEMENTATION_READY", "IMPLEMENTING", "VALIDATING", "CONVERGING", "CONVERGED", "FINAL_REVIEW_REQUIRED", "DONE"]);
+const requiresValidation = new Set(["CONVERGING", "CONVERGED", "FINAL_REVIEW_REQUIRED", "DONE"]);
+const requiresConvergence = new Set(["CONVERGED", "FINAL_REVIEW_REQUIRED", "DONE"]);
+const gateRevisionKeys = ["specRevision", "planRevision", "tasksRevision"];
+const currentGateRevisions = () => ({ specRevision: currentRevisions.spec ?? null, planRevision: currentRevisions.plan ?? null, tasksRevision: currentRevisions.tasks ?? null });
+const revisionsMatch = (gate) => gateRevisionKeys.every((key) => gate?.[key] === currentGateRevisions()[key] && gate?.[key] !== null);
+const validTimestamp = (value) => typeof value === "string" && Number.isFinite(Date.parse(value));
+const checkGate = (name, allowedStatuses) => {
+  const gate = state.gates?.[name];
+  if (!gate || !allowedStatuses.includes(gate.status)) { fail("Gate " + name + " must have status " + allowedStatuses.join(" or ") + "."); return; }
+  if (!validTimestamp(gate.completedAt)) fail("Gate " + name + " requires a valid completedAt timestamp.");
+  if (!revisionsMatch(gate)) fail("Gate " + name + " revisions do not match the current spec/plan/tasks revisions.");
+  if (!Array.isArray(gate.evidence) || gate.evidence.length === 0 || gate.evidence.some((item) => typeof item !== "string" || !item.trim())) fail("Gate " + name + " requires non-empty evidence entries.");
+};
+if (laterThanAnalysis.has(state.status) && state.status !== "BLOCKED") checkGate("analysis", ["PASSED"]);
+if (requiresValidation.has(state.status) && state.status !== "BLOCKED") checkGate("validation", ["PASSED", "ACCEPTED_LIMITATION"]);
+if (requiresConvergence.has(state.status) && state.status !== "BLOCKED") checkGate("convergence", ["PASSED"]);
 
 const requiresSpec = new Set([
   "SPEC_APPROVED", "PLANNING", "PLAN_REVIEW_REQUIRED", "PLAN_APPROVED", "TASKING",
