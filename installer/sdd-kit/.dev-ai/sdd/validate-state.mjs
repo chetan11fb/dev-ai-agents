@@ -10,7 +10,7 @@ const allowedStates = new Set([
   "FINAL_REVIEW_REQUIRED", "DONE", "BLOCKED"
 ]);
 const artifactNames = ["spec", "plan", "tasks"];
-const approvalNames = ["constitution", "spec", "plan", "tasks", "final"];
+const approvalNames = ["constitution", "spec", "plan", "tasks", "risk", "final"];
 const approvalStatuses = new Set(["PENDING", "APPROVED", "NOT_REQUIRED", "STALE"]);
 const artifactStatuses = new Set(["MISSING", "CURRENT", "STALE"]);
 const errors = [];
@@ -107,16 +107,23 @@ for (const name of approvalNames) {
     if (!approval.dependsOn || typeof approval.dependsOn !== "object" || Array.isArray(approval.dependsOn)) {
       fail(name + " approval requires a dependsOn object.");
     }
-    if (name !== "constitution" && name !== "final" && approval.revision !== currentRevisions[name]) {
+    if (name === "constitution" && (typeof approval.revision !== "string" || !approval.revision.trim())) {
+      fail("constitution approval requires a non-empty constitution revision.");
+    }
+    if (name !== "constitution" && name !== "risk" && name !== "final" && approval.revision !== currentRevisions[name]) {
       fail(name + " approval revision does not match the current artifact revision.");
     }
+  }
+  if (name === "constitution" && approval.status === "NOT_REQUIRED" &&
+      (typeof approval.reason !== "string" || !approval.reason.trim())) {
+    fail("constitution NOT_REQUIRED requires a reason proving an established non-draft constitution is being reused.");
   }
 }
 
 const isApproved = (name) => {
   const approval = state.approvals?.[name];
   return Boolean(approval && approval.status === "APPROVED" &&
-    (name === "constitution" || name === "final" || approval.revision === currentRevisions[name]));
+    (name === "constitution" || name === "risk" || name === "final" || approval.revision === currentRevisions[name]));
 };
 const checkDependency = (approvalName, dependencyName) => {
   const approval = state.approvals?.[approvalName];
@@ -124,6 +131,9 @@ const checkDependency = (approvalName, dependencyName) => {
     fail(approvalName + " approval is stale: dependsOn." + dependencyName + " must equal current " + dependencyName + " revision.");
   }
 };
+checkDependency("risk", "spec");
+checkDependency("risk", "plan");
+checkDependency("risk", "tasks");
 checkDependency("plan", "spec");
 checkDependency("tasks", "spec");
 checkDependency("tasks", "plan");
@@ -163,9 +173,22 @@ const requiresTasks = new Set([
   "TASKS_APPROVED", "ANALYZING", "IMPLEMENTATION_READY", "IMPLEMENTING", "VALIDATING",
   "CONVERGING", "CONVERGED", "FINAL_REVIEW_REQUIRED", "DONE"
 ]);
+const requiresConstitution = new Set([
+  "READY_FOR_SPEC", "SPECIFYING", "SPEC_REVIEW_REQUIRED", "SPEC_APPROVED", "PLANNING",
+  "PLAN_REVIEW_REQUIRED", "PLAN_APPROVED", "TASKING", "TASK_REVIEW_REQUIRED", "TASKS_APPROVED",
+  "ANALYZING", "IMPLEMENTATION_READY", "IMPLEMENTING", "VALIDATING", "CONVERGING", "CONVERGED",
+  "FINAL_REVIEW_REQUIRED", "DONE"
+]);
+if (requiresConstitution.has(state.status) && !["APPROVED", "NOT_REQUIRED"].includes(state.approvals?.constitution?.status)) {
+  fail("Status " + state.status + " requires a ratified/reused constitution recorded as APPROVED or NOT_REQUIRED.");
+}
 if (requiresSpec.has(state.status) && !isApproved("spec")) fail("Status " + state.status + " requires an approved current spec.");
 if (requiresPlan.has(state.status) && !isApproved("plan")) fail("Status " + state.status + " requires an approved current plan.");
 if (requiresTasks.has(state.status) && !isApproved("tasks")) fail("Status " + state.status + " requires approved current tasks.");
+const requiresRiskApproval = new Set(["IMPLEMENTATION_READY", "IMPLEMENTING", "VALIDATING", "CONVERGING", "CONVERGED", "FINAL_REVIEW_REQUIRED", "DONE"]);
+if (["HIGH", "CRITICAL"].includes(state.risk) && requiresRiskApproval.has(state.status) && !isApproved("risk")) {
+  fail("Status " + state.status + " for " + state.risk + " risk requires an approved risk approval tied to current spec/plan/tasks revisions.");
+}
 if (state.status === "DONE" && !isApproved("final")) fail("DONE requires explicit final approval.");
 if (state.stale.length > 0 && ["IMPLEMENTATION_READY", "IMPLEMENTING", "VALIDATING", "CONVERGING", "CONVERGED", "DONE"].includes(state.status)) {
   fail("State has stale artifacts but workflow status is " + state.status + "; reconcile before proceeding.");
