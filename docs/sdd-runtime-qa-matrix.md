@@ -50,4 +50,4 @@ This matrix is for manual evaluation of the VS Code/GitHub Copilot custom agent.
 
 ## Release gate
 
-Do not claim end-to-end production readiness until all critical tests (RT-01 through RT-18 and RT-22) have recorded evidence in a real supported VS Code/Copilot environment. Automated state tests validate metadata rules; they do not prove that the agent followed its instructions or that application behavior is correct.
+Do not claim end-to-end production readiness until all critical tests (RT-01 through RT-18, RT-22, and RT-23 for multi-story capability) have recorded evidence in a real supported VS Code/Copilot environment. Automated state tests validate metadata rules; they do not prove that the agent followed its instructions or that application behavior is correct.
