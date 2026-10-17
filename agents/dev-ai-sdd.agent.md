@@ -138,18 +138,19 @@ Use a compact schema like:
   "schemaVersion": 1,
   "feature": "feature-name",
   "featurePath": "specs/001-feature-name",
-  "status": "SPEC_REVIEW_REQUIRED",
+  "status": "CONSTITUTION_REVIEW_REQUIRED",
   "risk": "MEDIUM",
   "artifacts": {
-    "spec": { "path": "spec.md", "revision": "R1", "status": "CURRENT" },
+    "spec": { "path": "spec.md", "revision": null, "status": "MISSING" },
     "plan": { "path": "plan.md", "revision": null, "status": "MISSING" },
     "tasks": { "path": "tasks.md", "revision": null, "status": "MISSING" }
   },
   "approvals": {
-    "constitution": { "revision": null, "status": "NOT_REQUIRED", "approvedAt": null },
+    "constitution": { "revision": null, "status": "PENDING", "approvedAt": null, "dependsOn": {}, "reason": null },
     "spec": { "revision": null, "status": "PENDING", "approvedAt": null },
     "plan": { "revision": null, "status": "PENDING", "approvedAt": null },
-    "tasks": { "revision": null, "status": "PENDING", "approvedAt": null },
+    "tasks": { "revision": null, "status": "PENDING", "approvedAt": null, "dependsOn": { "spec": null, "plan": null } },
+    "risk": { "revision": null, "status": "PENDING", "approvedAt": null, "dependsOn": { "spec": null, "plan": null, "tasks": null } },
     "final": { "revision": null, "status": "PENDING", "approvedAt": null }
   },
   "gates": {
@@ -159,11 +160,11 @@ Use a compact schema like:
   },
   "stale": [],
   "blockingIssue": null,
-  "nextAction": "Review spec and explicitly approve it"
+  "nextAction": "Review and ratify the project constitution before creating feature artifacts"
 }
 ~~~
 
-Adapt fields only as needed; do not replace valid state with a fresh template on resume. Approval records must include `revision`, `status`, `approvedAt`, and `dependsOn`; use `APPROVED` only after explicit approval, otherwise `PENDING`, `STALE`, or `NOT_REQUIRED`. For example, plan approval records `dependsOn: { "spec": "R1" }`; task approval records both the approved spec and plan revisions. Use ISO-8601 timestamps when available. Do not store approval only in chat history.
+Adapt fields only as needed; do not replace valid state with a fresh template on resume. Approval records must include `revision`, `status`, `approvedAt`, and `dependsOn`; use `APPROVED` only after explicit approval, otherwise `PENDING`, `STALE`, or `NOT_REQUIRED`. `constitution.status = NOT_REQUIRED` is allowed only when reusing an established non-draft constitution and must include a short `reason`; constitution approval records the exact constitution revision. Keep `approvals.risk` separate from spec/plan/tasks approvals for HIGH/CRITICAL risk and bind it to the current spec, plan, and tasks revisions. For example, plan approval records `dependsOn: { "spec": "R1" }`; task approval records both the approved spec and plan revisions. Use ISO-8601 timestamps when available. Do not store approval only in chat history.
 
 Valid lifecycle states:
 
@@ -219,7 +220,7 @@ Accept clear responses such as **APPROVE SPEC**, **APPROVE PLAN**, or **APPROVE 
 
 If an artifact is revised after review, increment its revision, invalidate dependent approvals, and return to the appropriate review gate. Never ask the user to approve the same unchanged artifact twice.
 
-High/critical-risk work also requires explicit approval before implementation if the change affects security boundaries, destructive data operations, breaking public contracts, production infrastructure, or other irreversible/high-impact behavior. Require final human acceptance for high/critical work.
+High/critical-risk work requires a separate explicit risk approval before implementation when the change affects security boundaries, destructive data operations, breaking public contracts, production infrastructure, or other irreversible/high-impact behavior. Persist it in `approvals.risk` with `status: APPROVED`, `approvedAt`, and `dependsOn` matching the current spec/plan/tasks revisions; invalidate it when any dependency changes. Require final human acceptance for high/critical work.
 
 ## 8. Specify and clarify
 
