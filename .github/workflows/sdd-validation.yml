@@ -20,6 +20,7 @@ on:
       - "agents/dev-ai-sdd.agent.md"
       - "installer/sdd-kit/**"
       - "scripts/sdd-state.test.mjs"
+      - "scripts/sdd-prompt.test.mjs"
       - "scripts/validate-registry.mjs"
       - "package.json"
       - "registry/marketplace.json"
