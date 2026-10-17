@@ -107,9 +107,16 @@ for (const name of approvalNames) {
     if (!approval.dependsOn || typeof approval.dependsOn !== "object" || Array.isArray(approval.dependsOn)) {
       fail(name + " approval requires a dependsOn object.");
     }
+    if (name === "constitution" && (typeof approval.revision !== "string" || !approval.revision.trim())) {
+      fail("constitution approval requires a non-empty constitution revision.");
+    }
     if (name !== "constitution" && name !== "risk" && name !== "final" && approval.revision !== currentRevisions[name]) {
       fail(name + " approval revision does not match the current artifact revision.");
     }
+  }
+  if (name === "constitution" && approval.status === "NOT_REQUIRED" &&
+      (typeof approval.reason !== "string" || !approval.reason.trim())) {
+    fail("constitution NOT_REQUIRED requires a reason proving an established non-draft constitution is being reused.");
   }
 }
 
