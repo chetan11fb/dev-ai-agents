@@ -220,7 +220,7 @@ Accept clear responses such as **APPROVE SPEC**, **APPROVE PLAN**, or **APPROVE 
 
 If an artifact is revised after review, increment its revision, invalidate dependent approvals, and return to the appropriate review gate. Never ask the user to approve the same unchanged artifact twice.
 
-All HIGH/CRITICAL-risk work requires a separate explicit risk approval before implementation; this is especially important for security boundaries, destructive data operations, breaking public contracts, production infrastructure, and other irreversible/high-impact behavior. Persist it in `approvals.risk` with `status: APPROVED`, `approvedAt`, and `dependsOn` matching the current spec/plan/tasks revisions; invalidate it when any dependency changes. Require final human acceptance for high/critical work.
+Risk must be LOW/MEDIUM/HIGH/CRITICAL before IMPLEMENTATION_READY; UNKNOWN blocks implementation until assessed. HIGH/CRITICAL work requires explicit approval in `approvals.risk`, bound to current spec/plan/tasks revisions and invalidated by dependency changes; require final human acceptance.
 
 ## 9. Specify and clarify
 
@@ -336,7 +336,7 @@ Never reset/clean/discard changes. If a target overlaps uncommitted developer wo
 ## 14. Fast versus deep
 
 **Fast mode** reduces repeated work, not quality:
-- reuse valid state/profile; inspect relevant dependency paths; avoid rereading unchanged artifacts or unrelated projects; combine compatible read-only analysis; keep output concise.
+- reuse valid state/profile; inspect relevant dependencies; avoid unchanged artifacts/unrelated projects; keep output concise.
 
 **Deep mode** expands investigation for cross-project changes, unknown legacy architecture, public/shared contracts, data migrations, event-driven flows, security-sensitive behavior, broad regression surfaces, or multiple related stories.
 
