@@ -4,6 +4,7 @@ import { readFile } from "node:fs/promises";
 
 const agent = await readFile("agents/dev-ai-sdd.agent.md", "utf8");
 const matrix = await readFile("docs/sdd-runtime-qa-matrix.md", "utf8");
+const swarm = await readFile("agents/dev-ai-swarm-orchestrator.agent.md", "utf8");
 
 test("Copilot SDD prompt stays within the supported character budget", () => {
   assert.ok(agent.length <= 30000, `Prompt is ${agent.length} characters; limit is 30000`);
@@ -27,6 +28,16 @@ test("execution safety and validation evidence rules remain present", () => {
   assert.match(agent, /Execution safety/);
   assert.match(agent, /NOT RUN/);
   assert.match(agent, /Never reset, clean, discard, or overwrite unrelated work/);
+});
+
+test("multi-story orchestrator owns the full implementation lifecycle safely", () => {
+  assert.match(swarm, /one end-to-end feature run, not analysis-only/);
+  assert.match(swarm, /one story matrix/);
+  assert.match(swarm, /Default to sequential work/);
+  assert.match(swarm, /actual runtime isolation/);
+  assert.match(swarm, /execute.*not assumed to be sandboxed/i);
+  assert.match(swarm, /Never mark the feature complete while any required story\/AC is blocked or unverified/);
+  assert.match(swarm, /Do not recreate completed work, update ADO states\/comments, open PRs, merge, or deploy unless explicitly authorized/);
 });
 
 test("multi-story runtime cases and release gate are documented", () => {
