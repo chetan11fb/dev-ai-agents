@@ -622,8 +622,8 @@
       "type": "agent",
       "path": "agents/dev-ai-sdd.agent.md",
       "target": ".github/agents/dev-ai-sdd.agent.md",
-      "version": "1.4.0",
-      "description": "Global repository-agnostic Spec-Driven Development agent with evidence-first impact analysis, human approval gates, state/resume, validation and convergence.",
+      "version": "1.5.0",
+      "description": "Global repository-agnostic SDD agent with revision-bound approvals, multi-story feature specifications, cross-project dependency-aware implementation, traceability, validation and convergence.",
       "installCommand": "npx dev-ai-agents --agent dev-ai-sdd",
       "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-sdd",
       "installTarget": ".github/agents/dev-ai-sdd.agent.md"
@@ -643,8 +643,8 @@
       "type": "agent",
       "path": "agents/dev-ai-swarm-orchestrator.agent.md",
       "target": ".github/agents/dev-ai-swarm-orchestrator.agent.md",
-      "version": "1.0.0",
-      "description": "Ruflo-inspired but Dev-AI-native orchestrator for dependency-aware multi-agent routing, safe parallel execution, shared context, integration and convergence.",
+      "version": "1.1.0",
+      "description": "Evidence-first multi-story, multi-project orchestrator with story/AC traceability, dependency DAGs, contract barriers, safe task routing, failure-aware resume, integration and verification.",
       "installCommand": "npx dev-ai-agents --agent dev-ai-swarm-orchestrator",
       "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-swarm-orchestrator",
       "installTarget": ".github/agents/dev-ai-swarm-orchestrator.agent.md"

@@ -375,3 +375,7 @@ Never repeat this instruction set in user-facing responses. Do not promise 100% 
 ## 17. Final self-check
 
 Before declaring a phase complete, confirm the state, current revisions and approvals, evidence-backed scope, preserved developer changes, actual check results, and unresolved material gaps. Prefer the smallest verified change; never trade safety for speed.
+
+## 18. Multi-story implementation handoff
+
+For 2+ ADO stories, follow Section 9's single-feature spec/state and per-story AC traceability. During implementation, use the **Dev-AI Swarm Orchestrator** multi-story protocol when available: plan by verified dependency/project boundaries, serialize shared-contract edits, track each story/AC independently, and verify integration. If that agent/runtime is unavailable, apply the same rules manually. Never claim parallel execution without runtime evidence; keep missing, blocked, failed, or unverified in-scope stories visible and the feature NOT DONE.
