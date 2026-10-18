@@ -15,12 +15,12 @@ test("multi-story ADO command is discoverable", () => {
   assert.match(agent, /run stories 123,124,125/);
 });
 
-test("multi-story execution preserves per-story traceability without duplicating workflow state", () => {
+test("multi-story SDD run preserves traceability and executes the full approved lifecycle", () => {
   assert.match(agent, /fetch each story and acceptance criteria independently/);
-  assert.match(agent, /one spec\/plan\/tasks set, and one `sdd-state\.json`/);
-  assert.match(agent, /stable IDs/);
+  assert.match(agent, /one feature folder, spec\/plan\/tasks set, and `sdd-state\.json`/);
+  assert.match(agent, /stable AC IDs/);
   assert.match(agent, /Default to sequential slices/);
-  assert.match(agent, /Validate every story's criteria separately/);
+  assert.match(agent, /Validate every story's criteria/);
   assert.match(agent, /Never update ADO states\/comments\/links unless asked/);
   assert.match(agent, /not analysis-only/);
   assert.match(agent, /continue\/resume through implementation and convergence/);
@@ -33,7 +33,7 @@ test("swarm orchestrator implements a combined multi-story run safely", () => {
   assert.match(swarm, /Default to sequential work/);
   assert.match(swarm, /actual runtime isolation/);
   assert.match(swarm, /execute tool is not assumed to be sandboxed/i);
-  assert.match(swarm, /Never update ADO states\/comments, open PRs, merge, or deploy unless explicitly authorized/);
+  assert.match(swarm, /Do not update ADO states, comments, or links, open PRs, merge, or deploy unless explicitly authorized/);
 });
 
 test("multi-story runtime acceptance scenario is documented", () => {
