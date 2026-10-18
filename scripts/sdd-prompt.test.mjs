@@ -4,6 +4,7 @@ import { readFile } from "node:fs/promises";
 
 const agent = await readFile("agents/dev-ai-sdd.agent.md", "utf8");
 const matrix = await readFile("docs/sdd-runtime-qa-matrix.md", "utf8");
+const swarm = await readFile("agents/dev-ai-swarm-orchestrator.agent.md", "utf8");
 
 test("Copilot SDD prompt stays within the supported character budget", () => {
   assert.ok(agent.length <= 30000, `Prompt is ${agent.length} characters; limit is 30000`);
@@ -20,8 +21,19 @@ test("multi-story execution preserves per-story traceability without duplicating
   assert.match(agent, /stable IDs/);
   assert.match(agent, /Default to sequential slices/);
   assert.match(agent, /Validate every story's criteria separately/);
-  assert.match(agent, /Do not update ADO states, comments, or links unless explicitly requested/);
+  assert.match(agent, /Never update ADO states\/comments\/links unless asked/);
+  assert.match(agent, /not analysis-only/);
+  assert.match(agent, /continue\/resume through implementation and convergence/);
   assert.match(agent, /UNKNOWN blocks implementation until assessed/);
+});
+
+test("swarm orchestrator implements a combined multi-story run safely", () => {
+  assert.match(swarm, /one end-to-end feature run, not merely a combined analysis/);
+  assert.match(swarm, /one compact story matrix/);
+  assert.match(swarm, /Default to sequential work/);
+  assert.match(swarm, /actual runtime isolation/);
+  assert.match(swarm, /execute tool is not assumed to be sandboxed/i);
+  assert.match(swarm, /Never update ADO states\/comments, open PRs, merge, or deploy unless explicitly authorized/);
 });
 
 test("multi-story runtime acceptance scenario is documented", () => {
