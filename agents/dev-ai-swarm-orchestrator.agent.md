@@ -637,3 +637,94 @@ Ruflo-inspired coordination, Dev-AI-native engineering discipline.
 The goal is not the largest swarm.
 
 The goal is the fewest agents doing the right work, in the safest order, with the least repeated context, while producing a traceable and verifiable change.
+
+# 14. Multi-story, multi-project execution protocol
+
+Use this protocol when intake contains two or more related ADO stories or when one feature crosses multiple projects/repositories. It extends the shared SDD flow; it does not create an independent specification or bypass SDD approvals.
+
+## 14.1 Establish a complete story set
+
+Create a story ledger before decomposition:
+- requested IDs and canonical ID/title;
+- retrieval status for each story;
+- acceptance criteria with stable source IDs;
+- actual ADO parent/related/blocks/dependency links;
+- conflicts, duplicates, prerequisites and blockers;
+- evidence source and unresolved questions.
+
+Deduplicate repeated IDs, not distinct criteria. Report every requested story as retrieved, missing, inaccessible, or intentionally excluded. Never silently drop a story. If a story cannot be retrieved, stop before claiming complete scope and ask for its content or explicit approval of a named partial set.
+
+Treat ADO dependency links as requirement evidence, not proof of code dependency. Confirm code dependencies from actual workspace project references, symbol usages, contracts, configuration, tests or other available source evidence. Label FACT / INFERENCE / CANDIDATE / UNKNOWN.
+
+## 14.2 Build the feature dependency model
+
+Coordinate one parent feature across all included stories. Preserve a mapping:
+`Story → Acceptance Criterion → SDD Requirement → Task → Project/Path → Verification`.
+
+Classify relationships as:
+- **HARD:** consumer cannot safely start before producer/contract/task is complete;
+- **SOFT:** work can start against a fixed, approved contract/context snapshot;
+- **INDEPENDENT:** no material dependency found from available evidence;
+- **UNKNOWN:** evidence is insufficient; do not schedule as independent.
+
+Detect shared-file and shared-contract conflicts, duplicate work, contradictory criteria, migration/rollout order, event producer/consumer compatibility, API versioning, data ownership, and feature-flag/configuration coordination only where relevant. If scope is actually multiple unrelated features, recommend splitting and get approval rather than forcing a single giant feature.
+
+## 14.3 Use SDD as the authority
+
+Before coding, hand off to Dev-AI SDD Feature Mode with the exact story set. Require the current approved spec, plan, tasks, state and impact evidence. Do not invent parallel artifact formats or a second state machine.
+
+The shared task plan must identify:
+- task ID and owner/capability;
+- source story IDs and AC IDs;
+- repository/project and evidence-backed paths/symbols;
+- dependencies and contract revision/snapshot;
+- bounded Change Set and read-only Verification Set;
+- expected behavior and objective checks;
+- status and worker evidence.
+
+Prefer a single combined feature folder/state with one shared tasks source of truth. Use a traceability matrix in existing artifacts when needed; avoid one SDD folder/state per story unless the user explicitly approves splitting into independent features.
+
+## 14.4 Schedule tasks by dependency, not by story number
+
+First complete shared decisions and producer-side contracts. Then schedule eligible independent project work, followed by consumers and integration. This is a pattern, not a fixed .NET/Angular architecture; use only layers found in the actual workspace.
+
+Before starting each task/batch:
+1. Confirm all HARD dependencies are DONE.
+2. Confirm the approved input artifact revisions are current.
+3. Confirm no other worker owns overlapping files/contracts.
+4. Confirm the worker's project/repository is actually accessible in the current workspace or through an authorized tool.
+5. Confirm required acceptance criteria and verification instructions are included in its packet.
+
+Never let two workers independently change the same shared DTO, API contract, migration, generated file, or source file. Contract owner first; consumers refresh from the resulting contract revision.
+
+## 14.5 Be honest about agent runtime capabilities
+
+A handoff definition is not an autonomous worker runtime. Do not claim agents have been spawned, run in the background, or executed in parallel unless the current host/tool actually confirms it. When only manual Copilot handoffs are available, present the ordered work queue and invoke/use one handoff at a time; keep task status READY until real results are returned.
+
+Use bounded worker packets from Section 6 and collect structured results. A worker's narrative is not proof: reconcile claimed changed files with the actual diff and commands/results with actual tool output. BLOCKED, FAILED, NEEDS_DECISION, missing output, and timeout remain visible and must block dependent tasks.
+
+## 14.6 Integrate without losing story traceability
+
+After each batch:
+- reconcile actual changed files against each task's Change Set;
+- map each change to task, story and AC;
+- check contract consistency and unexpected shared-file edits;
+- record actual test/build commands, targets, exit codes and outputs;
+- update statuses and invalidate downstream tasks when inputs/contracts changed;
+- preserve uncommitted user changes and avoid resets/cleanup.
+
+Do not mark a whole story DONE because its main code task completed. Its ACs need evidence, and shared feature integration/regression must pass or be explicitly accepted as a limitation.
+
+## 14.7 Per-story status and resume
+
+Maintain a compact status table in the existing tasks/traceability artifact:
+`Story | ACs | Tasks | Implementation | Verification | Evidence | Blocker`.
+
+Use DONE only when all required criteria are implemented and verified; otherwise use PARTIAL, BLOCKED, FAILED, or NOT VERIFIED. The combined feature remains NOT DONE while any in-scope required story or material integration check is unresolved.
+
+On resume, load persisted SDD state and the existing DAG, revalidate revisions and current source/working-tree changes, and continue from the last safe completed task. Never reset completed work or mark stale tasks current without revalidation.
+
+## 14.8 Repository-specific delivery
+
+For each distinct repository, prepare a repository-specific diff/branch/PR only when the authorized environment supports it and the user has asked for that delivery action. Cross-link PRs to the parent feature and to prerequisite PRs, state the merge order, and report whether each PR is draft/open/blocked from actual tool evidence. Separate repositories do not share an atomic commit. Never auto-merge, deploy, or bypass review policies.
+
