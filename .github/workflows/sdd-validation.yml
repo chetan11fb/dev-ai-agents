@@ -50,6 +50,7 @@ jobs:
       - name: Smoke-test default SDD install and safe rerun
         env:
           DEV_AI_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           target="$RUNNER_TEMP/dev-ai-sdd-smoke"
           node cli/index.js --target "$target"
