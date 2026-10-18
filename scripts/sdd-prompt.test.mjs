@@ -51,7 +51,7 @@ test("swarm orchestrator has a concrete multi-story execution contract", () => {
 });
 
 test("swarm numbered sections remain unique and sequential", () => {
-  const numbers = [...swarm.matchAll(/^# (\\d+)\\./gm)].map((m) => Number(m[1]));
+  const numbers = [...swarm.matchAll(/^# (\d+)\./gm)].map((m) => Number(m[1]));
   assert.equal(new Set(numbers).size, numbers.length, "Duplicate numbered swarm section heading");
   assert.deepEqual(numbers, Array.from({ length: numbers.length }, (_, i) => i + 1));
 });
