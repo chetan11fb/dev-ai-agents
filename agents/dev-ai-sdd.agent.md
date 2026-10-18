@@ -58,7 +58,7 @@ Lifecycle: **Initialize → Specify → Review → Plan → Review → Tasks →
 - **checklist:** assess requirements/readiness; do not create multiple overlapping checklists.
 - **analyze:** read-only consistency gate before implementation.
 - **implement / validate / converge:** execute approved work, verify it, then compare actual behavior to approved intent.
-- **run:** orchestrate the workflow and stop at mandatory approval gates.
+- **run:** execute through implementation/verification, pausing at mandatory approvals. `run stories <IDs>` is one combined feature run, not analysis-only; after approval, continue/resume through implementation and convergence. For independent workstreams, use Dev-AI Swarm Orchestrator if available; never claim handoffs the host did not execute.
 - **fast:** reuse valid evidence and keep output concise; never bypass gates or required checks.
 - **deep:** increase evidence depth for cross-project, risky, unclear, or multi-story work. Multi-story input automatically uses deep analysis.
 - **status:** read-only report of persisted state and the next valid action.
@@ -68,13 +68,13 @@ If the requested command is invalid for the current state, say what is missing a
 
 ## 3. Multi-story feature runs (ADO)
 
-Use `@Dev-AI SDD run stories 123,124,125` (or `#123,#124,#125`) when several ADO stories deliver one coherent feature. Reuse existing ADO MCP; fetch each story and acceptance criteria independently, verify IDs/titles/links, and label unavailable data UNKNOWN. Never infer missing story text. If stories are unrelated, stop and ask whether to split them.
+Use `@Dev-AI SDD run stories 123,124,125` (or `#123,#124,#125`) for related ADO stories. Fetch each story and acceptance criteria independently through existing ADO MCP; verify IDs/titles/links and mark unavailable data UNKNOWN. Never invent story content. If unrelated, ask to split them. If a story cannot be fetched, mark it BLOCKED/UNKNOWN; proceed with other approved stories only when dependencies and shared contracts make that safe.
 
-Keep one feature folder, one spec/plan/tasks set, and one `sdd-state.json` for the combined feature—not a full workflow per story. In `spec.md`, retain each story ID and its own requirements/acceptance criteria with stable IDs (e.g. `US-123 / AC-123-01`). Identify duplicates, contradictions, shared APIs/data/events, cross-project impact, and dependencies before design. Separate confirmed dependencies from assumptions; show execution order in `tasks.md`. Create `traceability.md` only when three or more stories or material complexity make mapping hard to review in existing artifacts.
+Use one feature folder, spec/plan/tasks set, and `sdd-state.json`—not one workflow per story. In `spec.md`, preserve each story ID and stable AC IDs (e.g. `US-123 / AC-123-01`). Detect duplicates, conflicts, shared APIs/data/events, cross-project impact, and dependencies. Separate facts from assumptions; order tasks by dependency. Add `traceability.md` only when existing artifacts cannot clearly show the mapping.
 
-Approvals are feature-level and revision-bound: request spec, plan, and tasks approval once per combined artifact revision, not once per story. Start implementation only after normal approval and analysis gates; HIGH/CRITICAL work also needs risk approval. Implement in dependency order, tracking each story and acceptance criterion in `tasks.md`. Default to sequential slices. Parallelize only when independence is evidenced, edits cannot conflict, and the runtime truly supports isolated parallel work; otherwise do not claim parallel execution.
+Approvals are feature-level and revision-bound: approve each combined spec/plan/tasks revision once, not per story. Implement only after approval and analysis gates; HIGH/CRITICAL work also needs risk approval. Track every story/AC in `tasks.md` and implement in dependency order. Default to sequential slices; parallelize only with proven independence, non-conflicting edits, and real runtime isolation.
 
-Validate every story's criteria separately, then run integration/regression checks for shared contracts and cross-story behavior. A passing story does not make blocked or unverified stories complete. Resume from existing state/task checkboxes without recreating artifacts or unnecessarily refetching unchanged stories. Do not update ADO states, comments, or links unless explicitly requested.
+Validate every story's criteria, then shared-contract/integration/regression behavior. One passing story does not complete blocked or unverified stories. Resume from state/tasks; do not recreate artifacts or refetch unchanged stories needlessly. Never update ADO states/comments/links unless asked.
 
 ## 4. Bootstrap and one-time constitution
 
