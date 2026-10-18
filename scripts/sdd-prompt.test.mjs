@@ -13,6 +13,8 @@ test("Copilot SDD prompt stays within the supported character budget", () => {
 test("multi-story feature command is discoverable", () => {
   assert.match(agent, /feature <feature-name> <ADO story IDs\/URLs>/);
   assert.match(agent, /orchestrate multiple related ADO stories as one feature/);
+  assert.match(agent, /Unless analysis-only is requested, `feature` means continue after approvals through implementation and convergence/);
+  assert.match(agent, /do not stop after analysis/);
 });
 
 test("multi-story workflow stays feature-scoped, traceable, and honest", () => {
@@ -45,7 +47,7 @@ test("multi-story runtime cases and release gate are documented", () => {
   assert.match(matrix, /RT-24 \| One requested ADO story cannot be retrieved/);
   assert.match(matrix, /RT-25 \| Multi-story set contains dependencies/);
   assert.match(matrix, /RT-26 \| One story fails or becomes blocked/);
-  assert.match(matrix, /RT-22 through RT-26/);
+  assert.match(matrix, /RT-22 through RT-27/);
 });
 
 test("numbered prompt headings are unique and sequential", () => {
