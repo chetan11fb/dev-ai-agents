@@ -5,6 +5,7 @@ on:
     types: [opened, synchronize, reopened, ready_for_review]
     paths:
       - "agents/dev-ai-sdd.agent.md"
+      - "agents/dev-ai-swarm-orchestrator.agent.md"
       - "installer/sdd-kit/**"
       - "scripts/sdd-state.test.mjs"
       - "scripts/sdd-prompt.test.mjs"
