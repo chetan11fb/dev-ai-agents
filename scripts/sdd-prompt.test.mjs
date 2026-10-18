@@ -4,6 +4,7 @@ import { readFile } from "node:fs/promises";
 
 const agent = await readFile("agents/dev-ai-sdd.agent.md", "utf8");
 const matrix = await readFile("docs/sdd-runtime-qa-matrix.md", "utf8");
+const swarm = await readFile("agents/dev-ai-swarm-orchestrator.agent.md", "utf8");
 
 test("Copilot SDD prompt stays within the supported character budget", () => {
   assert.ok(agent.length <= 30000, `Prompt is ${agent.length} characters; limit is 30000`);
@@ -35,6 +36,24 @@ test("multi-story runtime cases and release gate are documented", () => {
   assert.match(matrix, /RT-25 \| Multi-story set contains dependencies/);
   assert.match(matrix, /RT-26 \| One story fails or becomes blocked/);
   assert.match(matrix, /RT-22 through RT-26/);
+});
+
+
+test("swarm orchestrator has a concrete multi-story execution contract", () => {
+  assert.ok(swarm.length <= 30000, `Swarm prompt is ${swarm.length} characters; limit is 30000`);
+  assert.match(swarm, /Story → Acceptance Criterion → SDD Requirement → Task → Project\/Path → Verification/);
+  assert.match(swarm, /Retrieve each story independently/);
+  assert.match(swarm, /Default to one task\/handoff at a time/);
+  assert.match(swarm, /The feature remains NOT DONE/);
+  assert.match(swarm, /The execute tool is not assumed to be sandboxed/);
+  assert.match(swarm, /Do not pass story\/comment\/file content directly into a shell command/);
+  assert.match(swarm, /exact checks run, targets, exit codes\/results/);
+});
+
+test("swarm numbered sections remain unique and sequential", () => {
+  const numbers = [...swarm.matchAll(/^# (\\d+)\\./gm)].map((m) => Number(m[1]));
+  assert.equal(new Set(numbers).size, numbers.length, "Duplicate numbered swarm section heading");
+  assert.deepEqual(numbers, Array.from({ length: numbers.length }, (_, i) => i + 1));
 });
 
 test("numbered prompt headings are unique and sequential", () => {
