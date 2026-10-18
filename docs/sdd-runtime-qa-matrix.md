@@ -54,3 +54,12 @@ This matrix is for manual evaluation of the VS Code/GitHub Copilot custom agent.
 ## Release gate
 
 Do not claim end-to-end production readiness until all critical tests (RT-01 through RT-18 and RT-22 through RT-26) have recorded evidence in a real supported VS Code/Copilot environment. Automated state tests validate metadata rules; they do not prove that the agent followed its instructions or that application behavior is correct.
+
+| RT-27 | Submit 3 related stories where one is missing from ADO | Names every requested/retrieved/missing ID; stops complete-scope claims and requests story content or explicit partial-scope approval | NOT RUN |
+| RT-28 | Stories share a DTO/API contract and two projects consume it | Establishes contract owner/order, serializes shared contract edits, marks consumer tasks stale when the contract changes, and verifies consumers against the current contract | NOT RUN |
+| RT-29 | Multi-story feature spans projects in multiple workspace roots/repositories | Includes only actually accessible repositories; records repo/project boundaries, per-task Change Set and Verification Set, and does not infer inaccessible repo code | NOT RUN |
+| RT-30 | Host supports only manual agent handoffs | Produces a dependency-ordered queue, waits for actual worker results, and does not claim autonomous spawning, background execution, or parallel coding | NOT RUN |
+| RT-31 | One story passes while another story fails or is only partially implemented | Per-story/AC traceability remains accurate; combined feature stays PARTIAL/NOT DONE; completed work is preserved for resume | NOT RUN |
+| RT-32 | Shared acceptance criteria are duplicated or contradictory across stories | Preserves source IDs, identifies duplication/conflict, asks for material business decisions, and does not merge away distinct acceptance criteria | NOT RUN |
+| RT-33 | A downstream task's API/event contract changes after approval | Invalidates only dependent tasks/evidence, requires context refresh/re-analysis, and blocks stale consumers until reconciled | NOT RUN |
+| RT-34 | Separate repositories need separate PRs for one feature | Produces repository-specific PR plans and explicit dependency/merge order; does not claim atomic cross-repository delivery or auto-merge | NOT RUN |
