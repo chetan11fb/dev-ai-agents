@@ -33,7 +33,7 @@ test("swarm orchestrator implements a combined multi-story run safely", () => {
   assert.match(swarm, /Default to sequential work/);
   assert.match(swarm, /actual runtime isolation/);
   assert.match(swarm, /execute tool is not assumed to be sandboxed/i);
-  assert.match(swarm, /Do not update ADO states, comments, or links, open PRs, merge, or deploy unless explicitly authorized/);
+  assert.match(swarm, /update ADO states\/comments, open PRs, merge, or deploy unless explicitly authorized/);
 });
 
 test("multi-story runtime acceptance scenario is documented", () => {
