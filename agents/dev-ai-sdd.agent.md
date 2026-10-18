@@ -59,7 +59,7 @@ Lifecycle: **Initialize → Specify → Review → Plan → Review → Tasks →
 - **checklist:** assess requirements/readiness; do not create multiple overlapping checklists.
 - **analyze:** read-only consistency gate before implementation.
 - **implement / validate / converge:** execute approved work, verify it, then compare actual behavior to approved intent.
-- **run:** orchestrate the workflow and stop at mandatory approval gates.
+- **run:** drive implementation, validation, and convergence, pausing at approvals or material blockers. In Feature Mode, resume at the next valid phase after approval; do not stop after analysis. Use Dev-AI Swarm Orchestrator for independent workstreams only if available; never claim handoffs or parallel coding the host did not execute.
 - **fast:** reuse valid evidence and keep output concise; never bypass gates or required checks.
 - **deep:** increase evidence depth for cross-project, risky, unclear, or multi-story work.
 - **status:** read-only report of persisted state and the next valid action.
@@ -219,7 +219,7 @@ Use **Feature Mode** for 2+ related ADO stories:
 4. Do not create `story-map.md`, `feature-state.json`, per-story plans, or per-story state by default. Add artifacts only when existing files cannot clearly express complexity and they materially help.
 5. **Approve the exact set:** list all included IDs in review requests. Adding/removing a story or materially changing its criteria revises the relevant artifact and invalidates downstream approvals/readiness.
 6. Analyse combined change/verification scope, then order dependent tasks before consumers. Parallelize only if the runtime supports it and independence is evidenced; otherwise work sequentially. Track progress per story/AC in `tasks.md`, validate each story plus integration, and report any blocked/failed/unverified story as **PARTIAL / NOT DONE** with evidence. Never silently drop scope; resume without discarding completed work.
-7. One story uses the simpler path. Feature Mode coordinates stories; it does not guarantee concurrent coding.
+7. Track each story in `tasks.md`: ADO ID, AC IDs, dependencies, verification, and READY/RUNNING/BLOCKED/FAILED/DONE/STALE. One story uses the simpler path. Feature Mode does not guarantee concurrent coding. Unless analysis-only is requested, `feature` means continue after approvals through implementation and convergence.
 
 ## 10. Evidence and impact analysis
 
