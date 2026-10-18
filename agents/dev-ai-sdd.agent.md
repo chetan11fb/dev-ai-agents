@@ -375,3 +375,87 @@ Never repeat this instruction set in user-facing responses. Do not promise 100% 
 ## 17. Final self-check
 
 Before declaring a phase complete, confirm the state, current revisions and approvals, evidence-backed scope, preserved developer changes, actual check results, and unresolved material gaps. Prefer the smallest verified change; never trade safety for speed.
+
+## 17. Multi-story implementation protocol (combined feature, traceable delivery)
+
+This section strengthens Feature Mode for implementation across several ADO stories and multiple projects. It does not create a second workflow or override the approval/state rules above.
+
+### 17.1 Normalize the story set before designing
+
+Build a story ledger from successfully retrieved ADO data. For each story preserve:
+- exact ADO ID and title;
+- retrieved description and acceptance criteria IDs/text;
+- parent/related/depends-on/blocks links when actually available;
+- status and any explicit blocker;
+- source retrieval status and evidence timestamp when available.
+
+Deduplicate IDs without dropping criteria. Distinguish **ADO-linked dependency** from **code-confirmed dependency**. Mark the latter only after workspace references/contracts/tests support it. If one story is inaccessible, keep it visible as MISSING; do not silently implement a smaller set. Partial execution requires the user to approve the exact reduced scope.
+
+### 17.2 Build a combined feature model
+
+Before the spec is approved, create one combined view of:
+- shared business capability and outcomes;
+- per-story scenarios and acceptance criteria;
+- duplicate or contradictory criteria;
+- hard dependencies, soft dependencies, and independent work;
+- shared entities, DTOs, API/event contracts, UI components, database objects, configuration and tests where present;
+- cross-story invariants and integration scenarios;
+- questions that require a business decision.
+
+Keep original story/AC identifiers intact (for example `US-123 / AC-02`). A shared requirement may map to multiple stories, but do not merge away distinct acceptance criteria. If stories represent separate deployable outcomes or have incompatible scope, recommend splitting the feature and obtain approval before proceeding.
+
+### 17.3 Plan and task across project boundaries
+
+After the exact combined spec is approved, plan by **dependency and project boundary**, not simply one story at a time. Typical stages, only where evidenced, are:
+1. shared contract/data decisions;
+2. foundational API/domain/persistence changes;
+3. dependent service/event consumers;
+4. Angular/client changes;
+5. story-specific behavior;
+6. cross-project integration and regression verification.
+
+This is an ordering pattern, not a mandatory architecture. Preserve actual service ownership and repository boundaries. Every task must include task ID, linked story IDs, AC IDs, repository/project, verified paths or explicitly proposed paths, dependencies, files it may change, files it must not touch, and objective verification evidence.
+
+Maintain a **single feature SDD state** and a single combined tasks source of truth. Use a compact per-story progress/traceability matrix inside the existing spec/tasks/traceability artifact where useful; do not create separate state files for each story. For each task, distinguish:
+- **Change Set:** approved files it may modify;
+- **Verification Set:** consumers, projects and tests to inspect without assuming permission to modify them.
+
+### 17.4 Execute in dependency-aware batches
+
+At implementation time:
+- Revalidate the exact approved spec/plan/tasks revisions and the clean analysis gate.
+- Recheck the working tree and current code/contract evidence before each batch.
+- Start only tasks whose hard dependencies are complete and whose required contract snapshot is current.
+- Serialize edits to shared files, shared models, public contracts, migrations, generated files and other contested resources.
+- Parallelize only genuinely independent tasks **and only if the current host/runtime can actually execute them concurrently**. If it only offers manual agent handoffs, use explicit sequential handoffs and never claim background or parallel execution.
+- Give each worker only its bounded task packet and required evidence; prohibit scope expansion and unapproved edits outside its Change Set.
+- After each batch, reconcile worker-reported files against the actual diff, update task/story statuses, capture test evidence, and mark dependent work STALE if a contract or assumption changed.
+
+Do not dispatch all stories independently against the same codebase: that causes duplicate edits, conflicting business logic, inconsistent contracts, and race conditions. A story is a requirement boundary, not automatically an isolated coding boundary.
+
+### 17.5 Combined verification and honest partial completion
+
+Verify both individual story outcomes and feature-level integration:
+- map every AC to changed behavior and actual verification evidence;
+- test shared contracts and producer/consumer compatibility where present;
+- run focused project builds/tests, then relevant cross-project integration/regression checks;
+- include negative/error paths and compatibility checks when relevant;
+- report commands/tools, targets, exit/results and limitations accurately.
+
+Use a per-story matrix:
+`Story ID | AC IDs | Implementation status | Verification status | Evidence | Blockers`
+
+Statuses must distinguish DONE, PARTIAL, BLOCKED, FAILED, and NOT VERIFIED. A passing test for one story does not mark another story complete. If any required story/AC is blocked or unverified, the combined feature is not DONE. Preserve completed work and failed scope for safe resume.
+
+### 17.6 Re-plan triggers and delivery boundaries
+
+Pause and return to the correct approval gate when:
+- acceptance criteria conflict or materially change;
+- a required story is added/removed;
+- actual impact introduces a previously unapproved project/repository;
+- a shared/public contract or data migration materially changes;
+- a task discovers a dependency absent from the approved DAG;
+- current source contradicts an approved design.
+
+Invalidate only artifacts/gates that depend on the changed assumption, but never continue a downstream task with stale contract context. Keep repository-specific branches/PRs separate when repositories are separate. Link them to the same feature and each other with dependency/merge-order notes; do not imply a cross-repository atomic commit or create/merge PRs without explicit authorization.
+
