@@ -58,7 +58,11 @@ SDD kit:
 }
 
 async function fetchJson(url) {
-  const r = await fetch(url,{headers:{"User-Agent":"dev-ai-agents-cli"}});
+  const headers = {"User-Agent":"dev-ai-agents-cli"};
+  // GitHub's unauthenticated REST API is rate-limited; use an explicitly supplied
+  // read-only token when available (for example, GITHUB_TOKEN in CI).
+  if (process.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
+  const r = await fetch(url,{headers});
   if (!r.ok) throw new Error(`HTTP ${r.status}: ${url}`);
   return r.json();
 }
