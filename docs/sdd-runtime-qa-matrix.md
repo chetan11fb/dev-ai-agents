@@ -41,6 +41,7 @@ This matrix is for manual evaluation of the VS Code/GitHub Copilot custom agent.
 | RT-24 | One requested ADO story cannot be retrieved | Names retrieved and missing IDs, asks for missing story content or explicit partial-scope approval, and never silently drops the story or fabricates criteria | NOT RUN |
 | RT-25 | Multi-story set contains dependencies and a shared API/file contract | Orders foundational work before consumers, identifies shared change/verification scope, and claims parallel work only if runtime support and independence are evidenced | NOT RUN |
 | RT-26 | One story fails or becomes blocked after another story is implemented; then resume | Preserves completed work, reports per-story evidence and blocker, keeps feature PARTIAL/NOT DONE, and resumes without discarding work or removing failed scope | NOT RUN |
+| RT-27 | Run Feature Mode for 3 related stories in a workspace with multiple projects and available specialist agents | Continues after each approval into implementation, uses a story/AC/task/status matrix, selects sequential vs safe parallel work based on actual runtime capability, captures real test evidence, and does not claim unsupported handoffs | NOT RUN — requires real VS Code/Copilot + connected ADO MCP |
 
 ## Execution protocol
 
@@ -53,4 +54,4 @@ This matrix is for manual evaluation of the VS Code/GitHub Copilot custom agent.
 
 ## Release gate
 
-Do not claim end-to-end production readiness until all critical tests (RT-01 through RT-18 and RT-22 through RT-26) have recorded evidence in a real supported VS Code/Copilot environment. Automated state tests validate metadata rules; they do not prove that the agent followed its instructions or that application behavior is correct.
+Do not claim end-to-end production readiness until all critical tests (RT-01 through RT-18 and RT-22 through RT-27) have recorded evidence in a real supported VS Code/Copilot environment. Automated state tests validate metadata rules; they do not prove that the agent followed its instructions or that application behavior is correct.
