@@ -22,6 +22,10 @@ on:
     branches: [main]
     paths:
       - "agents/dev-ai-sdd.agent.md"
+      - "agents/dev-ai-swarm-orchestrator.agent.md"
+      - "skills/development/parallel-worktree-orchestration/**"
+      - "prompts/parallel-worktree-engineering.md"
+      - "scripts/parallel-worktree.test.mjs"
       - "installer/sdd-kit/**"
       - "scripts/sdd-state.test.mjs"
       - "scripts/sdd-prompt.test.mjs"
