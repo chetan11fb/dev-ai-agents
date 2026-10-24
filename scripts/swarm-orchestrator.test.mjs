@@ -58,8 +58,8 @@ test("runtime QA matrix keeps all rows in the test table and release gate", () =
     const row = `| RT-${String(id).padStart(2, "0")} |`;
     assert.ok(tableBody.includes(row), `RT-${String(id).padStart(2, "0")} must be inside the test table`);
   }
-  assert.match(matrix, /RT-30 \\| Host supports only manual agent handoffs/);
-  assert.match(matrix, /RT-31 \\| One story passes while another story fails/);
-  assert.match(matrix, /RT-33 \\| A downstream task's API\\/event contract changes/);
+  assert.ok(matrix.includes("| RT-30 | Host supports only manual agent handoffs"));
+  assert.ok(matrix.includes("| RT-31 | One story passes while another story fails"));
+  assert.ok(matrix.includes("| RT-33 | A downstream task's API/event contract changes"));
   assert.match(matrix, /RT-01 through RT-18 and RT-22 through RT-39/);
 });
