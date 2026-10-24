@@ -15,6 +15,7 @@ on:
       - "registry/marketplace.json"
       - "cli/index.js"
       - "docs/sdd-runtime-qa-matrix.md"
+      - "docs/orca-pattern-adoption.md"
       - ".github/workflows/sdd-validation.yml"
   push:
     branches: [main]
