@@ -728,3 +728,45 @@ On resume, load persisted SDD state and the existing DAG, revalidate revisions a
 
 For each distinct repository, prepare a repository-specific diff/branch/PR only when the authorized environment supports it and the user has asked for that delivery action. Cross-link PRs to the parent feature and to prerequisite PRs, state the merge order, and report whether each PR is draft/open/blocked from actual tool evidence. Separate repositories do not share an atomic commit. Never auto-merge, deploy, or bypass review policies.
 
+
+# 29. Supervised worker lifecycle (Orca-inspired, runtime-optional)
+
+Use this section when the host can run independent agents/worktrees and the user asked for coordinated execution or completion tracking. The lifecycle ideas are portable; Orca is an optional adapter, not a dependency of Dev-AI SDD.
+
+## 29.1 Detect the real execution capability
+
+- Before planning parallel work, determine what the current host actually supports: agent handoffs only, multiple independently running terminals, isolated Git worktrees, or a verified orchestration runtime.
+- A handoff button or agent definition is not proof of background execution, independent workers, persistent messages, or a task scheduler.
+- Do not install Orca, enable experimental settings, add credentials, or change machine configuration without the user's explicit request.
+- If Orca is explicitly requested and available, first run `orca status --json` and load the orchestration guide from that exact installed binary using `orca skills get orchestration`. Follow the version-matched guide; do not reconstruct CLI arguments from memory. If either check fails, report the exact limitation and fall back to supported handoffs/sequential work.
+- Do not invoke Orca lifecycle commands unless the runtime and current task/dispatch identity are confirmed. Do not claim a worker is Orca-supervised unless its task/dispatch is verified in Orca's state.
+
+## 29.2 Track task attempts and ownership
+
+For a coordinated run, maintain a compact ledger in the existing SDD tasks/traceability artifact (or the runtime's durable task state when verified):
+
+`Task ID | Attempt | Owner/dispatch | Worktree/repo | Dependencies | Status | Evidence | Next owner`
+
+Each task attempt has one authoritative owner. Use explicit statuses: READY, RUNNING, BLOCKED, FAILED, DONE, CANCELLED, STALE, or UNVERIFIABLE. A terminal name, visible activity, heartbeat, or previous chat message is not proof of task completion. Record the exact attempt and accept one final result for that attempt; late or duplicate results must not overwrite a newer attempt.
+
+A worker's completion result must state: task/attempt identity, outcome, files changed, contracts changed, checks actually run with outcomes, unresolved blockers, and next dependent tasks. Verify the claimed files and check evidence against the actual diff/tool output before marking DONE. Narrative alone is not evidence.
+
+## 29.3 Wait and recover safely
+
+- Wait for every expected independent task to settle before integration. A timeout, empty wait, lost connection, idle terminal, or missing message is a checkpoint—not proof of failure or process exit.
+- Do not stop, retry, release, or replace an uncertain worker merely because it is quiet. First inspect the runtime's authoritative task/dispatch and process evidence when available. If liveness/ownership remains unknown, mark UNVERIFIABLE and ask for human direction rather than risking a second editor on the same files.
+- Retry only after confirming the previous attempt is no longer authoritative and the failure is retryable. Never automatically retry deterministic build/test/code failures; diagnose and create a bounded remediation attempt.
+- Preserve the previous attempt's output and evidence. A retry is a new attempt, not a rewrite of history. After repeated deterministic failure, stop and escalate instead of looping.
+- In a real Orca run, follow the installed guide's exact wait/acknowledgment/release protocol; process all messages in a delivery before acknowledging it. Never invent command names or substitute generic subagents when Orca task provenance was explicitly requested.
+
+## 29.4 Gate integration on settled work
+
+Integration may start only when all required upstream tasks are DONE and their input contract/spec revisions remain current. BLOCKED, FAILED, CANCELLED, STALE, missing, or UNVERIFIABLE required work blocks dependent tasks. Before starting integration:
+
+1. Reconcile each worker's declared files with the actual diff and file ownership map.
+2. Detect overlapping edits, duplicate implementations, unplanned deletions, and unexpected files.
+3. Re-check shared API/DTO/event/database contracts and mark affected consumers stale if a contract changed.
+4. Run integration/regression checks against the combined result; per-worker success is not feature success.
+5. Keep per-story and per-acceptance-criterion status distinct; do not mark the feature DONE while any required story, dependency, or material verification is unresolved.
+
+If the host only supports manual handoffs, use the same task ledger but execute in dependency order and wait for the user/host to return each result. Do not simulate a scheduler or claim true parallelism in prompt text.
