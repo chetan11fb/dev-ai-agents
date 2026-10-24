@@ -18,7 +18,7 @@ test("parallel worktree workflow protects user changes and shared contracts", ()
   assert.match(skill, /Never reset, clean, stash over, or overwrite unrelated changes/);
   assert.match(skill, /Shared contract barrier/);
   assert.match(skill, /mark dependent tasks STALE/);
-  assert.match(skill, /human approval/);
+  assert.match(skill, /user's approval/);
 });
 
 test("competing implementations require common base, evidence and deliberate selection", () => {
