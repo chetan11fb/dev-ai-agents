@@ -48,8 +48,9 @@
     "validate:registry": "node scripts/validate-registry.mjs",
     "prepack": "npm test",
     "test:sdd-state": "node --test scripts/sdd-state.test.mjs",
-    "test": "npm run validate:registry && npm run test:sdd-state && npm run test:sdd-prompt && npm run test:cli",
+    "test": "npm run validate:registry && npm run test:sdd-state && npm run test:sdd-prompt && npm run test:swarm-orchestrator && npm run test:cli",
     "test:cli": "node --check cli/index.js",
-    "test:sdd-prompt": "node --test scripts/sdd-prompt.test.mjs"
+    "test:sdd-prompt": "node --test scripts/sdd-prompt.test.mjs",
+    "test:swarm-orchestrator": "node --test scripts/swarm-orchestrator.test.mjs"
   }
 }

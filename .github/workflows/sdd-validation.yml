@@ -5,6 +5,8 @@ on:
     types: [opened, synchronize, reopened, ready_for_review]
     paths:
       - "agents/dev-ai-sdd.agent.md"
+      - "agents/dev-ai-swarm-orchestrator.agent.md"
+      - "scripts/swarm-orchestrator.test.mjs"
       - "installer/sdd-kit/**"
       - "scripts/sdd-state.test.mjs"
       - "scripts/sdd-prompt.test.mjs"
@@ -13,11 +15,14 @@ on:
       - "registry/marketplace.json"
       - "cli/index.js"
       - "docs/sdd-runtime-qa-matrix.md"
+      - "docs/orca-pattern-adoption.md"
       - ".github/workflows/sdd-validation.yml"
   push:
     branches: [main]
     paths:
       - "agents/dev-ai-sdd.agent.md"
+      - "agents/dev-ai-swarm-orchestrator.agent.md"
+      - "scripts/swarm-orchestrator.test.mjs"
       - "installer/sdd-kit/**"
       - "scripts/sdd-state.test.mjs"
       - "scripts/sdd-prompt.test.mjs"
@@ -26,6 +31,7 @@ on:
       - "registry/marketplace.json"
       - "cli/index.js"
       - "docs/sdd-runtime-qa-matrix.md"
+      - "docs/orca-pattern-adoption.md"
       - ".github/workflows/sdd-validation.yml"
 
 permissions:
@@ -45,6 +51,8 @@ jobs:
         run: npm run test:sdd-state
       - name: Test SDD prompt and multi-story contract
         run: npm run test:sdd-prompt
+      - name: Test swarm orchestration and supervised worker contract
+        run: npm run test:swarm-orchestrator
       - name: Validate CLI installer syntax
         run: npm run test:cli
       - name: Smoke-test default SDD install and safe rerun

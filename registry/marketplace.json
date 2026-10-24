@@ -643,7 +643,7 @@
       "type": "agent",
       "path": "agents/dev-ai-swarm-orchestrator.agent.md",
       "target": ".github/agents/dev-ai-swarm-orchestrator.agent.md",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "description": "Evidence-first multi-story, multi-project orchestrator with story/AC traceability, dependency DAGs, contract barriers, safe task routing, failure-aware resume, integration and verification.",
       "installCommand": "npx dev-ai-agents --agent dev-ai-swarm-orchestrator",
       "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-swarm-orchestrator",

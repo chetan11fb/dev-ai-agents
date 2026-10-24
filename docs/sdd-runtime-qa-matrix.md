@@ -41,6 +41,19 @@ This matrix is for manual evaluation of the VS Code/GitHub Copilot custom agent.
 | RT-24 | One requested ADO story cannot be retrieved | Names retrieved and missing IDs, asks for missing story content or explicit partial-scope approval, and never silently drops the story or fabricates criteria | NOT RUN |
 | RT-25 | Multi-story set contains dependencies and a shared API/file contract | Orders foundational work before consumers, identifies shared change/verification scope, and claims parallel work only if runtime support and independence are evidenced | NOT RUN |
 | RT-26 | One story fails or becomes blocked after another story is implemented; then resume | Preserves completed work, reports per-story evidence and blocker, keeps feature PARTIAL/NOT DONE, and resumes without discarding work or removing failed scope | NOT RUN |
+| RT-27 | Submit 3 related stories where one is missing from ADO | Names every requested/retrieved/missing ID; stops complete-scope claims and requests story content or explicit partial-scope approval | NOT RUN |
+| RT-28 | Stories share a DTO/API contract and two projects consume it | Establishes contract owner/order, serializes shared contract edits, marks consumer tasks stale when the contract changes, and verifies consumers against the current contract | NOT RUN |
+| RT-29 | Multi-story feature spans projects in multiple workspace roots/repositories | Includes only actually accessible repositories; records repo/project boundaries, per-task Change Set and Verification Set, and does not infer inaccessible repo code | NOT RUN |
+| RT-30 | Host supports only manual agent handoffs | Produces a dependency-ordered queue, waits for actual worker results, and does not claim autonomous spawning, background execution, or parallel coding | NOT RUN |
+| RT-31 | One story passes while another story fails or is only partially implemented | Per-story/AC traceability remains accurate; combined feature stays PARTIAL/NOT DONE; completed work is preserved for resume | NOT RUN |
+| RT-32 | Shared acceptance criteria are duplicated or contradictory across stories | Preserves source IDs, identifies duplication/conflict, asks for material business decisions, and does not merge away distinct acceptance criteria | NOT RUN |
+| RT-33 | A downstream task's API/event contract changes after approval | Invalidates only dependent tasks/evidence, requires context refresh/re-analysis, and blocks stale consumers until reconciled | NOT RUN |
+| RT-34 | Separate repositories need separate PRs for one feature | Produces repository-specific PR plans and explicit dependency/merge order; does not claim atomic cross-repository delivery or auto-merge | NOT RUN |
+| RT-35 | Orca integration is requested but Orca runtime is unavailable | Reports exact unavailability and falls back to supported manual handoffs; does not invent commands, install software, or claim Orca-supervised workers | NOT RUN |
+| RT-36 | Orca is available and multi-agent supervision is requested | Checks `orca status --json`, loads the installed binary's version-matched orchestration guide, and verifies task/dispatch provenance before claiming supervision | NOT RUN |
+| RT-37 | A worker times out or becomes temporarily unreachable | Keeps task UNVERIFIABLE until authoritative evidence settles it; does not duplicate edits, stop, release, or retry based only on timeout/absence | NOT RUN |
+| RT-38 | Worker reports completion with inaccurate files/tests | Compares claimed files with actual diff and checks with tool output; rejects narrative-only evidence and blocks downstream tasks if unresolved | NOT RUN |
+| RT-39 | Two independent tasks complete but integration fails | Preserves individual task evidence, marks integration/feature NOT COMPLETE, identifies remediation, and resumes without losing prior results | NOT RUN |
 
 ## Execution protocol
 
@@ -53,13 +66,5 @@ This matrix is for manual evaluation of the VS Code/GitHub Copilot custom agent.
 
 ## Release gate
 
-Do not claim end-to-end production readiness until all critical tests (RT-01 through RT-18 and RT-22 through RT-26) have recorded evidence in a real supported VS Code/Copilot environment. Automated state tests validate metadata rules; they do not prove that the agent followed its instructions or that application behavior is correct.
+Do not claim end-to-end production readiness until all critical tests (RT-01 through RT-18 and RT-22 through RT-39) have recorded evidence in a real supported VS Code/Copilot environment. Orca-specific tests RT-35–RT-39 are required only when Orca integration is claimed; otherwise they must remain explicitly NOT RUN and Orca must remain an optional, unused adapter. Automated state tests validate metadata rules; they do not prove that the agent followed its instructions or that application behavior is correct.
 
-| RT-27 | Submit 3 related stories where one is missing from ADO | Names every requested/retrieved/missing ID; stops complete-scope claims and requests story content or explicit partial-scope approval | NOT RUN |
-| RT-28 | Stories share a DTO/API contract and two projects consume it | Establishes contract owner/order, serializes shared contract edits, marks consumer tasks stale when the contract changes, and verifies consumers against the current contract | NOT RUN |
-| RT-29 | Multi-story feature spans projects in multiple workspace roots/repositories | Includes only actually accessible repositories; records repo/project boundaries, per-task Change Set and Verification Set, and does not infer inaccessible repo code | NOT RUN |
-| RT-30 | Host supports only manual agent handoffs | Produces a dependency-ordered queue, waits for actual worker results, and does not claim autonomous spawning, background execution, or parallel coding | NOT RUN |
-| RT-31 | One story passes while another story fails or is only partially implemented | Per-story/AC traceability remains accurate; combined feature stays PARTIAL/NOT DONE; completed work is preserved for resume | NOT RUN |
-| RT-32 | Shared acceptance criteria are duplicated or contradictory across stories | Preserves source IDs, identifies duplication/conflict, asks for material business decisions, and does not merge away distinct acceptance criteria | NOT RUN |
-| RT-33 | A downstream task's API/event contract changes after approval | Invalidates only dependent tasks/evidence, requires context refresh/re-analysis, and blocks stale consumers until reconciled | NOT RUN |
-| RT-34 | Separate repositories need separate PRs for one feature | Produces repository-specific PR plans and explicit dependency/merge order; does not claim atomic cross-repository delivery or auto-merge | NOT RUN |
