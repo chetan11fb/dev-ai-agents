@@ -49,8 +49,17 @@ test("manual handoffs do not masquerade as autonomous parallel execution", () =>
   assert.match(agent, /Do not simulate a scheduler or claim true parallelism/);
 });
 
-test("runtime QA matrix covers supervised multi-agent failure modes", () => {
-  assert.match(matrix, /RT-30 \| Host supports only manual agent handoffs/);
-  assert.match(matrix, /RT-31 \| One story passes while another story fails/);
-  assert.match(matrix, /RT-33 \| A downstream task's API\/event contract changes/);
+test("runtime QA matrix keeps all rows in the test table and release gate", () => {
+  const tableStart = matrix.indexOf("| ID | Scenario | Expected result | Status |");
+  const protocolStart = matrix.indexOf("## Execution protocol");
+  const tableBody = matrix.slice(tableStart, protocolStart);
+  assert.ok(tableStart >= 0 && protocolStart > tableStart, "Test table or protocol heading missing");
+  for (let id = 1; id <= 39; id++) {
+    const row = `| RT-${String(id).padStart(2, "0")} |`;
+    assert.ok(tableBody.includes(row), `RT-${String(id).padStart(2, "0")} must be inside the test table`);
+  }
+  assert.match(matrix, /RT-30 \\| Host supports only manual agent handoffs/);
+  assert.match(matrix, /RT-31 \\| One story passes while another story fails/);
+  assert.match(matrix, /RT-33 \\| A downstream task's API\\/event contract changes/);
+  assert.match(matrix, /RT-01 through RT-18 and RT-22 through RT-39/);
 });
