@@ -16,12 +16,13 @@ on:
       - "cli/index.js"
       - "docs/sdd-runtime-qa-matrix.md"
       - "docs/orca-pattern-adoption.md"
-      - "docs/orca-pattern-adoption.md"
       - ".github/workflows/sdd-validation.yml"
   push:
     branches: [main]
     paths:
       - "agents/dev-ai-sdd.agent.md"
+      - "agents/dev-ai-swarm-orchestrator.agent.md"
+      - "scripts/swarm-orchestrator.test.mjs"
       - "installer/sdd-kit/**"
       - "scripts/sdd-state.test.mjs"
       - "scripts/sdd-prompt.test.mjs"
