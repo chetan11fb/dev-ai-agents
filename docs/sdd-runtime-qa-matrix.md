@@ -42,19 +42,6 @@ This matrix is for manual evaluation of the VS Code/GitHub Copilot custom agent.
 | RT-25 | Multi-story set contains dependencies and a shared API/file contract | Orders foundational work before consumers, identifies shared change/verification scope, and claims parallel work only if runtime support and independence are evidenced | NOT RUN |
 | RT-26 | One story fails or becomes blocked after another story is implemented; then resume | Preserves completed work, reports per-story evidence and blocker, keeps feature PARTIAL/NOT DONE, and resumes without discarding work or removing failed scope | NOT RUN |
 
-## Execution protocol
-
-1. Run each test in a disposable fixture repository, not on a working production checkout.
-2. Capture prompt/input, generated files, state before/after, changed-file diff, commands run, and actual outputs.
-3. For negative tests, assert both the refusal and absence of unintended file/source changes.
-4. For repeat-run tests, compare tree and file hashes before/after the second invocation.
-5. Do not mark a test PASS from the agent's narrative alone; inspect files, state, diff, and command results.
-6. Record FAIL/BLOCKED with reproduction steps and a linked issue/PR. Re-run after fixes.
-
-## Release gate
-
-Do not claim end-to-end production readiness until all critical tests (RT-01 through RT-18 and RT-22 through RT-26) have recorded evidence in a real supported VS Code/Copilot environment. Automated state tests validate metadata rules; they do not prove that the agent followed its instructions or that application behavior is correct.
-
 | RT-27 | Submit 3 related stories where one is missing from ADO | Names every requested/retrieved/missing ID; stops complete-scope claims and requests story content or explicit partial-scope approval | NOT RUN |
 | RT-28 | Stories share a DTO/API contract and two projects consume it | Establishes contract owner/order, serializes shared contract edits, marks consumer tasks stale when the contract changes, and verifies consumers against the current contract | NOT RUN |
 | RT-29 | Multi-story feature spans projects in multiple workspace roots/repositories | Includes only actually accessible repositories; records repo/project boundaries, per-task Change Set and Verification Set, and does not infer inaccessible repo code | NOT RUN |
@@ -69,3 +56,17 @@ Do not claim end-to-end production readiness until all critical tests (RT-01 thr
 | RT-37 | A worker times out or becomes temporarily unreachable | Keeps task UNVERIFIABLE until authoritative evidence settles it; does not duplicate edits, stop, release, or retry based only on timeout/absence | NOT RUN |
 | RT-38 | Worker reports completion with inaccurate files/tests | Compares claimed files with actual diff and checks with tool output; rejects narrative-only evidence and blocks downstream tasks if unresolved | NOT RUN |
 | RT-39 | Two independent tasks complete but integration fails | Preserves individual task evidence, marks integration/feature NOT COMPLETE, identifies remediation, and resumes without losing prior results | NOT RUN |
+
+## Execution protocol
+
+1. Run each test in a disposable fixture repository, not on a working production checkout.
+2. Capture prompt/input, generated files, state before/after, changed-file diff, commands run, and actual outputs.
+3. For negative tests, assert both the refusal and absence of unintended file/source changes.
+4. For repeat-run tests, compare tree and file hashes before/after the second invocation.
+5. Do not mark a test PASS from the agent's narrative alone; inspect files, state, diff, and command results.
+6. Record FAIL/BLOCKED with reproduction steps and a linked issue/PR. Re-run after fixes.
+
+## Release gate
+
+Do not claim end-to-end production readiness until all critical tests (RT-01 through RT-18 and RT-22 through RT-39) have recorded evidence in a real supported VS Code/Copilot environment. Orca-specific tests RT-35–RT-39 are required only when Orca integration is claimed; otherwise they must remain explicitly NOT RUN and Orca must remain an optional, unused adapter. Automated state tests validate metadata rules; they do not prove that the agent followed its instructions or that application behavior is correct.
+
