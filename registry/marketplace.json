@@ -946,6 +946,15 @@
       "description": "ECC-inspired DEV-AI adaptation for enterprise full-stack development."
     },
     {
+      "id": "parallel-worktree-engineering",
+      "type": "prompt",
+      "path": "prompts/parallel-worktree-engineering.md",
+      "target": "docs/prompts/parallel-worktree-engineering.md",
+      "version": "0.1.0",
+      "source": "dev-ai-native",
+      "description": "Capability-aware prompt for isolated parallel coding agents, worktree-based candidate comparison, diff review and verified integration."
+    },
+    {
       "id": "qa-review-gate",
       "type": "prompt",
       "path": "prompts/qa-review-gate.md",
@@ -1091,6 +1100,15 @@
       "path": "skills/frontend-design/SKILL.md",
       "target": ".github/skills/frontend-design/SKILL.md",
       "version": "0.2.0"
+    },
+    {
+      "id": "parallel-worktree-orchestration",
+      "type": "skill",
+      "path": "skills/development/parallel-worktree-orchestration/SKILL.md",
+      "target": ".github/skills/parallel-worktree-orchestration/SKILL.md",
+      "version": "0.1.0",
+      "source": "dev-ai-native",
+      "description": "Production-safe parallel worktree orchestration: capability detection, dependency DAGs, contract barriers, competing candidates, diff review and convergence."
     },
     {
       "id": "scope-creep-detector",

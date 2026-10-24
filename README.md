@@ -536,3 +536,22 @@ For a consuming project, configure `.vscode/mcp.json` with the Dynatrace remote 
 - [Troubleshooting](docs/dynatrace/troubleshooting.md)
 
 Official Dynatrace MCP documentation: https://docs.dynatrace.com/docs/dynatrace-intelligence/dynatrace-mcp
+
+
+## 🐳 Orca-inspired parallel worktree engineering
+
+DEV-AI includes a host-agnostic parallel engineering workflow inspired by public Orca concepts: isolated Git worktrees, task dependency tracking, competing candidates when uncertainty warrants it, diff-first review, and evidence-based integration. It does **not** require Orca to be installed and never assumes the host can spawn workers.
+
+### Install the workflow prompt and skill
+
+```bash
+npx dev-ai-agents --prompt parallel-worktree-engineering
+npx dev-ai-agents --skill parallel-worktree-orchestration
+npx dev-ai-agents --agent dev-ai-swarm-orchestrator
+```
+
+The registry entries are the app/CLI source of truth. The prompt target is `docs/prompts/parallel-worktree-engineering.md`; the skill target is `.github/skills/parallel-worktree-orchestration/SKILL.md`.
+
+**Safety defaults:** detect host capabilities before claiming parallel execution; isolate every editing worker or serialize edits; pin base/contract revisions; inspect real diffs and test evidence; never auto-merge, deploy, discard unmerged work, or expose secrets. Competing implementations are reserved for high-value uncertainty, not routine changes.
+
+Reference reading: [Orca worktrees](https://www.onorca.dev/docs/model/worktrees), [Orca orchestration](https://www.onorca.dev/docs/cli/orchestration), [Orca diff annotations](https://www.onorca.dev/docs/review/annotate-ai-diff), and [Orca parallel-agent recipe](https://www.onorca.dev/docs/recipes/parallel-agents). This is a DEV-AI-native adaptation, not copied Orca implementation code.

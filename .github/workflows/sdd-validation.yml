@@ -5,6 +5,10 @@ on:
     types: [opened, synchronize, reopened, ready_for_review]
     paths:
       - "agents/dev-ai-sdd.agent.md"
+      - "agents/dev-ai-swarm-orchestrator.agent.md"
+      - "skills/development/parallel-worktree-orchestration/**"
+      - "prompts/parallel-worktree-engineering.md"
+      - "scripts/parallel-worktree.test.mjs"
       - "installer/sdd-kit/**"
       - "scripts/sdd-state.test.mjs"
       - "scripts/sdd-prompt.test.mjs"
@@ -18,6 +22,10 @@ on:
     branches: [main]
     paths:
       - "agents/dev-ai-sdd.agent.md"
+      - "agents/dev-ai-swarm-orchestrator.agent.md"
+      - "skills/development/parallel-worktree-orchestration/**"
+      - "prompts/parallel-worktree-engineering.md"
+      - "scripts/parallel-worktree.test.mjs"
       - "installer/sdd-kit/**"
       - "scripts/sdd-state.test.mjs"
       - "scripts/sdd-prompt.test.mjs"
@@ -47,6 +55,8 @@ jobs:
         run: npm run test:sdd-prompt
       - name: Validate CLI installer syntax
         run: npm run test:cli
+      - name: Test parallel worktree workflow safety
+        run: npm run test:parallel-worktree
       - name: Smoke-test default SDD install and safe rerun
         env:
           DEV_AI_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}

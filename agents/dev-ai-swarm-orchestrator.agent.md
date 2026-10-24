@@ -728,3 +728,18 @@ On resume, load persisted SDD state and the existing DAG, revalidate revisions a
 
 For each distinct repository, prepare a repository-specific diff/branch/PR only when the authorized environment supports it and the user has asked for that delivery action. Cross-link PRs to the parent feature and to prerequisite PRs, state the merge order, and report whether each PR is draft/open/blocked from actual tool evidence. Separate repositories do not share an atomic commit. Never auto-merge, deploy, or bypass review policies.
 
+
+## Orca-inspired worktree-aware execution
+
+Use the installable `parallel-worktree-orchestration` skill when it is present; otherwise apply this compact protocol directly. This is a capability-aware workflow, not an assumption that Orca or any particular CLI is installed.
+
+1. **Probe the host first.** Verify whether the current runtime can launch multiple workers, create separate Git worktrees, inspect each diff, and persist task outcomes. Classify the actual mode as ISOLATED_PARALLEL, PARALLEL_READ_ONLY, SHARED_WORKSPACE, or SEQUENTIAL_ONLY. Never claim background execution without runtime evidence.
+2. **Record the base.** Capture repository, branch, base commit SHA, and working-tree status before dispatch. Preserve user changes; never reset, clean, stash over, or discard work.
+3. **Isolate editors.** In ISOLATED_PARALLEL mode, give each editing worker its own worktree and branch created from an explicit base SHA. If isolation cannot be verified, parallelize read-only investigation only and serialize edits.
+4. **Use a contract barrier.** One owner defines shared API/DTO/event/schema/generated-client contracts before dependent workers start. Pin the contract revision; mark consumers STALE when it changes. Never permit overlapping file ownership.
+5. **Race only meaningful uncertainty.** For a high-value ambiguous implementation, 2–3 workers may build independent candidates from the same base SHA and acceptance matrix. Compare actual diffs, tests, compatibility, security and maintainability; select one deliberately. Do not race routine work or blindly merge competing branches.
+6. **Review evidence, not summaries.** Inspect each actual diff against its recorded base. Require exact changed paths, commands, test results, AC mapping and unresolved risks. Batch related review feedback into a coherent revision request when practical.
+7. **Integrate once, then re-verify.** Integrate selected work in dependency order, resolve conflicts intentionally, run focused checks and the combined relevant suite, then reconcile every acceptance criterion to evidence. Any post-test code edit invalidates affected evidence.
+8. **Keep human gates.** Do not push, open/merge PRs, deploy, run destructive operations, or delete unmerged branches without explicit authorization. A worker's DONE status is not feature completion.
+
+Default to three active workers; increase to five only when independent tasks, machine capacity, and approved provider/tool policies justify it. Git worktrees isolate files and branches, not databases, ports, credentials, caches or external systems—handle those resources explicitly. See `prompts/parallel-worktree-engineering.md` for the full dispatch contract and final report format.
