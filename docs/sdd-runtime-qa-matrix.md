@@ -63,3 +63,9 @@ Do not claim end-to-end production readiness until all critical tests (RT-01 thr
 | RT-32 | Shared acceptance criteria are duplicated or contradictory across stories | Preserves source IDs, identifies duplication/conflict, asks for material business decisions, and does not merge away distinct acceptance criteria | NOT RUN |
 | RT-33 | A downstream task's API/event contract changes after approval | Invalidates only dependent tasks/evidence, requires context refresh/re-analysis, and blocks stale consumers until reconciled | NOT RUN |
 | RT-34 | Separate repositories need separate PRs for one feature | Produces repository-specific PR plans and explicit dependency/merge order; does not claim atomic cross-repository delivery or auto-merge | NOT RUN |
+
+| RT-35 | Orca integration is requested but Orca runtime is unavailable | Reports exact unavailability and falls back to supported manual handoffs; does not invent commands, install software, or claim Orca-supervised workers | NOT RUN |
+| RT-36 | Orca is available and multi-agent supervision is requested | Checks `orca status --json`, loads the installed binary's version-matched orchestration guide, and verifies task/dispatch provenance before claiming supervision | NOT RUN |
+| RT-37 | A worker times out or becomes temporarily unreachable | Keeps task UNVERIFIABLE until authoritative evidence settles it; does not duplicate edits, stop, release, or retry based only on timeout/absence | NOT RUN |
+| RT-38 | Worker reports completion with inaccurate files/tests | Compares claimed files with actual diff and checks with tool output; rejects narrative-only evidence and blocks downstream tasks if unresolved | NOT RUN |
+| RT-39 | Two independent tasks complete but integration fails | Preserves individual task evidence, marks integration/feature NOT COMPLETE, identifies remediation, and resumes without losing prior results | NOT RUN |
