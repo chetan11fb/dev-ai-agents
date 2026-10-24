@@ -36,7 +36,7 @@ test("worker completion, retry, and integration require evidence", () => {
 });
 
 test("section numbering is unique and Orca adoption is documented", async () => {
-  const headings = [...agent.matchAll(/^# (\\d+)\\./gm)].map(m => Number(m[1]));
+  const headings = [...agent.matchAll(/^# (\d+)\./gm)].map(m => Number(m[1]));
   assert.equal(new Set(headings).size, headings.length, "Duplicate numbered section heading");
   assert.deepEqual(headings, Array.from({ length: headings.length }, (_, i) => i + 1));
   const decision = await readFile("docs/orca-pattern-adoption.md", "utf8");
