@@ -35,6 +35,15 @@ test("worker completion, retry, and integration require evidence", () => {
   assert.match(agent, /per-worker success is not feature success/);
 });
 
+test("section numbering is unique and Orca adoption is documented", async () => {
+  const headings = [...agent.matchAll(/^# (\\d+)\\./gm)].map(m => Number(m[1]));
+  assert.equal(new Set(headings).size, headings.length, "Duplicate numbered section heading");
+  assert.deepEqual(headings, Array.from({ length: headings.length }, (_, i) => i + 1));
+  const decision = await readFile("docs/orca-pattern-adoption.md", "utf8");
+  assert.match(decision, /No mandatory Orca install/);
+  assert.match(decision, /RT-35–RT-39 remain NOT RUN/);
+});
+
 test("manual handoffs do not masquerade as autonomous parallel execution", () => {
   assert.match(agent, /If the host only supports manual handoffs/);
   assert.match(agent, /Do not simulate a scheduler or claim true parallelism/);
