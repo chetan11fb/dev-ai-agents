@@ -16,7 +16,7 @@ test("multi-story implementation remains dependency- and acceptance-criteria-awa
   assert.match(agent, /Story → Acceptance Criterion → SDD Requirement → Task → Project\/Path → Verification/);
   assert.match(agent, /one active worker owns a mutable file/);
   assert.match(agent, /per-story/i);
-  assert.match(agent, /Do not claim autonomous spawning/);
+  assert.match(agent, /Never claim autonomous spawning/);
 });
 
 test("optional Orca integration requires runtime and version-matched guide evidence", () => {
