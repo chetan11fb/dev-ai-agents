@@ -11,7 +11,7 @@ test("parallel worktree skill requires runtime capability detection and honest f
   assert.match(skill, /ISOLATED_PARALLEL/);
   assert.match(skill, /SHARED_WORKSPACE/);
   assert.match(skill, /Never infer runtime capabilities/);
-  assert.match(skill, /serialize edits/);
+  assert.match(skill, /serialize edits/i);
 });
 
 test("parallel worktree workflow protects user changes and shared contracts", () => {
