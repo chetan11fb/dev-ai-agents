@@ -746,6 +746,17 @@
       "installTarget": ".github/agents/wshobson-legacy-modernizer.agent.md"
     },
     {
+      "id": "dev-ai-ado-story-writer",
+      "type": "agent",
+      "path": "agents/dev-ai-ado-story-writer.agent.md",
+      "target": ".github/agents/dev-ai-ado-story-writer.agent.md",
+      "version": "0.1.0",
+      "description": "Evidence-first Azure Boards User Story and Bug authoring for .NET full-stack, microservices, Saga, API and SQL projects; verifies project/team/iteration/tags and requires approval before creating work items.",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-ado-story-writer",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-ado-story-writer",
+      "installTarget": ".github/agents/dev-ai-ado-story-writer.agent.md"
+    },
+    {
       "id": "azure-devops",
       "type": "mcp",
       "path": "mcp/azure-devops.json",
