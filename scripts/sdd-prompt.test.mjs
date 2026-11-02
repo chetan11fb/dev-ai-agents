@@ -56,6 +56,25 @@ test("SDD Working agent keeps questions and approvals user-friendly", () => {
   assert.match(workingAgent, /real form, textbox, or Submit button/);
 });
 
+test("SDD Working decision UX makes required and optional choices clear", () => {
+  assert.match(workingAgent, /Decision UX: make every question answerable/);
+  assert.match(workingAgent, /Blocking \/ Required/);
+  assert.match(workingAgent, /Non-blocking \/ Optional/);
+  assert.match(workingAgent, /Agent-owned/);
+  assert.match(workingAgent, /Unknown \/ needs evidence/);
+  assert.match(workingAgent, /Your answer: Q-01 =/);
+  assert.match(workingAgent, /APPROVE <SPEC\|PLAN\|TASKS\|RISK> <revision>/);
+  assert.match(workingAgent, /must not claim it has created one/);
+});
+
+test("SDD Working npm command and install target remain stable", () => {
+  const item = registry.components.find(x => x.type === "agent" && x.id === "sdd-working");
+  assert.ok(item);
+  assert.equal(item.installCommand, "npx dev-ai-agents --agent sdd-working");
+  assert.equal(item.npmExecCommand, "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent sdd-working");
+  assert.equal(item.target, ".github/agents/sdd.working.agent.md");
+});
+
 test("SDD Working agent is registered for individual npm installation", () => {
   const item = registry.components.find(x => x.type === "agent" && x.id === "sdd-working");
   assert.ok(item, "sdd-working must exist in marketplace registry");
