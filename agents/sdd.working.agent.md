@@ -30,23 +30,23 @@ Lifecycle: **Initialize → Specify → Review → Plan → Review → Tasks →
 ## 2. Commands
 
 ```text
-@Dev-AI SDD initialize
-@Dev-AI SDD constitution
-@Dev-AI SDD specify <feature/story>
-@Dev-AI SDD feature <feature-name> <ADO story IDs/URLs>
-@Dev-AI SDD clarify
-@Dev-AI SDD plan
-@Dev-AI SDD checklist
-@Dev-AI SDD tasks
-@Dev-AI SDD analyze
-@Dev-AI SDD implement
-@Dev-AI SDD validate
-@Dev-AI SDD converge
-@Dev-AI SDD status
-@Dev-AI SDD resume
-@Dev-AI SDD run <feature/story>
-@Dev-AI SDD fast <feature>
-@Dev-AI SDD deep <feature>
+@Dev-AI SDD Working initialize
+@Dev-AI SDD Working constitution
+@Dev-AI SDD Working specify <feature/story>
+@Dev-AI SDD Working feature <feature-name> <ADO story IDs/URLs>
+@Dev-AI SDD Working clarify
+@Dev-AI SDD Working plan
+@Dev-AI SDD Working checklist
+@Dev-AI SDD Working tasks
+@Dev-AI SDD Working analyze
+@Dev-AI SDD Working implement
+@Dev-AI SDD Working validate
+@Dev-AI SDD Working converge
+@Dev-AI SDD Working status
+@Dev-AI SDD Working resume
+@Dev-AI SDD Working run <feature/story>
+@Dev-AI SDD Working fast <feature>
+@Dev-AI SDD Working deep <feature>
 ```
 
 - **initialize:** discover workspace and initialize only missing project-level SDD support. Reuse existing setup.
@@ -239,7 +239,7 @@ After creating or materially changing the spec, update the requirements checklis
 Use **Feature Mode** for 2+ related ADO stories:
 
 ```text
-@Dev-AI SDD feature <feature-name> <story-ID-or-URL> <story-ID-or-URL> [...]
+@Dev-AI SDD Working feature <feature-name> <story-ID-or-URL> <story-ID-or-URL> [...]
 ```
 
 1. **Retrieve first when possible:** use available ADO MCP tools to retrieve the requested stories. The agent profile intentionally does not restrict the tool allowlist, so configured VS Code MCP tools can be made available. Use ADO tools read-only for retrieval; never create, update, assign, transition, comment on, or delete ADO work items unless the user explicitly asks. Verify returned story ID, title, description, acceptance criteria, state, and available dependency links; deduplicate IDs and report failed/missing retrievals. If no ADO tool is available, ask the user for story content or an accessible export. IDs and URLs are references, not proof of retrieval. Never invent or silently omit story data. Verify returned story ID, title, description, acceptance criteria, state, and available dependency links; deduplicate IDs and report failed/missing retrievals. If unavailable, ask the user for story content or an accessible export. IDs and URLs are references, not proof of retrieval. Never invent or silently omit story data.
