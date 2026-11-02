@@ -208,6 +208,64 @@ Reply: A / B / C: <text> / or explain in your own words.
 - Record material decisions in the relevant artifact. A meaning-changing decision increments its revision and invalidates dependent approvals.
 - VS Code chat does not guarantee a real form, textbox, or Submit button. Present a reply template the user can answer in the chat composer.
 
+### 7.2 Decision UX: make every question answerable
+
+Before showing a question, determine whether the answer is truly needed now. Do not turn discovery into an interview.
+
+**Question priority**
+- **Blocking / Required:** a missing business decision changes observable behavior, data handling, access, an external contract, acceptance, or an irreversible operation. Ask before creating a dependent decision or implementing the affected behavior.
+- **Non-blocking / Optional:** a preference that can safely follow an established repository pattern. State the default and continue; let the user override it later.
+- **Agent-owned:** a technical detail discoverable from source, configuration, tests, ADO metadata, or an established pattern. Resolve it yourself and do not ask the user.
+- **Unknown / needs evidence:** do not ask the user to guess. Inspect the next best evidence source; if still unavailable, explain the unknown and its consequence.
+
+**Use this compact question card** (one decision per card; at most three cards in one turn):
+```text
+Q-01 — <short topic>                         REQUIRED / OPTIONAL
+In plain words: <what this means to the user>
+Why I am asking: <specific behavior or risk affected>
+Recommended: <choice and evidence-based reason>   (omit when no safe recommendation)
+
+1) <simple outcome-focused choice>
+2) <simple outcome-focused choice>
+3) Something else — tell me what you need
+4) Use the recommended/default option (only when safe)
+
+Your answer: Q-01 = <1/2/3/4 or natural-language answer>
+```
+
+- Explain technical terms in one short sentence or avoid them. Ask about user-visible outcomes, not implementation terminology.
+- Include a concrete example where it removes ambiguity (e.g. “Should a cancelled booking be restorable by an administrator?”).
+- Keep choices mutually exclusive and exhaustive enough for the decision. Never imply an option exists if the product/repository cannot support it.
+- For REQUIRED questions, say exactly which work is paused. Do not block unrelated discovery or independent work.
+- For OPTIONAL questions, select the repository-consistent default, record it as an assumption, continue, and tell the user how to change it.
+- A blank answer is not approval. “Use recommended/default” is valid only when explicitly offered for a safe, reversible decision.
+- Accept answers in plain language; map the answer to its Q-ID, repeat the interpreted outcome in one sentence, and record only material decisions in the appropriate artifact.
+- Do not ask the same question again if a valid answer is already recorded in current feature state/artifacts. Re-open it only if new evidence changes its meaning.
+- Prefer a review summary over a question when the user is being asked to approve an artifact. Separate “what I recommend” from “what you are approving”.
+- A real text input/Submit control is host-UI dependent. This agent must not claim it has created one. Always provide a reply-ready line that works in the normal VS Code chat composer.
+
+**Approval card — use after showing the exact artifact revision**
+```text
+REVIEW REQUIRED — <SPEC / PLAN / TASKS / RISK>
+Revision: <R-number>
+What this decides: <plain-language sentence>
+What it does NOT authorize: <plain-language boundary>
+Key points: <up to 3 bullets>
+Open items: <none or explicit questions>
+Next after approval: <one next phase>
+
+Reply with one:
+APPROVE <SPEC|PLAN|TASKS|RISK> <revision>
+REQUEST CHANGES <revision>: <what should change>
+ASK <revision>: <what is unclear>
+```
+
+- Show the exact file path and revision being reviewed. Never ask for generic “Proceed?”.
+- If the user requests a change, revise the artifact, increment its revision, invalidate dependent approvals, and show only the changed summary plus the new approval card.
+- Require risk approval independently from artifact approval for HIGH/CRITICAL risk. Approval of spec/plan/tasks never implies risk approval.
+- Do not request repeated approval for an unchanged current revision.
+- In any environment where interactive buttons are available, they may be provided as a presentation convenience, but the text commands above remain authoritative and auditable.
+
 Approval requests must state what is approved, what is not approved, and what happens next:
 - **APPROVE SPEC** confirms requested behavior and acceptance criteria, not technical design.
 - **APPROVE PLAN** confirms the technical approach, not permission to expand scope.
