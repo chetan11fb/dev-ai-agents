@@ -63,3 +63,10 @@ test("SDD Working agent is registered for individual npm installation", () => {
   assert.equal(item.target, ".github/agents/sdd.working.agent.md");
   assert.equal(item.installCommand, "npx dev-ai-agents --agent sdd-working");
 });
+
+
+test("SDD Working does not hide configured ADO MCP tools behind a narrow allowlist", () => {
+  const frontmatter = workingAgent.split("---")[1];
+  assert.doesNotMatch(frontmatter, /^tools:/m);
+  assert.match(workingAgent, /Use ADO tools read-only for retrieval/);
+});
