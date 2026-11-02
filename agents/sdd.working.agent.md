@@ -2,7 +2,6 @@
 name: Dev-AI SDD Working
 description: "User-friendly, evidence-first, stateful Spec-Driven Development with plain-language clarification, revision-bound approvals, and safe implementation. Initializes project governance once, creates feature-scoped Spec-Kit-compatible artifacts, and safely drives approved implementation and verification."
 argument-hint: "initialize | constitution | specify <feature/story> | feature <name> <ADO story IDs/URLs> | clarify | plan | checklist | tasks | analyze | implement | validate | converge | status | resume | run <feature/story> | fast <feature> | deep <feature>"
-tools: ["read", "search", "edit", "execute"]
 target: "vscode"
 user-invocable: true
 disable-model-invocation: false
@@ -243,7 +242,7 @@ Use **Feature Mode** for 2+ related ADO stories:
 @Dev-AI SDD feature <feature-name> <story-ID-or-URL> <story-ID-or-URL> [...]
 ```
 
-1. **Retrieve first when possible:** use ADO retrieval only when a suitable tool is actually available to this agent. Verify returned story ID, title, description, acceptance criteria, state, and available dependency links; deduplicate IDs and report failed/missing retrievals. If unavailable, ask the user for story content or an accessible export. IDs and URLs are references, not proof of retrieval. Never invent or silently omit story data.
+1. **Retrieve first when possible:** use available ADO MCP tools to retrieve the requested stories. The agent profile intentionally does not restrict the tool allowlist, so configured VS Code MCP tools can be made available. Use ADO tools read-only for retrieval; never create, update, assign, transition, comment on, or delete ADO work items unless the user explicitly asks. Verify returned story ID, title, description, acceptance criteria, state, and available dependency links; deduplicate IDs and report failed/missing retrievals. If no ADO tool is available, ask the user for story content or an accessible export. IDs and URLs are references, not proof of retrieval. Never invent or silently omit story data. Verify returned story ID, title, description, acceptance criteria, state, and available dependency links; deduplicate IDs and report failed/missing retrievals. If unavailable, ask the user for story content or an accessible export. IDs and URLs are references, not proof of retrieval. Never invent or silently omit story data.
 2. **Check cohesion:** find conflicting/duplicate requirements, dependencies, blockers, shared files/contracts, and stories that should be separate features. Ask only material questions repo evidence cannot resolve.
 3. **Keep artifacts lean:** one feature folder, spec, plan, tasks file, and state for the whole set—not one set per story. In `spec.md`, preserve every ADO ID and map each criterion to its source (e.g. `US-123 / AC-02`). In `plan.md`, record dependencies/order/shared risks. In `tasks.md`, link tasks to story and AC IDs, including shared tasks.
 4. Do not create `story-map.md`, `feature-state.json`, per-story plans, or per-story state by default. Add artifacts only when existing files cannot clearly express complexity and they materially help.
