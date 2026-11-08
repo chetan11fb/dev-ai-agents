@@ -460,6 +460,17 @@
       "installTarget": ".github/agents/dev-ai-angular.agent.md"
     },
     {
+      "id": "dev-ai-api-contract-compatibility",
+      "type": "agent",
+      "path": "agents/dev-ai-api-contract-compatibility.agent.md",
+      "target": ".github/agents/dev-ai-api-contract-compatibility.agent.md",
+      "version": "0.1.0",
+      "description": "Evidence-first API, Angular, microservice and event contract compatibility analysis.",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-api-contract-compatibility",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-api-contract-compatibility",
+      "installTarget": ".github/agents/dev-ai-api-contract-compatibility.agent.md"
+    },
+    {
       "id": "dev-ai-api-review",
       "type": "agent",
       "path": "agents/dev-ai-api-review.agent.md",
@@ -748,6 +759,17 @@
       "installTarget": ".github/agents/dev-ai-legacy-dotnet.agent.md"
     },
     {
+      "id": "dev-ai-observability-engineer",
+      "type": "agent",
+      "path": "agents/dev-ai-observability-engineer.agent.md",
+      "target": ".github/agents/dev-ai-observability-engineer.agent.md",
+      "version": "0.1.0",
+      "description": "Production observability specialist for .NET and Angular: logs, traces, metrics, health checks and runbooks.",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-observability-engineer",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-observability-engineer",
+      "installTarget": ".github/agents/dev-ai-observability-engineer.agent.md"
+    },
+    {
       "id": "dev-ai-performance",
       "type": "agent",
       "path": "agents/dev-ai-performance.agent.md",
@@ -756,6 +778,17 @@
       "installCommand": "npx dev-ai-agents --agent dev-ai-performance",
       "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-performance",
       "installTarget": ".github/agents/dev-ai-performance.agent.md"
+    },
+    {
+      "id": "dev-ai-production-readiness-gate",
+      "type": "agent",
+      "path": "agents/dev-ai-production-readiness-gate.agent.md",
+      "target": ".github/agents/dev-ai-production-readiness-gate.agent.md",
+      "version": "0.1.0",
+      "description": "Evidence-based production release gate across security, reliability, data, performance, observability and deployment.",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-production-readiness-gate",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-production-readiness-gate",
+      "installTarget": ".github/agents/dev-ai-production-readiness-gate.agent.md"
     },
     {
       "id": "dev-ai-qa",
