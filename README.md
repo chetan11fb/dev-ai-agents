@@ -304,6 +304,20 @@ DEV-AI now includes a native adaptation layer inspired by the engineering patter
   <img src="https://raw.githubusercontent.com/chetan11fb/dev-ai-agents/main/assets/ecc-engineering-loop.svg" width="100%" alt="Animated DEV-AI ECC-inspired engineering loop"/>
 </p>
 
+### Production engineering specialists
+
+- **Dev-AI Production Readiness Gate** — evidence-based GO / CONDITIONAL / NO-GO release assessment.
+- **Dev-AI API Contract Compatibility** — breaking-change analysis across APIs, Angular clients, services and events.
+- **Dev-AI Observability Engineer** — structured logs, distributed tracing, metrics, health checks and operational readiness.
+
+Install individually:
+
+```bash
+npx dev-ai-agents --agent dev-ai-production-readiness-gate
+npx dev-ai-agents --agent dev-ai-api-contract-compatibility
+npx dev-ai-agents --agent dev-ai-observability-engineer
+```
+
 ### Added native agents
 
 - ECC Planner
