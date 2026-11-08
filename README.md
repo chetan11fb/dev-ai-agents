@@ -84,7 +84,7 @@ The CLI also supports the full component catalog for developers who want additio
 
 ### Install any agent (registry-backed commands)
 
-The registry now covers **all 72 VS Code agent files** under `agents/`. Every agent card can use the same verified command pattern; the ID must match the registry exactly.
+The registry covers every installable VS Code agent file under `agents/`. Every agent card can use the same verified command pattern; the ID must match the registry exactly.
 
 ```bash
 # List every available component and target
@@ -95,6 +95,7 @@ npx dev-ai-agents --agent ai-change-impact-analyzer
 npx dev-ai-agents --agent dev-ai-sdd
 npx dev-ai-agents --agent sdd-working
 npx dev-ai-agents --agent dev-ai-code-explorer
+npx dev-ai-agents --agent dev-ai-project-health-auditor
 
 # Install every VS Code agent (agents only; not MCPs, skills, plugins or settings)
 npx dev-ai-agents --all-agents

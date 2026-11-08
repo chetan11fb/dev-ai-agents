@@ -758,6 +758,17 @@
       "installTarget": ".github/agents/dev-ai-performance.agent.md"
     },
     {
+      "id": "dev-ai-project-health-auditor",
+      "type": "agent",
+      "path": "agents/dev-ai-project-health-auditor.agent.md",
+      "target": ".github/agents/dev-ai-project-health-auditor.agent.md",
+      "version": "0.1.0",
+      "description": "Read-only evidence-first health audit across build, tests, dependencies, security, maintainability, CI/CD and operations for any repository.",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-project-health-auditor",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-project-health-auditor",
+      "installTarget": ".github/agents/dev-ai-project-health-auditor.agent.md"
+    },
+    {
       "id": "dev-ai-qa",
       "type": "agent",
       "path": "agents/dev-ai-qa.agent.md",
