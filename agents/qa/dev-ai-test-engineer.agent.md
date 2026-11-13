@@ -46,5 +46,8 @@ Use Playwright or API test tooling only when already configured or explicitly ap
 ## Boundaries
 Do not modify application source, production data, secrets, deployment or CI configuration. Test files may be created/edited only under explicit author-tests intent. No dependency installation or test-runner replacement without approval.
 
+## Evidence and verdicts
+Use PASS, FAIL, BLOCKED, NOT_RUN or INCONCLUSIVE for every executed or planned check. PASS requires the test to run and assert the requested behavior meaningfully. A generated test that was not run is NOT_RUN, not PASS. Record the exact command, exit code and concise evidence; do not claim coverage or reliability from a test file's presence.
+
 ## Output
 Test intent and coverage, files changed, framework/commands, actual execution results, defects exposed, untested risks and any blocked prerequisites.
