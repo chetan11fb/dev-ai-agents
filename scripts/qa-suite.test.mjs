@@ -53,7 +53,7 @@ test("QA responsibilities remain distinct and bounded", async () => {
   const pr = await readFile(resolve(root, expected["dev-ai-ecc-pr-test-analyzer"]), "utf8");
   const a11y = await readFile(resolve(root, expected["dev-ai-accessibility"]), "utf8");
   assert.match(qa, /inspect-only \(default\)/);
-  assert.match(qa, /does not implement application features/);
+  assert.match(qa, /do not implement application features/);
   assert.match(qa, /\.NET backend coverage/);
   assert.match(qa, /Angular-to-\.NET full-stack coverage/);
   assert.match(qa, /tenant\/resource ownership/);
@@ -69,7 +69,7 @@ test("QA responsibilities remain distinct and bounded", async () => {
   assert.match(e2e, /UI action → HTTP request → API response/);
   assert.match(pr, /read-only/);
   assert.match(pr, /Never edit code\/tests/);
-  assert.match(pr, /Angular route\\/guard\\/form\\/state\\/interceptor behavior/);
+  assert.match(pr, /Angular route\/guard\/form\/state\/interceptor behavior/);
   assert.match(pr, /EF Core/);
   assert.match(a11y, /WCAG 2\.2 Level AA/);
   assert.match(a11y, /Never claim NVDA\/JAWS\/VoiceOver testing/);
