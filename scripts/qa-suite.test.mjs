@@ -42,7 +42,7 @@ for (const [id, path] of Object.entries(expected)) {
     assert.match(fm, /^target: "vscode"$/m);
     assert.match(fm, /^user-invocable: true$/m);
     assert.match(fm, /^tools: \[/m);
-    assert.match(source, /PASS/);
+    assert.match(source, /evidence/i);
   });
 }
 
