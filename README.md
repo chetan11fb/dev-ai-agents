@@ -558,26 +558,18 @@ The registry entries are the app/CLI source of truth. The prompt target is `docs
 
 Reference reading: [Orca worktrees](https://www.onorca.dev/docs/model/worktrees), [Orca orchestration](https://www.onorca.dev/docs/cli/orchestration), [Orca diff annotations](https://www.onorca.dev/docs/review/annotate-ai-diff), and [Orca parallel-agent recipe](https://www.onorca.dev/docs/recipes/parallel-agents). This is a DEV-AI-native adaptation, not copied Orca implementation code.
 
-## 🧪 QA Engineering Suite
+## 🧪 QA Engineering
 
-DEV-AI includes a dedicated QA family for .NET / ASP.NET Core microservices and Angular full-stack applications. It covers exploratory browser testing, API/contracts, microservice failure paths, end-to-end business journeys, PR regression and defect investigation.
+DEV-AI keeps its QA catalogue intentionally small: five agents with distinct responsibilities, plus one shared QA methodology skill. Existing agents were consolidated to avoid duplicate QA roles.
 
-- **QA Orchestrator** — coordinates evidence-led QA and produces the final report.
-- **Manual Browser QA** — explores a running app with available VS Code browser / Playwright MCP tools.
-- **.NET Microservices QA** — validates APIs, persistence, messaging, idempotency, outbox/inbox and Saga failure paths.
-- **Angular QA** — validates components, routing, forms, RxJS/signals, accessibility and responsive UI.
-- **Full-Stack QA** — traces Angular → API → services → database/events.
-- **API & Contract QA** — checks REST/OpenAPI/event contracts and compatibility.
-- **PR Regression QA** — read-only diff impact, test selection and coverage gaps.
-- **Defect Investigator** — reproduces and isolates bugs with regression-test recommendations.
+| Agent | Purpose |
+|---|---|
+| `dev-ai-qa` | QA lead and evidence-based test planning |
+| `dev-ai-test-engineer` | Test design and test-file authoring |
+| `dev-ai-ecc-e2e-runner` | Real browser E2E execution and failure diagnosis |
+| `dev-ai-ecc-pr-test-analyzer` | Read-only PR regression and test-gap analysis |
+| `dev-ai-accessibility` | WCAG-focused accessibility QA |
 
-Install the complete suite:
+Install only what the task needs, for example: `npx dev-ai-agents --agent dev-ai-qa`. The shared methodology is available through `npx dev-ai-agents --skill qa-engineering`. See [QA Engineering guide](docs/qa-engineering-suite.md).
 
-```bash
-npx dev-ai-agents --agent dev-ai-qa-orchestrator --agent dev-ai-qa-manual-browser --agent dev-ai-qa-dotnet-microservices --agent dev-ai-qa-angular --agent dev-ai-qa-fullstack --agent dev-ai-qa-api-contract --agent dev-ai-qa-pr-regression --agent dev-ai-qa-defect-investigator
-```
-
-Or install one agent with `npx dev-ai-agents --agent <agent-id>`. The reusable QA methodology is available with `npx dev-ai-agents --skill qa-engineering`. Full usage guide: [docs/qa-engineering-suite.md](docs/qa-engineering-suite.md).
-
-**Integrity and safety:** QA defaults to inspection-only. Execution requires a safe, authorized test environment. Agents reuse existing test runners and browser tools, do not silently install dependencies/MCP servers, and never report PASS without actual execution and evidence. They do not alter application source, deploy, merge or mutate production data.
-
+**Evidence rule:** a check is PASS only after real execution and a meaningful assertion. Missing tools or unsafe environments must be reported as BLOCKED/NOT_RUN; no fabricated browser, CI or coverage claims.

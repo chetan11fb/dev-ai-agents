@@ -1,79 +1,62 @@
-# DEV-AI QA Engineering Suite
+# DEV-AI QA Engineering
 
-A VS Code + GitHub Copilot QA agent family for .NET / ASP.NET Core microservices and Angular full-stack repositories.
+A deliberately small QA toolkit. Existing agents were consolidated instead of adding parallel agents with overlapping responsibilities.
 
-## Agent catalogue
+## Canonical agents
 
-| Agent | Best use |
-|---|---|
-| `dev-ai-qa-orchestrator` | Coordinate a full QA pass and produce the final evidence-backed report |
-| `dev-ai-qa-manual-browser` | Explore a running site like a manual tester using available browser/Playwright MCP tools |
-| `dev-ai-qa-dotnet-microservices` | Test .NET APIs, services, persistence, messaging, outbox/inbox and Saga failure paths |
-| `dev-ai-qa-angular` | Test Angular components, routes, forms, RxJS/signals, accessibility and responsive UI |
-| `dev-ai-qa-fullstack` | Trace a business journey across browser, API, services, database and async events |
-| `dev-ai-qa-api-contract` | Validate REST/OpenAPI/event contracts, negative cases, security and compatibility |
-| `dev-ai-qa-pr-regression` | Read-only PR/diff impact, test selection, coverage gaps and merge-risk report |
-| `dev-ai-qa-defect-investigator` | Reproduce, classify and isolate defects; recommend regression tests |
+| Agent ID | Responsibility | Can edit? |
+|---|---|---|
+| `dev-ai-qa` | QA lead: requirements, risk-based plan, safe execution coordination and final evidence report | No |
+| `dev-ai-test-engineer` | Design and author automated tests using the repository's existing test framework | Test files only, when explicitly requested |
+| `dev-ai-ecc-e2e-runner` | Real browser E2E execution, diagnosis and repeat-run flakiness checks | E2E test files only, when explicitly requested |
+| `dev-ai-ecc-pr-test-analyzer` | Read-only PR diff, behavior mapping and regression-test gap analysis | No |
+| `dev-ai-accessibility` | WCAG 2.2 AA-oriented accessibility QA | No |
 
 ## Install
 
-Install any specialist individually:
+Install only the agent required for the task:
 
 ```bash
-npx dev-ai-agents --agent dev-ai-qa-orchestrator
-npx dev-ai-agents --agent dev-ai-qa-manual-browser
-npx dev-ai-agents --agent dev-ai-qa-dotnet-microservices
-npx dev-ai-agents --agent dev-ai-qa-angular
-npx dev-ai-agents --agent dev-ai-qa-fullstack
-npx dev-ai-agents --agent dev-ai-qa-api-contract
-npx dev-ai-agents --agent dev-ai-qa-pr-regression
-npx dev-ai-agents --agent dev-ai-qa-defect-investigator
+npx dev-ai-agents --agent dev-ai-qa
+npx dev-ai-agents --agent dev-ai-test-engineer
+npx dev-ai-agents --agent dev-ai-ecc-e2e-runner
+npx dev-ai-agents --agent dev-ai-ecc-pr-test-analyzer
+npx dev-ai-agents --agent dev-ai-accessibility
 ```
 
-Install the full suite with one command:
-
-```bash
-npx dev-ai-agents --agent dev-ai-qa-orchestrator --agent dev-ai-qa-manual-browser --agent dev-ai-qa-dotnet-microservices --agent dev-ai-qa-angular --agent dev-ai-qa-fullstack --agent dev-ai-qa-api-contract --agent dev-ai-qa-pr-regression --agent dev-ai-qa-defect-investigator
-```
-
-The CLI installs the files into `.github/agents/` (flat filenames, consistent with the existing installer and registry validator). Source files remain organized in `agents/qa/` in this repository. The reusable skill installs separately:
+Shared method:
 
 ```bash
 npx dev-ai-agents --skill qa-engineering
 ```
 
-## Example prompts in VS Code Chat
+Source files live under `agents/qa/`; the CLI installs them to flat `.github/agents/` filenames to preserve the current installer contract.
+
+## Suggested usage
 
 ```text
-@dev-ai-qa-orchestrator inspect-only review this workspace and create a risk-based QA plan. Do not edit files or run commands.
-@dev-ai-qa-orchestrator execute-tests validate the changed feature using existing test tools only.
-@dev-ai-qa-manual-browser explore http://localhost:4200; test login, search and order flow using safe test data.
-@dev-ai-qa-dotnet-microservices test the order API and its message consumer, including duplicate delivery and retry exhaustion.
-@dev-ai-qa-angular test the changed customer form, validation, route guard and loading/error states.
-@dev-ai-qa-fullstack trace checkout from Angular through API to persistence and order event.
-@dev-ai-qa-api-contract compare the changed endpoint and OpenAPI contract for breaking changes.
-@dev-ai-qa-pr-regression review the current branch diff against main and report test gaps. Read-only.
-@dev-ai-qa-defect-investigator investigate this failing test and identify whether it is app, environment or test flakiness.
+@dev-ai-qa inspect-only: map the changed feature to acceptance criteria and existing tests. Do not run commands or edit files.
+@dev-ai-qa execute-tests: run the smallest relevant existing tests in this isolated local test environment; report exact commands and evidence.
+@dev-ai-test-engineer author-tests: add deterministic tests for this behavior using the existing framework, then run them.
+@dev-ai-ecc-e2e-runner execute: explore and test this critical journey using the configured browser/Playwright tool; do not assume browser access.
+@dev-ai-ecc-pr-test-analyzer analyze: review this PR diff read-only and map changed behavior to test evidence.
+@dev-ai-accessibility audit: review this route/component for WCAG 2.2 AA barriers and distinguish static from runtime evidence.
 ```
 
-Use the agent names as shown in VS Code's Agents picker if the display label differs.
+## Verification contract
 
-## Modes and safety
+PASS requires an executed check and a meaningful assertion. Use FAIL, BLOCKED, NOT_RUN or INCONCLUSIVE for other states. A generated test, successful build, HTTP 200, page load or static review is not a runtime PASS. Suspected intermittent failures should be repeated at least three times with retries disabled where practical.
 
-The orchestrator defaults to `inspect-only`. Use `execute-tests` to run existing checks, and `author-tests` only when you explicitly want test files created/updated. PR regression analysis is read-only. QA agents must not change application source, merge/push, deploy, alter production data, run destructive migrations or call real payment/email/SMS systems.
+## Safety
 
-The agents use the repository's existing test runner and browser tools. They do not silently install Playwright, replace Karma/Jasmine, add packages, configure MCP servers or assume that a browser is available. If a capability is missing, they report BLOCKED and explain what is required.
+No production data mutation, destructive migrations, database resets, live external side effects, secrets, deploys, commits, pushes or merges. Existing project tooling wins; no silent dependency installation, runner replacement or MCP setup.
 
-## Verdict integrity
+## Research references
 
-Every check is PASS, FAIL, BLOCKED, NOT_RUN or INCONCLUSIVE. PASS requires an actual execution and a meaningful assertion. Source inspection, generated tests, successful build, or a page load alone is not proof that a business scenario passed.
+Workflow patterns were studied and adapted—not copied—from:
+- [Releaseworthy/agentic-qa](https://github.com/Releaseworthy/agentic-qa): acceptance criteria, test planning, exploratory/manual, API/UI, regression and release-gate flow.
+- [xsignon-secure/E2E](https://github.com/xsignon-secure/E2E): trace-based failure diagnosis, repeat-run flakiness checks and verified fixes.
+- [GitHub Awesome Copilot](https://github.com/github/awesome-copilot): repository-aware agent/skill conventions.
+- [srbarrios/agentic-test-explorer](https://github.com/srbarrios/agentic-test-explorer): PR-driven targeted test missions and evidence artifacts.
 
-## Design references
-
-This suite adapts workflow ideas—not copied implementation—from:
-- [Releaseworthy/agentic-qa](https://github.com/Releaseworthy/agentic-qa): test planning, manual scenarios, API/UI automation, bug verification, regression and release gates.
-- [Microsoft Frontier GHCP RVAS](https://github.com/microsoft/frontier-ghcp-rvas): Copilot QA challenge structure and Playwright MCP exploratory testing.
-- [GitHub Awesome Copilot](https://github.com/github/awesome-copilot): reusable browser-testing and QA skill patterns.
-- [Everything Claude Code](https://github.com/affaan-m/everything-claude-code): Playwright E2E and flaky-test practices.
-
-The suite is purpose-built for DEV-AI's VS Code agent format and .NET + Angular use cases; it is not a claim that those upstream projects are drop-in compatible.
+These are methodology references, not dependencies or claims that the upstream systems were executed against DEV-AI.

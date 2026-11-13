@@ -1,60 +1,50 @@
 ---
 name: qa-engineering
-description: Evidence-led QA planning and execution for .NET, Angular, microservices, APIs, browser journeys and pull requests.
+description: Evidence-first QA method for .NET, Angular, APIs, browser E2E and pull-request regression.
 ---
 
-# DEV-AI QA Engineering Skill
+# DEV-AI QA Engineering
 
-Use this skill with the DEV-AI QA agents. The repository and its existing test setup are authoritative.
+Use this shared method with the five DEV-AI QA agents. Repository evidence and configured tools are authoritative.
 
-## 1. Start with evidence
-- Read repository instructions, solution/project manifests, package manifests, CI workflows and existing tests.
-- Detect .NET target frameworks, Angular version, package manager, test runners, browser automation and available MCP tools.
-- Map acceptance criteria to real code paths. Record unknowns instead of guessing.
+## Select one owner
+- `dev-ai-qa`: coordinates the QA pass and risk-based test plan.
+- `dev-ai-test-engineer`: authors test code only when explicitly requested.
+- `dev-ai-ecc-e2e-runner`: executes real browser journeys with available Playwright tooling.
+- `dev-ai-ecc-pr-test-analyzer`: read-only PR regression analysis.
+- `dev-ai-accessibility`: accessibility-specific audit.
+Do not run overlapping agents for the same checks. Use the narrowest specialist that owns the task.
 
-## 2. Choose the right test layer
-| Layer | Best use | Typical existing tools |
-|---|---|---|
-| Unit | Domain rules, pure logic, validators | xUnit, NUnit, MSTest, Jasmine/Jest/Vitest |
-| Integration | DI, persistence, middleware, messaging | WebApplicationFactory, Testcontainers, existing fixtures |
-| API/contract | HTTP behavior, OpenAPI, event schemas | Existing API tests, contract tooling |
-| Browser E2E | Critical user journeys and visible UI | Playwright / configured browser MCP |
-| Exploratory manual | Unknown behavior, usability, edge cases | Available VS Code browser/Playwright MCP |
+## Discover before acting
+Read repository instructions, project/solution files, package manifests, test configuration, existing tests and CI. Detect actual .NET/Angular versions and runners. Do not assume xUnit, Playwright, Karma, Jest, a browser MCP or any service architecture exists.
 
-Do not duplicate all checks at every layer. Prefer fast deterministic tests for logic and a small number of high-value end-to-end journeys.
+## Test design
+Map acceptance criteria to observable behavior. Select the smallest effective test layer:
+- Unit for domain rules and pure logic.
+- Integration for real DI, middleware, persistence and transactions.
+- API/contract for serialization, validation, authorization and compatibility.
+- Browser E2E for a small set of critical user journeys.
+- Manual exploratory checks for unknown behavior.
+Avoid repeating identical assertions at every layer. Assert business outcomes, not only method calls, HTTP 200 or page loads.
 
-## 3. Test design
-For each important behavior consider:
-- Happy path, invalid input, missing/empty/null values and boundaries.
-- Authentication, authorization, tenant isolation and data ownership.
-- Loading, empty, error, timeout, retry and cancellation states.
-- Duplicate submission, concurrency and idempotency.
-- Persistence and async side effects where relevant.
-- Backward compatibility for public API/event contracts.
-- Keyboard accessibility and responsive layouts for user-facing flows.
+## Reliability and anti-false-positive rules
+- Use existing test runners and fixtures; do not install packages or replace frameworks without approval.
+- Prefer semantic locators and observable waits; avoid fixed sleeps.
+- Mock external boundaries, not the behavior under test. Flag over-mocking that makes a test pass without exercising the real contract.
+- Diagnose application, test-code, environment, data and dependency failures separately.
+- Re-run suspected flaky failures at least three times with retries disabled when practical; show each result.
+- Never weaken assertions, delete failing tests or increase retries solely to get green.
+- A generated test is NOT_RUN until it is actually executed.
 
-Use meaningful assertions on outcomes, not merely that methods were called or pages loaded.
+## Safe execution
+Confirm the target is a local or isolated test environment and that data is disposable/isolated before mutating tests. Stop if production/shared environment risk is unclear. Never reset databases, replay production messages, trigger real payments/emails/SMS, expose credentials or use real customer data.
 
-## 4. Browser reliability
-- Explore the real page before writing E2E tests.
-- Prefer roles, labels and stable test IDs over brittle CSS/XPath.
-- Wait for observable conditions; avoid fixed sleeps.
-- Keep test data isolated and deterministic.
-- Capture screenshots/traces only when available and useful.
-- Diagnose selector, timing, environment and app failures separately.
+## Verdicts
+Use PASS, FAIL, BLOCKED, NOT_RUN or INCONCLUSIVE. PASS requires actual execution and a meaningful assertion. Record exact command, environment, exit code, evidence and skipped checks. Static analysis, build success and CI badges are not runtime proof.
 
-## 5. Microservices reliability
-Test duplicate delivery, retry exhaustion, dead-letter handling, message ordering assumptions, outbox/inbox consistency, consumer restart, timeouts and Saga compensation only when those patterns exist in the codebase. Never invent queues, topics or service boundaries.
+## .NET and Angular coverage hints
+For .NET, inspect the real target framework, xUnit/NUnit/MSTest setup, WebApplicationFactory fixtures, EF Core persistence, auth, cancellation, concurrency, broker handlers, idempotency, outbox/inbox and Saga compensation only where implemented.
+For Angular, inspect the actual version and configured runner; cover component states, forms, routes/guards, interceptors, RxJS/signals, async loading/error states, keyboard and responsive behavior.
 
-## 6. Safe execution
-- Default to inspection-only until execution is requested.
-- Confirm target environment and data isolation before tests that mutate data.
-- Never run destructive tests or migrations against production/shared environments.
-- Do not add dependencies or replace test runners without approval.
-- Never expose credentials or real customer data.
-
-## 7. Evidence and verdicts
-Use PASS, FAIL, BLOCKED, NOT_RUN and INCONCLUSIVE. PASS requires actual execution and a meaningful assertion. Record exact command, environment, exit code and evidence. A generated test, static code review or successful build is not a passed runtime test.
-
-## 8. Report
-Provide risk-ranked findings, requirement-to-test traceability, executed and skipped checks, reproducible defect steps, evidence and residual risk.
+## Reporting
+State scope, requirement traceability, risk-ranked scenarios, exact execution evidence, reproducible defects, BLOCKED/NOT_RUN items and residual risk. Never invent coverage percentages, screenshots, CI status or a PASS verdict.
