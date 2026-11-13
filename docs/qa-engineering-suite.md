@@ -73,7 +73,7 @@ Use these only when implementation/review beyond QA is separately required:
 
 ## References
 - [Microsoft .NET testing](https://learn.microsoft.com/en-us/dotnet/core/testing/)
-- [ASP.NET Core integration testing](https://learn.microsoft.com/en-us/aspnet/core/test/integration-tests)
+- [ASP.NET Core integration testing](https://learn.microsoft.com/en-us/aspnet/core/test/integration-testing)
 - [Angular testing](https://angular.dev/guide/testing)
 
 Upstream workflow inspiration: [Releaseworthy/agentic-qa](https://github.com/Releaseworthy/agentic-qa), [GitHub Awesome Copilot](https://github.com/github/awesome-copilot), [ECC](https://github.com/affaan-m/ECC). These are methodology references, not dependencies or claims that upstream agents were run against your application.
