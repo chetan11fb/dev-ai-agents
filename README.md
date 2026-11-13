@@ -564,9 +564,9 @@ DEV-AI keeps its QA catalogue intentionally small: five agents with distinct res
 
 | Agent | Purpose |
 |---|---|
-| `dev-ai-qa` | QA lead and evidence-based test planning |
-| `dev-ai-test-engineer` | Test design and test-file authoring |
-| `dev-ai-ecc-e2e-runner` | Real browser E2E execution and failure diagnosis |
+| `dev-ai-qa` | QA lead for .NET backend, ASP.NET Core APIs and Angular full-stack testing |
+| `dev-ai-test-engineer` | Deterministic .NET backend and Angular full-stack test authoring |
+| `dev-ai-ecc-e2e-runner` | Angular → API browser E2E and failure diagnosis |
 | `dev-ai-ecc-pr-test-analyzer` | Read-only PR regression and test-gap analysis |
 | `dev-ai-accessibility` | WCAG-focused accessibility QA |
 

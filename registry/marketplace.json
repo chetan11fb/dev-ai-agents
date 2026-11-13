@@ -583,9 +583,9 @@
       "type": "agent",
       "path": "agents/qa/dev-ai-ecc-e2e-runner.agent.md",
       "target": ".github/agents/dev-ai-ecc-e2e-runner.agent.md",
-      "version": "0.3.0",
+      "version": "0.4.0",
       "source": "affaan-m/ECC",
-      "description": "Real browser E2E execution, failure diagnosis and repeat-run flakiness checks.",
+      "description": "Real browser E2E across Angular UI and API boundaries using configured browser tooling.",
       "installCommand": "npx dev-ai-agents --agent dev-ai-ecc-e2e-runner",
       "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-ecc-e2e-runner",
       "installTarget": ".github/agents/dev-ai-ecc-e2e-runner.agent.md"
@@ -619,9 +619,9 @@
       "type": "agent",
       "path": "agents/qa/dev-ai-ecc-pr-test-analyzer.agent.md",
       "target": ".github/agents/dev-ai-ecc-pr-test-analyzer.agent.md",
-      "version": "0.3.0",
+      "version": "0.4.0",
       "source": "affaan-m/ECC",
-      "description": "Read-only PR regression analysis and evidence-backed test-gap detection.",
+      "description": "Read-only .NET backend and Angular full-stack PR regression and test-gap analysis.",
       "installCommand": "npx dev-ai-agents --agent dev-ai-ecc-pr-test-analyzer",
       "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-ecc-pr-test-analyzer",
       "installTarget": ".github/agents/dev-ai-ecc-pr-test-analyzer.agent.md"
@@ -744,11 +744,11 @@
       "type": "agent",
       "path": "agents/qa/dev-ai-qa.agent.md",
       "target": ".github/agents/dev-ai-qa.agent.md",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "installCommand": "npx dev-ai-agents --agent dev-ai-qa",
       "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-qa",
       "installTarget": ".github/agents/dev-ai-qa.agent.md",
-      "description": "Evidence-led QA lead for risk-based verification across .NET, Angular, APIs and microservices."
+      "description": "Evidence-led QA for ASP.NET Core/.NET microservices and Angular full-stack behavior."
     },
     {
       "id": "dev-ai-refactoring",
@@ -805,11 +805,11 @@
       "type": "agent",
       "path": "agents/qa/dev-ai-test-engineer.agent.md",
       "target": ".github/agents/dev-ai-test-engineer.agent.md",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "installCommand": "npx dev-ai-agents --agent dev-ai-test-engineer",
       "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-test-engineer",
       "installTarget": ".github/agents/dev-ai-test-engineer.agent.md",
-      "description": "Authors deterministic tests using the repository's existing .NET and Angular test frameworks."
+      "description": "Authors deterministic .NET backend, API, EF Core and Angular full-stack regression tests."
     },
     {
       "id": "documentation-agent",
@@ -1185,8 +1185,8 @@
       "type": "skill",
       "path": "skills/qa-engineering/SKILL.md",
       "target": ".github/skills/qa-engineering/SKILL.md",
-      "version": "0.1.0",
-      "description": "Evidence-led QA planning and execution for .NET, Angular, microservices, APIs, browser journeys and pull requests.",
+      "version": "0.3.0",
+      "description": "Evidence-first QA for .NET backend, ASP.NET Core APIs, Angular full-stack and microservices.",
       "source": "dev-ai-native"
     }
   ],
