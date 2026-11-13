@@ -557,3 +557,19 @@ The registry entries are the app/CLI source of truth. The prompt target is `docs
 **Safety defaults:** detect host capabilities before claiming parallel execution; isolate every editing worker or serialize edits; pin base/contract revisions; inspect real diffs and test evidence; never auto-merge, deploy, discard unmerged work, or expose secrets. Competing implementations are reserved for high-value uncertainty, not routine changes.
 
 Reference reading: [Orca worktrees](https://www.onorca.dev/docs/model/worktrees), [Orca orchestration](https://www.onorca.dev/docs/cli/orchestration), [Orca diff annotations](https://www.onorca.dev/docs/review/annotate-ai-diff), and [Orca parallel-agent recipe](https://www.onorca.dev/docs/recipes/parallel-agents). This is a DEV-AI-native adaptation, not copied Orca implementation code.
+
+## 🧪 QA Engineering
+
+DEV-AI keeps its QA catalogue intentionally small: five agents with distinct responsibilities, plus one shared QA methodology skill. Existing agents were consolidated to avoid duplicate QA roles.
+
+| Agent | Purpose |
+|---|---|
+| `dev-ai-qa` | QA lead for .NET backend, ASP.NET Core APIs and Angular full-stack testing |
+| `dev-ai-test-engineer` | Deterministic .NET backend and Angular full-stack test authoring |
+| `dev-ai-ecc-e2e-runner` | Angular → API browser E2E and failure diagnosis |
+| `dev-ai-ecc-pr-test-analyzer` | Read-only PR regression and test-gap analysis |
+| `dev-ai-accessibility` | WCAG-focused accessibility QA |
+
+Install only what the task needs, for example: `npx dev-ai-agents --agent dev-ai-qa`. The shared methodology is available through `npx dev-ai-agents --skill qa-engineering`. See [QA Engineering guide](docs/qa-engineering-suite.md).
+
+**Evidence rule:** a check is PASS only after real execution and a meaningful assertion. Missing tools or unsafe environments must be reported as BLOCKED/NOT_RUN; no fabricated browser, CI or coverage claims.

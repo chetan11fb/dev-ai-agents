@@ -4,6 +4,10 @@ on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
     paths:
+      - "agents/qa/**"
+      - "skills/qa-engineering/**"
+      - "docs/qa-engineering-suite.md"
+      - "scripts/qa-suite.test.mjs"
       - "agents/dev-ai-sdd.agent.md"
       - "agents/dev-ai-swarm-orchestrator.agent.md"
       - "skills/development/parallel-worktree-orchestration/**"
@@ -21,6 +25,10 @@ on:
   push:
     branches: [main]
     paths:
+      - "agents/qa/**"
+      - "skills/qa-engineering/**"
+      - "docs/qa-engineering-suite.md"
+      - "scripts/qa-suite.test.mjs"
       - "agents/dev-ai-sdd.agent.md"
       - "agents/dev-ai-swarm-orchestrator.agent.md"
       - "skills/development/parallel-worktree-orchestration/**"
@@ -49,6 +57,8 @@ jobs:
           node-version: 20
       - name: Validate component registry
         run: npm run validate:registry
+      - name: Test QA agent contracts and role separation
+        run: npm run test:qa-suite
       - name: Test SDD state and approval gates
         run: npm run test:sdd-state
       - name: Test SDD prompt and multi-story contract
@@ -57,6 +67,23 @@ jobs:
         run: npm run test:cli
       - name: Test parallel worktree workflow safety
         run: npm run test:parallel-worktree
+      - name: Smoke-test QA agent and skill installation
+        env:
+          DEV_AI_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          target="$RUNNER_TEMP/dev-ai-qa-smoke"
+          node cli/index.js --target "$target" \
+            --agent dev-ai-qa \
+            --agent dev-ai-test-engineer \
+            --agent dev-ai-ecc-e2e-runner \
+            --agent dev-ai-ecc-pr-test-analyzer \
+            --agent dev-ai-accessibility \
+            --skill qa-engineering
+          for agent in dev-ai-qa dev-ai-test-engineer dev-ai-ecc-e2e-runner dev-ai-ecc-pr-test-analyzer dev-ai-accessibility; do
+            test -s "$target/.github/agents/$agent.agent.md"
+          done
+          test -s "$target/.github/skills/qa-engineering/SKILL.md"
       - name: Smoke-test default SDD install and safe rerun
         env:
           DEV_AI_SOURCE_REF: ${{ github.event.pull_request.head.sha || github.sha }}
