@@ -557,3 +557,27 @@ The registry entries are the app/CLI source of truth. The prompt target is `docs
 **Safety defaults:** detect host capabilities before claiming parallel execution; isolate every editing worker or serialize edits; pin base/contract revisions; inspect real diffs and test evidence; never auto-merge, deploy, discard unmerged work, or expose secrets. Competing implementations are reserved for high-value uncertainty, not routine changes.
 
 Reference reading: [Orca worktrees](https://www.onorca.dev/docs/model/worktrees), [Orca orchestration](https://www.onorca.dev/docs/cli/orchestration), [Orca diff annotations](https://www.onorca.dev/docs/review/annotate-ai-diff), and [Orca parallel-agent recipe](https://www.onorca.dev/docs/recipes/parallel-agents). This is a DEV-AI-native adaptation, not copied Orca implementation code.
+
+## 🧪 QA Engineering Suite
+
+DEV-AI includes a dedicated QA family for .NET / ASP.NET Core microservices and Angular full-stack applications. It covers exploratory browser testing, API/contracts, microservice failure paths, end-to-end business journeys, PR regression and defect investigation.
+
+- **QA Orchestrator** — coordinates evidence-led QA and produces the final report.
+- **Manual Browser QA** — explores a running app with available VS Code browser / Playwright MCP tools.
+- **.NET Microservices QA** — validates APIs, persistence, messaging, idempotency, outbox/inbox and Saga failure paths.
+- **Angular QA** — validates components, routing, forms, RxJS/signals, accessibility and responsive UI.
+- **Full-Stack QA** — traces Angular → API → services → database/events.
+- **API & Contract QA** — checks REST/OpenAPI/event contracts and compatibility.
+- **PR Regression QA** — read-only diff impact, test selection and coverage gaps.
+- **Defect Investigator** — reproduces and isolates bugs with regression-test recommendations.
+
+Install the complete suite:
+
+```bash
+npx dev-ai-agents --agent dev-ai-qa-orchestrator --agent dev-ai-qa-manual-browser --agent dev-ai-qa-dotnet-microservices --agent dev-ai-qa-angular --agent dev-ai-qa-fullstack --agent dev-ai-qa-api-contract --agent dev-ai-qa-pr-regression --agent dev-ai-qa-defect-investigator
+```
+
+Or install one agent with `npx dev-ai-agents --agent <agent-id>`. The reusable QA methodology is available with `npx dev-ai-agents --skill qa-engineering`. Full usage guide: [docs/qa-engineering-suite.md](docs/qa-engineering-suite.md).
+
+**Integrity and safety:** QA defaults to inspection-only. Execution requires a safe, authorized test environment. Agents reuse existing test runners and browser tools, do not silently install dependencies/MCP servers, and never report PASS without actual execution and evidence. They do not alter application source, deploy, merge or mutate production data.
+
