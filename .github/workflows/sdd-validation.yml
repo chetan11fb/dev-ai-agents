@@ -25,6 +25,10 @@ on:
   push:
     branches: [main]
     paths:
+      - "agents/qa/**"
+      - "skills/qa-engineering/**"
+      - "docs/qa-engineering-suite.md"
+      - "scripts/qa-suite.test.mjs"
       - "agents/dev-ai-sdd.agent.md"
       - "agents/dev-ai-swarm-orchestrator.agent.md"
       - "skills/development/parallel-worktree-orchestration/**"
@@ -53,7 +57,9 @@ jobs:
           node-version: 20
       - name: Validate component registry
         run: npm run validate:registry
-      - name: Test QA agent contracts and role separation\n        run: npm run test:qa-suite\n      - name: Test SDD state and approval gates
+      - name: Test QA agent contracts and role separation
+        run: npm run test:qa-suite
+      - name: Test SDD state and approval gates
         run: npm run test:sdd-state
       - name: Test SDD prompt and multi-story contract
         run: npm run test:sdd-prompt
