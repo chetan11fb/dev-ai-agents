@@ -69,7 +69,7 @@ test("QA responsibilities remain distinct and bounded", async () => {
   assert.match(e2e, /UI action → HTTP request → API response/);
   assert.match(pr, /read-only/);
   assert.match(pr, /Never edit code\/tests/);
-  assert.match(pr, /Angular route\/guard\/form\/state\/interceptor behavior/);
+  assert.ok(pr.includes("Angular route/guard/form/state/interceptor behavior"));
   assert.match(pr, /EF Core/);
   assert.match(a11y, /WCAG 2\.2 Level AA/);
   assert.match(a11y, /Never claim NVDA\/JAWS\/VoiceOver testing/);
