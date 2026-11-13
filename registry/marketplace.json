@@ -1206,6 +1206,103 @@
       "installCommand": "npx dev-ai-agents --agent wshobson-legacy-modernizer",
       "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent wshobson-legacy-modernizer",
       "installTarget": ".github/agents/wshobson-legacy-modernizer.agent.md"
+    },
+    {
+      "id": "dev-ai-qa-orchestrator",
+      "type": "agent",
+      "path": "agents/qa/dev-ai-qa-orchestrator.agent.md",
+      "target": ".github/agents/dev-ai-qa-orchestrator.agent.md",
+      "version": "0.1.0",
+      "description": "DEV-AI QA specialist: dev ai qa orchestrator.",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-qa-orchestrator",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-qa-orchestrator",
+      "installTarget": ".github/agents/dev-ai-qa-orchestrator.agent.md"
+    },
+    {
+      "id": "dev-ai-qa-manual-browser",
+      "type": "agent",
+      "path": "agents/qa/dev-ai-qa-manual-browser.agent.md",
+      "target": ".github/agents/dev-ai-qa-manual-browser.agent.md",
+      "version": "0.1.0",
+      "description": "DEV-AI QA specialist: dev ai qa manual browser.",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-qa-manual-browser",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-qa-manual-browser",
+      "installTarget": ".github/agents/dev-ai-qa-manual-browser.agent.md"
+    },
+    {
+      "id": "dev-ai-qa-dotnet-microservices",
+      "type": "agent",
+      "path": "agents/qa/dev-ai-qa-dotnet-microservices.agent.md",
+      "target": ".github/agents/dev-ai-qa-dotnet-microservices.agent.md",
+      "version": "0.1.0",
+      "description": "DEV-AI QA specialist: dev ai qa dotnet microservices.",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-qa-dotnet-microservices",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-qa-dotnet-microservices",
+      "installTarget": ".github/agents/dev-ai-qa-dotnet-microservices.agent.md"
+    },
+    {
+      "id": "dev-ai-qa-angular",
+      "type": "agent",
+      "path": "agents/qa/dev-ai-qa-angular.agent.md",
+      "target": ".github/agents/dev-ai-qa-angular.agent.md",
+      "version": "0.1.0",
+      "description": "DEV-AI QA specialist: dev ai qa angular.",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-qa-angular",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-qa-angular",
+      "installTarget": ".github/agents/dev-ai-qa-angular.agent.md"
+    },
+    {
+      "id": "dev-ai-qa-fullstack",
+      "type": "agent",
+      "path": "agents/qa/dev-ai-qa-fullstack.agent.md",
+      "target": ".github/agents/dev-ai-qa-fullstack.agent.md",
+      "version": "0.1.0",
+      "description": "DEV-AI QA specialist: dev ai qa fullstack.",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-qa-fullstack",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-qa-fullstack",
+      "installTarget": ".github/agents/dev-ai-qa-fullstack.agent.md"
+    },
+    {
+      "id": "dev-ai-qa-api-contract",
+      "type": "agent",
+      "path": "agents/qa/dev-ai-qa-api-contract.agent.md",
+      "target": ".github/agents/dev-ai-qa-api-contract.agent.md",
+      "version": "0.1.0",
+      "description": "DEV-AI QA specialist: dev ai qa api contract.",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-qa-api-contract",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-qa-api-contract",
+      "installTarget": ".github/agents/dev-ai-qa-api-contract.agent.md"
+    },
+    {
+      "id": "dev-ai-qa-pr-regression",
+      "type": "agent",
+      "path": "agents/qa/dev-ai-qa-pr-regression.agent.md",
+      "target": ".github/agents/dev-ai-qa-pr-regression.agent.md",
+      "version": "0.1.0",
+      "description": "DEV-AI QA specialist: dev ai qa pr regression.",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-qa-pr-regression",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-qa-pr-regression",
+      "installTarget": ".github/agents/dev-ai-qa-pr-regression.agent.md"
+    },
+    {
+      "id": "dev-ai-qa-defect-investigator",
+      "type": "agent",
+      "path": "agents/qa/dev-ai-qa-defect-investigator.agent.md",
+      "target": ".github/agents/dev-ai-qa-defect-investigator.agent.md",
+      "version": "0.1.0",
+      "description": "DEV-AI QA specialist: dev ai qa defect investigator.",
+      "installCommand": "npx dev-ai-agents --agent dev-ai-qa-defect-investigator",
+      "npmExecCommand": "npm exec --yes --package=dev-ai-agents -- dev-ai-agents --agent dev-ai-qa-defect-investigator",
+      "installTarget": ".github/agents/dev-ai-qa-defect-investigator.agent.md"
+    },
+    {
+      "id": "qa-engineering",
+      "type": "skill",
+      "path": "skills/qa-engineering/SKILL.md",
+      "target": ".github/skills/qa-engineering/SKILL.md",
+      "version": "0.1.0",
+      "description": "Evidence-led QA planning and execution for .NET, Angular, microservices, APIs, browser journeys and pull requests.",
+      "source": "dev-ai-native"
     }
   ],
   "sources": [
